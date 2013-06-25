@@ -1,9 +1,10 @@
 <?php
 /*
-    Written for http://form.jotform.co/form/31755601191854
+    $ http://form.jotform.co/form/31755601191854 (Radio button example)
+    Result example : In 10 submissions, there are 3 different answers for question #3 : %70 Yes, %20 No, %10 Not Answered
     
-    Example Result : 
-        $ In 10 submissions, there are 3 different answers for question #3 : %70 Yes, %20 No, %10 Not Answered
+    $ http://form.jotform.co/form/31755930111851 (Star rating example)
+    Result example : In 6 submissions, there are 4 different answers for question #3 : %50 5, %16.7 1, %16.7 2, %16.7 Not Answered        
 
     1) Download JotFormAPI PHP Wrapper : https://github.com/jotform/jotform-api-php
     2) Set your apiKey at line 17 (Need one? http://www.jotform.com/myaccount/api)
@@ -19,7 +20,7 @@ function getSummary($formID, $questionID) {
     $submissions = $jotform->getFormSubmissions($formID);
 
     foreach($submissions as $id => $submissionDetails) {
-        $answer = isset($submissionDetails["answers"][$questionID]["answer"]) ? $submissionDetails["answers"][$questionID]["answer"] : "Not Answered";
+        $answer = (isset($submissionDetails["answers"][$questionID]["answer"]) && $submissionDetails["answers"][$questionID]["answer"] != "" ) ? $submissionDetails["answers"][$questionID]["answer"] : "Not Answered";
         $answersArray[$answer] = isset($answersArray[$answer]) ? $answersArray[$answer] + 1 : 1;
     }
 

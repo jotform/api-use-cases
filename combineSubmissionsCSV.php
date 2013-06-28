@@ -11,7 +11,7 @@
     **Display All Fields on Account
     */
     function displayAllFields() {
-        $jotform = new JotForm("42b98942aa2c87268d781c86046304ba");
+        $jotform = new JotForm("yourAPIKey");
         $forms = $jotform->getForms();
         foreach($forms as $form) {
             printf("<h3>%s</h3>", $form['title']);
@@ -31,7 +31,7 @@
     **Get all submission data from fields using Jotform API
     */
     function getData($fields) {
-        $jotform = new JotForm("42b98942aa2c87268d781c86046304ba");
+        $jotform = new JotForm("yourAPIKey");
         $form = "";
         $output = array();
         $columns = array();

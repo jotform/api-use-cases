@@ -1,1 +1,1 @@
-
+var app = window.app = {};

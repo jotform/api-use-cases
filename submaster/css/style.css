@@ -102,3 +102,13 @@ header#top-nav .account a.account-info span {
 .tt-suggestion {
     padding: 1em 4px;
 }
+
+
+#sidebar {
+    float: left;
+    background: #000;
+    width: 228px;
+    margin-top: 11px;
+    border-top: 1px solid #333;
+    display: none;
+}

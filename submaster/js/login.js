@@ -8,12 +8,14 @@ $(function(){
 
             JF.getForms(function(r){
                 $(".form-list").show();
-                console.log(r);
+
+                window.app.formsCollection = new FormsCollection(r);
+                window.app.sidebarView = new SidebarView();
+                
                 var formNames = [];
                 for(var i=0; i<r.length; i++){
                     formNames.push(r[i].title);
                 }
-                console.log(formNames);
                 $(".form-list .typeahead").typeahead({
                     name: "forms",
                     local: formNames

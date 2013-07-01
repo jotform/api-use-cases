@@ -1,0 +1,104 @@
+header#top-nav {
+    background-color: #000;
+    width: 100%;
+}
+
+header#top-nav .nav-wrap {
+    width: 100%;
+    height: 60px;
+    /*margin: 0 auto;*/
+    position: relative;
+    overflow: hidden;
+}
+
+header#top-nav .nav-wrap h1{
+    margin: 0;
+    float: left;
+    font-family: 'BebasNeueRegular';
+}
+
+header#top-nav .nav-wrap h1 a {
+    display: block;
+    height: 51px;
+    overflow: hidden;
+    border-left: 1px solid #333;
+    border-right: 1px solid #333;
+    color: #e5e5e5;
+    text-decoration: none;
+    min-width: 168px;
+    width: 15%;
+    padding: 8px 8px 0 50px;    
+}
+
+header#top-nav .nav-wrap h1 a:hover {
+    color: #fff;
+    text-shadow: 0 0 4px #fff;
+}
+header#top-nav .account {
+    float: right;
+}
+header#top-nav .account a{
+    display: block;
+    border-left: 1px solid #333;
+    border-right: 1px solid #333;
+    overflow: hidden;
+    height: 51px;
+    color: #e5e5e5;
+    text-decoration: none;
+    width: 168px;
+    padding: 18px 8px 0 8px;
+    text-align: center;
+    cursor: pointer;      
+}
+header#top-nav .account a.account-info{
+    padding: 6px 8px 0 8px;
+}
+header#top-nav .account a.account-info span {
+    margin-right: 12px;
+}
+
+.form-list {
+    margin: -49px auto 0 auto;
+    width: 50%;
+}
+.form-list input {
+    width: 596px;
+    height: 20px;
+    padding: 8px 12px;
+    font-size: 22px;
+    line-height: 30px;
+    border: 1px solid #ccc;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    outline: none;
+}
+.tt-hint {
+    color: #aaa;
+}
+.tt-dropdown-menu {
+    width: 100%;
+    margin-top: 8px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);    
+}
+.tt-dropdown-menu > div {
+    margin: 0 0;
+}
+.tt-suggestion.tt-is-under-cursor {
+    color: #fff;
+    background-color: #FC7C01;
+}
+.tt-suggestion > p{
+    margin: 0;
+}
+.tt-suggestion {
+    padding: 1em 4px;
+}

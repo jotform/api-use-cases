@@ -2,13 +2,13 @@ $(function(){
 
     //if user is already logged in then build account div accordingly
     if(typeof JF.getAPIKey() !== "undefined"){
-        JF.getUser(function(r){
 
-            
+        JF.getUser(function(r){
 
             JF.getForms(function(r){
                 $(".form-list").show();
 
+                window.app.user = r;
                 window.app.formsCollection = new FormsCollection(r);
                 window.app.sidebarView = new SidebarView();
                 
@@ -21,12 +21,14 @@ $(function(){
                     local: formNames
                 });
             });
+
             $(".login-button").remove();
             $(".account").html('<a class="account-info">'+
                     '<span>' + r.username + '</span>' +
                     '<img src="'+r.avatarUrl+'"/>' +
                 '</a>');
         });
+
     }
 
     $(".login-button").click(function(){

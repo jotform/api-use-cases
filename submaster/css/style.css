@@ -112,3 +112,13 @@ header#top-nav .account a.account-info span {
     border-top: 1px solid #333;
     display: none;
 }
+
+.sidebar-list {
+    margin: 0;
+    padding: 0;
+    list-style: none
+}
+
+.sidebar-list li{
+    color: #e5e5e5;
+}

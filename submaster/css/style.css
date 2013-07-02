@@ -59,6 +59,11 @@ html, body {
     overflow: hidden; 
     position:relative;
 }
+
+.column {
+    float: left;
+    padding: 16px;
+}
 /* --------------------------------------------------------------
    style for twitter typeahead */
 .form-list {
@@ -110,20 +115,16 @@ html, body {
 
 
 .usages-wrapper {
-    font-family: 'BebasNeueRegular';
-    width:40%; 
-    height:80px;
-    display: inline-block;
-    margin: 1em;
+    width: 50%;
     float: left;
-}
-.usages-wrapper.big {
     font-family: 'BebasNeueRegular';
-    width:480px; 
+}
+/*.usages-wrapper.big {
+    
+    width:280px; 
     height:120px;
     display: inline-block;
-    margin: 1em;
-}
+}*/
 
 .usages-wrapper > div {
     text-align: center;

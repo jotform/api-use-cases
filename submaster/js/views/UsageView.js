@@ -13,7 +13,7 @@ var UsageView = Backbone.View.extend({
             '<div class="usages-wrapper" id="<%=id%>-preview">' +
                 '<div id="<%=id%>-textfield"></div>'+
                 // '<div class="" id="<%=id%>-preview"></div>'+
-                '<canvas id="<%=id%>" style="width:100%" height="50"></canvas>'+
+                '<canvas id="<%=id%>" style="width:100%" height="75"></canvas>'+
                 '<div class="usages-text"><%=name%></div>'+
             '</div>'); 
             

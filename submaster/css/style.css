@@ -103,6 +103,9 @@ header#top-nav .account a.account-info span {
     padding: 1em 4px;
 }
 
+ul {
+    list-style: none;
+}
 
 #sidebar {
     float: left;
@@ -110,13 +113,12 @@ header#top-nav .account a.account-info span {
     width: 228px;
     margin-top: 11px;
     border-top: 1px solid #333;
-    display: none;
 }
+
 
 .sidebar-list {
     margin: 0;
     padding: 0;
-    list-style: none
 }
 
 .sidebar-list li{
@@ -125,6 +127,7 @@ header#top-nav .account a.account-info span {
 
 #main {
     float: left;
+<<<<<<< HEAD
     width: 80%;
     margin-top: 16px;
 }

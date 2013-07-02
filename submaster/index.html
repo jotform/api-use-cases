@@ -42,14 +42,21 @@
 
         <div id="stage">
 
-            <div id="sidebar">
+            <div id="sidebar" style="display:none">
                 <ul class="sidebar-list">
                     <li class="tab-link" data-tab-id="home">Home</li>
                 </ul>
             </div>
 
             <div id="main">
-                <div class="tab-content" id="home">
+
+                <div class="tab-content" id="home" style="display:none">
+                    <div id="newest-forms">
+                        <h2>Forms with most unread submissions</h2>
+                        <ul>
+
+                        </ul>
+                    </div>
                     <div id="usage">
                     </div>
                 </div>
@@ -73,8 +80,11 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
+
         <script src="js/views/SidebarView.js"></script>
         <script src="js/views/UsageView.js"></script>
+        <script src="js/views/FormListView.js"></script>
+        <script src="js/views/HomeView.js"></script>
 
         <script src="js/login.js"></script>
 

@@ -11,7 +11,7 @@ $(function(){
                 window.app.user = r;
                 window.app.formsCollection = new FormsCollection(r);
                 window.app.sidebarView = new SidebarView();
-                
+
                 var t = new UsageView({
                     el: document.getElementById("usage")
                 });

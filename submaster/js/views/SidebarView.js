@@ -9,10 +9,10 @@ var SidebarView = Backbone.View.extend({
 
     render: function(){
         //calculate and set height
-        var height = window.innerHeight - 60;
+        // var height = window.innerHeight - 60;
 
         this.$el.show();
-        this.$el.css("height", height+"px");
+        // this.$el.css("height", height+"px");
 
     }
 

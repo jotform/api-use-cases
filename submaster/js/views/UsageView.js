@@ -41,12 +41,13 @@ var UsageView = Backbone.View.extend({
         cases = [{id: "submissions", name: "Submissions", value: 75, limit: 100}, 
         {id: "sslSubmissions", name: "SSL Submissions", value: 40, limit: 1000}, 
         {id: "payments", name: "Payments", value:490, limit: 500}, 
-        {id: "uploads", name: "Uploads", value: 7553708, limit: 10000000}];
+        {id: "uploads", name: "Uploads", value: this.bytesToHuman(7553708), limit: this.bytesToHuman(100000000)}];
 
         for(var i=0; i<cases.length; i++){
-            this.$el.append(this.template(cases[i]));
+            this.$el.find(".widget-content").append(this.template(cases[i]));
         }
 
+        this.$el.find("#submissions-preview").addClass("big");
         //this.$el.html(this.template()(cases[i]));
 
         // var submissions = mock.submissions,
@@ -85,6 +86,46 @@ var UsageView = Backbone.View.extend({
               label: ""
             });            
         }        
+    },
+
+            //helper functions for formatting usage values
+    bytesToHuman: function(octets){
+        units = ['B', 'kB', 'MB', 'GB', 'TB']; // ...etc
+        for (var i = 0, size = octets; size > 1024; size=size/1024){ i++; }
+        return numberFormat(size, 2);
+
+        function numberFormat(number, decimals, dec_point, thousands_sep){
+            var n = number, prec = decimals;
+            var toFixedFix = function(n, prec){
+                var k = Math.pow(10, prec);
+                return (Math.round(n * k) / k).toString();
+            };
+            n = !isFinite(+n) ? 0 : +n;
+            prec = !isFinite(+prec) ? 0 : Math.abs(prec);
+            var sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep;
+            var dec = (typeof dec_point === 'undefined') ? '.' : dec_point;
+            var s = (prec > 0) ? toFixedFix(n, prec) : toFixedFix(Math.round(n), prec);
+            var abs = toFixedFix(Math.abs(n), prec);
+            var _, i;
+            if (abs >= 1000) {
+                _ = abs.split(/\D/);
+                i = _[0].length % 3 || 3;
+                _[0] = s.slice(0, i + (n < 0)) + _[0].slice(i).replace(/(\d{3})/g, sep + '$1');
+                s = _.join(dec);
+            } else {
+                s = s.replace('.', dec);
+            }
+
+            if (s.indexOf(dec) === -1 && prec > 1) {
+                var preca = [];
+                preca[prec-1] = undefined;
+                s += dec + preca.join(0) + '0';
+            } else if (s.indexOf(dec) == s.length - 2) { // incorrect: 2.7,  correct: 2.70
+                s += '0';
+            }
+            return s;
+        };
+
     }
 
 });

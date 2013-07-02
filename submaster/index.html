@@ -25,7 +25,55 @@
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
 
-        <header id="top-nav">
+        <div id="stage">
+            <div id="sidebar">
+                <h1>
+                    <a href="http://mustafa.jotform.pro/landing/submaster">Submaster</a>
+                </h1>
+                <ul>
+
+                </ul>            
+            </div>
+            <div id="container">
+                <div id="top-nav">
+                    <div class="form-list" style="display:none;">
+                        <input type="text" placeholder="Type form name" class="typeahead"/>
+                    </div>                    
+                </div>
+
+                <div class="content" id="home">
+
+                    <div class="row" style="">
+                        <div style="width:60%; float:left;">
+                            <div class="widget stacked" style="width:100%;">
+                                <div class="widget-header">
+                                    Forms with most unread submissions
+                                </div>
+                                <div class="widget-content">
+                                    <div id="newest-forms" style="display:none;">
+                                    </div>                                      
+                                </div>                        
+                            </div>                            
+                      
+                        </div>
+
+                        <div style="width:40%; float:left;">
+                            <div class="widget stacked" id="usage" style="width:100%;">
+                                <div class="widget-header">
+                                    Usage
+                                </div>
+                                <div class="widget-content">
+                                </div>                        
+                            </div>
+                        </div>
+
+                        <br style="clear: both;" />
+                    </div>
+                                        
+                </div>                
+            </div>
+        </div>
+<!--         <header id="top-nav">
             <div class="nav-wrap">
                 <h1>
                     <a href="http://mustafa.jotform.pro/landing/submaster">Submaster</a>
@@ -35,12 +83,9 @@
                     <a class="login-button">Log in</a>
                 </div>
             </div>
-        </header>
-        <div class="form-list" style="display:none;">
-            <input type="text" placeholder="Type form name" class="typeahead"/>
-        </div>
+        </header> -->
 
-        <div id="stage">
+<!--         <div id="stage">
 
             <div id="sidebar" style="display:none">
                 <ul class="sidebar-list">
@@ -50,19 +95,39 @@
 
             <div id="main">
 
-                <div class="tab-content" id="home" style="display:none">
-                    <div id="newest-forms">
-                        <h2>Forms with most unread submissions</h2>
-                        <ul>
+                <div class="tab-content" id="home">
 
-                        </ul>
+                    <div class="first-row" style="width: 100%; overflow: hidden; position:relative;">
+                        <div style="width:60%; float:left;">
+                            <div class="widget stacked" style="width:100%;">
+                                <div class="widget-header">
+                                    Forms with most unread submissions
+                                </div>
+                                <div class="widget-content">
+                                    <div id="newest-forms" style="display:none;">
+                                    </div>                                      
+                                </div>                        
+                            </div>                            
+                      
+                        </div>
+
+                        <div style="width:40%; float:left;">
+                            <div class="widget stacked" id="usage" style="width:100%;">
+                                <div class="widget-header">
+                                    Usage
+                                </div>
+                                <div class="widget-content">
+                                </div>                        
+                            </div>
+                        </div>
+
+                        <br style="clear: both;" />
                     </div>
-                    <div id="usage">
-                    </div>
+
                 </div>
             </div>
 
-        </div>
+        </div> -->
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="//js.jotform.com/JotForm.js"></script>
@@ -70,9 +135,9 @@
         <script src="js/vendor/underscore-min.js"></script>
         <script src="js/vendor/backbone-min.js"></script>
         <script src="js/vendor/gauge.min.js"></script>
-
         <script src="js/vendor/raphael-min.js"></script>
         <script src="js/vendor/justgage.1.0.1.min.js"></script>
+        <script src="js/vendor/highcharts.js"></script>
 
         <script src="js/collections/FormsCollection.js"></script>
         <script src="js/models/TestModel.js"></script>
@@ -83,10 +148,10 @@
 
         <script src="js/views/SidebarView.js"></script>
         <script src="js/views/UsageView.js"></script>
-        <script src="js/views/FormListView.js"></script>
+        <script src="js/views/FormsBarChartView.js"></script>
         <script src="js/views/HomeView.js"></script>
 
-        <script src="js/login.js"></script>
+        <script src="js/app.js"></script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>

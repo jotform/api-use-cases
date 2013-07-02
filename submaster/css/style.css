@@ -122,3 +122,24 @@ header#top-nav .account a.account-info span {
 .sidebar-list li{
     color: #e5e5e5;
 }
+
+#main {
+    float: left;
+    width: 80%;
+    margin-top: 16px;
+}
+
+.usages-wrapper {
+    font-family: 'BebasNeueRegular';
+    width:100px; height:80px;
+    display: inline-block;
+    margin: 1em;
+}
+
+.usages-wrapper > div {
+    text-align: center;
+}
+
+#usage {
+    width: 25%;
+}

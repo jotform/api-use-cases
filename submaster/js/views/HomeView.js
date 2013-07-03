@@ -14,8 +14,8 @@ var HomeView = Backbone.View.extend({
         this.$el.show();
 
         window.app.newestFormsList = new FormsBarChartView({
-            el: $("#newest-forms")[0],
-            data: window.app.formsCollection.getForms("new", 0, 5)
+            el: $("#newest-forms")[0]
+            //data: window.app.formsCollection.getForms("new", 0, 5)
         });
     }
 

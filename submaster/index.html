@@ -46,13 +46,17 @@
                     <div class="row" >
                         <div class="column" style="width:60%;">
                             <div style="">
-                                <div class="widget stacked" style="width:100%;">
+                                <div class="widget stacked" style="width:100%;" id="newest-forms">
                                     <div class="widget-header">
-                                        Forms with most unread submissions
+                                        <!-- <span class="chart-type">Forms with most unread submissions</span> -->
+                                        <select id="form-chart-options">
+                                            <option value="most-unread" checked="true">Forms with most unread submissions</option>
+                                            <option value="most">Forms with most submissions</option>
+                                        </select>
                                     </div>
                                     <div class="widget-content">
-                                        <div id="newest-forms" style="display:none;">
-                                        </div>                                      
+<!--                                         <div style="display:none;">
+                                        </div>    -->                                   
                                     </div>                        
                                 </div>                            
                           

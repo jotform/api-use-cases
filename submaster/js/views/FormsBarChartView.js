@@ -94,16 +94,17 @@ var FormsBarChartView = Backbone.View.extend({
 
         var type = $(e.target).val();
         var forms = false;
+        var values = [];
         if(type === "most"){
             var forms = window.app.formsCollection.getForms("count", 0, 5)
+            for(var i=0; i<forms.length; i++){
+                values.push(parseInt(forms[i].get("count")));
+            }
         } else {
-            var forms = window.app.formsCollection.getForms("new", 0, 5)
-        }
-
-
-        var values = [];
-        for(var i=0; i<forms.length; i++){
-            values.push(parseInt(forms[i].get("count")));
+            var forms = window.app.formsCollection.getForms("new", 0, 5);
+            for(var i=0; i<forms.length; i++){
+                values.push(parseInt(forms[i].get("new")));
+            }            
         }
 
         var categories = [];

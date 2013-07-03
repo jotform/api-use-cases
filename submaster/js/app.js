@@ -29,14 +29,21 @@ $(document).ready(function(){
                 });
 
                 window.app.homeView = new HomeView();
+                // window.app.mainTabView = new MainTabView();
                 
                 var formNames = [];
                 for(var i=0; i<r.length; i++){
                     formNames.push(r[i].title);
                 }
-                $(".form-list .typeahead").typeahead({
+
+                var t = $(".form-list .typeahead").typeahead({
                     name: "forms",
                     local: formNames
+                });
+
+                t.on("typeahead:selected", function(evt, data){
+                    console.log('data', data, evt);
+                    app.sidebarView.addTab(data.value);
                 });
             });
 

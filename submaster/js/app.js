@@ -19,7 +19,12 @@ $(document).ready(function(){
 
             JF.getForms(function(forms){
                 $(".form-list").show();
-
+                
+                if (typeof user.avatarURL !== 'undefined') {
+                    user.avatarUrl = user.avatarURL;
+                } else if (typeof user.avatarUrl !== 'undefined') {
+                    user.avatarURL = user.avatarUrl;
+                }
                 window.app.user = user;
                 window.app.formsCollection = new FormsCollection(forms);
                 window.app.sidebarView = new SidebarView();

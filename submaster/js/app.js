@@ -15,25 +15,21 @@ $(document).ready(function(){
     function initializeApp(userModelObject){
 
 
-        JF.getUser(function(r){
+        JF.getUser(function(user){
 
-            JF.getForms(function(r){
+            JF.getForms(function(forms){
                 $(".form-list").show();
 
-                window.app.user = r;
-                window.app.formsCollection = new FormsCollection(r);
+                window.app.user = user;
+                window.app.formsCollection = new FormsCollection(forms);
                 window.app.sidebarView = new SidebarView();
-
-                var t = new UsageView({
-                    el: document.getElementById("usage")
-                });
 
                 window.app.homeView = new HomeView();
                 // window.app.mainTabView = new MainTabView();
                 
                 var formNames = [];
-                for(var i=0; i<r.length; i++){
-                    formNames.push(r[i].title);
+                for(var i=0; i<forms.length; i++){
+                    formNames.push(forms[i].title);
                 }
 
                 var t = $(".form-list .typeahead").typeahead({
@@ -47,11 +43,6 @@ $(document).ready(function(){
                 });
             });
 
-            $(".login-button").remove();
-            $(".account").html('<a class="account-info">'+
-                    '<span>' + r.username + '</span>' +
-                    '<img src="'+r.avatarUrl+'"/>' +
-                '</a>');
         });
 
 

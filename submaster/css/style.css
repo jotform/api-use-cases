@@ -350,3 +350,17 @@ tab nav
 .mainnav li i {
     margin-right: 10px;
 }
+
+/*--------------------------------------------------------------------
+profile elements
+ */
+#profile > .widget-content >ul {
+    margin: 0;
+}
+.user-info {
+    font-family: "SourceSansProLight", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.user-info img {
+    float: right;
+}

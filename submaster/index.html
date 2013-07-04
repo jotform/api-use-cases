@@ -47,26 +47,34 @@
                 <div class="content" id="home" style="display:none">
 
                     <div class="row" >
-                        <div class="column" style="width:60%;">
+                        <div class="column" style="width:65%;">
                             <div style="">
                                 <div class="widget stacked" style="width:100%;" id="newest-forms">
                                     <div class="widget-header">
-                                        <!-- <span class="chart-type">Forms with most unread submissions</span> -->
                                         <select id="form-chart-options">
                                             <option value="most-unread" checked="true">Forms with most unread submissions</option>
                                             <option value="most">Forms with most submissions</option>
                                         </select>
                                     </div>
                                     <div class="widget-content">
-<!--                                         <div style="display:none;">
-                                        </div>    -->                                   
+                                
                                     </div>                        
                                 </div>                            
                           
                             </div>
                         </div>
 
-                        <div class="column" style="width:40%;">
+                        <div class="column" style="width:35%;">
+                            <div>
+                                <div class="widget stacked" id="profile" style="width:100%;">
+                                    <div class="widget-content">
+                                        <ul>
+                                            <li class="user-info">
+                                            </li>
+                                        </ul>
+                                    </div>                        
+                                </div>
+                            </div>                            
                             <div>
                                 <div class="widget stacked" id="usage" style="width:100%;">
                                     <div class="widget-header">
@@ -84,65 +92,12 @@
                 </div>                
             </div>
         </div>
-<!--         <header id="top-nav">
-            <div class="nav-wrap">
-                <h1>
-                    <a href="http://mustafa.jotform.pro/landing/submaster">Submaster</a>
-                </h1>
 
-                <div class="account">
-                    <a class="login-button">Log in</a>
-                </div>
-            </div>
-        </header> -->
-
-<!--         <div id="stage">
-
-            <div id="sidebar" style="display:none">
-                <ul class="sidebar-list">
-                    <li class="tab-link" data-tab-id="home">Home</li>
-                </ul>
-            </div>
-
-            <div id="main">
-
-                <div class="tab-content" id="home">
-
-                    <div class="first-row" style="width: 100%; overflow: hidden; position:relative;">
-                        <div style="width:60%; float:left;">
-                            <div class="widget stacked" style="width:100%;">
-                                <div class="widget-header">
-                                    Forms with most unread submissions
-                                </div>
-                                <div class="widget-content">
-                                    <div id="newest-forms" style="display:none;">
-                                    </div>                                      
-                                </div>                        
-                            </div>                            
-                      
-                        </div>
-
-                        <div style="width:40%; float:left;">
-                            <div class="widget stacked" id="usage" style="width:100%;">
-                                <div class="widget-header">
-                                    Usage
-                                </div>
-                                <div class="widget-content">
-                                </div>                        
-                            </div>
-                        </div>
-
-                        <br style="clear: both;" />
-                    </div>
-
-                </div>
-            </div>
-
-        </div> -->
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="http://twitter.github.com/hogan.js/builds/2.0.0/hogan-2.0.0.js"></script>
-        <script src="//js.jotform.com/JotForm.js"></script>
+        <script src="http://mustafa.jotform.pro/api/js/JotForm.js"></script>
+
         <script src="js/vendor/typeahead.min.js"></script>
         <script src="js/vendor/underscore-min.js"></script>
         <script src="js/vendor/backbone-min.js"></script>
@@ -162,6 +117,7 @@
         <script src="js/views/SidebarView.js"></script>
         <script src="js/views/UsageView.js"></script>
         <script src="js/views/FormsBarChartView.js"></script>
+        <script src="js/views/ProfileView.js"></script>
         <script src="js/views/HomeView.js"></script>
 
         <script src="js/app.js"></script>

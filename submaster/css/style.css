@@ -354,13 +354,22 @@ tab nav
 /*--------------------------------------------------------------------
 profile elements
  */
-#profile > .widget-content >ul {
+.profile {
     margin: 0;
-}
-.user-info {
     font-family: "SourceSansProLight", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding: 0;
 }
 
-.user-info img {
+.user-info {
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 12px;
+    padding-bottom: 4px;
+}
+.user-info img.avatar {
     float: right;
+}
+
+.sub > span {
+    font-family: "SourceSansPro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin-right: 8px;
 }

@@ -30,6 +30,8 @@ $(document).ready(function(){
                 window.app.sidebarView = new SidebarView();
 
                 window.app.homeView = new HomeView();
+
+                window.app.cache = {};
                 // window.app.mainTabView = new MainTabView();
                 
                 var formNames = [];

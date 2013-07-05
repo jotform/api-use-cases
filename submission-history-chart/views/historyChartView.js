@@ -3,58 +3,118 @@ var HistoryChartView = Backbone.View.extend({
     events:
     {
         'click #getFormSubmissions': 'getFormSubmissionsEvt',
+        'change #userFormsList' : 'getFormSubmissionsEvt',
+        'click #allDates': 'getFromAllDates'
     },
     /**
      * Constructor
      */
     initialize: function()
     {
+        //initialize app name
+        JF.initialize({ appName: "Submissions-Chart" });
+
+        //build chart data object
         this._chartData = {
             chart: null,
             totalSubmissions: 0,
             formSubmissionsTemp: {},
-            enableCacheSubmissions: true
+            enableCacheSubmissions: true,
+            dataTableObj: new google.visualization.DataTable()
         };
 
+        //elements data object
         this._elem = {
+            mainContainer_el: $("#mainContent"),    //mainContent
             formSelected_el: $("#userFormsList"),   //list of forms
-            chart_el: $("#chartType"),              //chart element
+            chartType_el: $("#chartType"),          //chart element
             rangeFrom_el: $("#date-input-1"),       //range From elem
             rangeTo_el: $("#date-input-2"),         //range To elem
-        }
+            allDates_el: $("#allDates")             //all dates elem
+        };
 
-        _.bindAll(this,
-            "render", "getUserForms", "getFormSubmissions",
-            "getOnlyDate", "setChartType", "getTimeRange",
-            "getTimeStamp", "sortArray", "objectToDataTable",
-            "buildChart", "processChartForm", "getFormSubmissions"
-        );
+        _.bindAll(this, 
+            "setDefaults", "getUserForms", "getFormSubmissionsEvt", "getFromAllDates",
+            "getOnlyDate", "setChartType", "getTimeRange", "getTimeStamp", "sortArray",
+            "objectToDataTable", "buildChart", "processChartForm", "getFormSubmissions");
 
-        this.render();
+        this.setDefaults();
     },
 
-    render: function()
+    setDefaults: function()
     {
-        // console.log('testing view');
-
-        //initialize app name
-        JF.initialize({ appName: "Submissions-Chart" });
+        var self = this;
 
         //get user forms automatically
-        this.getUserForms();
+        self.getUserForms();
 
         //set default time range
-        this.setDefaultTimeRange();
+        self.setDefaultTimeRange();
+
+        //set google chart defaults
+        self.chartDivElement = "chart_div";
+        self._elem.chart_el = document.getElementById(self.chartDivElement);
+        self._chartData.chart = new google.visualization.AreaChart( self._elem.chart_el );
+
+        self.column1Title = "Date";
+        self.column2Title = "Submission Counts";
+
+        //default columns
+        self._chartData.dataTableObj.addColumn('date', self.column1Title);
+        self._chartData.dataTableObj.addColumn('number', self.column2Title);
+
+        //horizontal Axis options
+        self.hAxisOptions = {
+            title: "Submission Date",
+            titleTextStyle: {color: 'red'},
+            gridlines: {color: '#ccc', count: 10},
+            minorGridlines: {color: '#eee', count: 3}
+        };
+
+        //vertical Axis options
+        self.vAxisOptions = {
+            title: "Submissions Count",
+            titleTextStyle: {color: 'red'},
+            gridlines: {color: '#eee', count: 20}
+        };
+
+        //main options of the chart
+        self.mainOptions = {
+            animation: {
+                duration: 500,
+                easing: 'out'
+            },
+            legend: {
+                position: 'bottom',
+                alignment: 'end'
+            },
+            pointSize: 5,
+            vAxis: self.vAxisOptions,
+            hAxis: self.hAxisOptions,
+            slantedText: true,
+            chartArea: {
+                left: 150,
+                top: 100
+            }
+        };
     },
 
-    showStart: function()
+    /**
+     * Show laoding indicator
+     */
+    showStart: function( elemObj )
     {
-        console.log("please wait");
+        var elem = elemObj || $('#chartContainer');
+        elem.showLoading();
     },
 
-    showEnd: function()
+    /**
+     * Hide loading indicator
+     */
+    showEnd: function( elemObj )
     {
-        console.log('done');
+        var elem = elemObj || $('#chartContainer');
+        elem.hideLoading();
     },
 
     /**
@@ -62,6 +122,11 @@ var HistoryChartView = Backbone.View.extend({
      */
     getUserForms: function()
     {
+        var self = this;
+
+        //display loading indicator to main content
+        self.showStart( self._elem.mainContainer_el );
+
         JF.getForms(function(e){
             var opt = "";
             for ( var i in e )
@@ -72,6 +137,9 @@ var HistoryChartView = Backbone.View.extend({
             }
 
             $("#userFormsList").html(opt);
+
+            //clean loading from main content
+            self.showEnd( self._elem.mainContainer_el );
         });
     },
 
@@ -102,17 +170,18 @@ var HistoryChartView = Backbone.View.extend({
             next.call(self, dataFormatted, a);
         };
 
+        //show loading indicator
         self.showStart();
 
         //get data from cache if any to lessen load times
         if ( self._chartData.enableCacheSubmissions && self._chartData.formSubmissionsTemp[ formID ] )
         {
-            console.log('from cache');
+            // console.log('from cache');
             getData(self, self._chartData.formSubmissionsTemp[ formID ], next);
         }
         else
         {
-            console.log('from request');
+            // console.log('from request');
             this.getFormSubmissionsAJAX(formID, function(a){
                 console.log(a);
                 self._chartData.formSubmissionsTemp[ formID ] = a;
@@ -129,7 +198,7 @@ var HistoryChartView = Backbone.View.extend({
     },
 
     /**
-     * Alternative way to fetch data from teh server
+     * Alternative way to fetch data from the server
      */
     getFormSubmissionsAJAX: function( formID, next, query )
     {
@@ -183,16 +252,16 @@ var HistoryChartView = Backbone.View.extend({
         return this;
     },
 
+    /**
+     * Set the default range for the calendar pickers
+     */
     setDefaultTimeRange: function()
     {
-        var rangeFrom = this._elem.rangeFrom_el;
-        var rangeTo =  this._elem.rangeTo_el;
-
         //modify default ranges and set them as calendarview
         var l = this.getLastWeek();
-        console.log(l);
-        rangeFrom.val( l.lastWeekFull ).calendar({dateFormat: '%o/%e/%Y', defaultDate: l.lastWeekFull });
-        rangeTo.val( l.todayFull ).calendar({dateFormat: '%o/%e/%Y', defaultDate: l.todayFull });
+        this._elem.rangeFrom_el.val( l.lastWeekFull ).removeAttr('disabled').calendar({dateFormat: '%m/%d/%Y', defaultDate: l.lastWeekFull });
+        
+        this._elem.rangeTo_el.val( l.todayFull ).removeAttr('disabled').calendar({dateFormat: '%m/%d/%Y', defaultDate: l.todayFull });
     },
 
     /**
@@ -226,6 +295,31 @@ var HistoryChartView = Backbone.View.extend({
             lastWeekFull: ( l.getMonth() + 1 ) + "/" + l.getDate() + "/" + l.getFullYear(),
             todayFull : ( t.getMonth() + 1 ) + "/" + t.getDate() + "/" + t.getFullYear()
         };
+    },
+
+    /**
+     * Get the proper date format
+     * and return it such as January 1, 2013
+     */
+    getDateFromString: function( date )
+    {
+        var MONTHS = ["January","Februry","March","April","May","June","July","August","September","October","November","December"];
+        var myDate, myFormatDate;
+        var d = new Date( date );
+        var date_str =( d.getMonth() + 1 ) + "/" + d.getDate() + "/" + d.getFullYear();
+        var t = date_str.split("/");
+        if ( t[2] )
+        {
+            myDate = new Date(t[2], t[0] - 1, t[1]);
+            myFormatDate = MONTHS[myDate.getMonth()] + " " + myDate.getDate() + "," + myDate.getFullYear();
+        }
+        else
+        {
+            myDate = new Date(new Date().getFullYear(), t[0] - 1, t[1]);
+            myFormatDate = MONTHS[myDate.getMonth()] + " " + mydate.getDate();
+        }
+
+        return myFormatDate;
     },
 
     /**
@@ -281,12 +375,46 @@ var HistoryChartView = Backbone.View.extend({
      */
     showTotalSubmissions: function()
     {
-        var strRangeFrom = ( this._chartData.rangeFromRAW ) ? "From <span class='totals'>" + this._chartData.rangeFromRAW + "</span>" : "";
-        var strRangeTo = ( this._chartData.rangeToRAW ) ? " - <span class='totals'>" + this._chartData.rangeToRAW + "</span> : " : "";
+        var fromRText = ( this._chartData.totalSubmissions ) ? this.getDateFromString( this._chartData.dataTable[0] ) : "N/A";
+        var fromTText = ( this._chartData.totalSubmissions && this._chartData.totalSubmissions > 1 ) ? this.getDateFromString( this._chartData.dataTable[ this._chartData.dataTable.length - 1 ] ) : "N/A";
+        var totalCounts = {
+            from: ( this._chartData.totalSubmissions && this._chartData.totalSubmissions > 1 && this._chartData.rangeFromRAW ) ? this._chartData.rangeFromRAW : fromRText,
+            to: ( this._chartData.totalSubmissions && this._chartData.totalSubmissions > 1 &&  this._chartData.rangeToRAW ) ?  this._chartData.rangeToRAW : fromTText,
+            total: ( this._chartData.totalSubmissions ) ? this._chartData.totalSubmissions : "N/A"
+        };
 
-        var total = ( this._chartData.totalSubmissions ) ? this._chartData.totalSubmissions : "N/A";
+        var maxSubmission = {
+            date: "N/A",
+            value: "N/A"
+        };
 
-        $("#totalSubmission span").html( strRangeFrom + strRangeTo + total ).parent().show();
+        //if max submission oject is present createad from buildChart()
+        if ( this._chartData.maxSubmissionsRowIndex !== undefined )
+        {
+            //since date column index in datatable is 0 and value as 1
+            var dateColumnIndex = 0;
+            var valueColumnIndex = 1;
+            var rowIndex = this._chartData.maxSubmissionsRowIndex;
+            var dataTable = this._chartData.dataTableObj;
+
+            maxSubmission.date = this.getDateFromString( dataTable.getValue( rowIndex, dateColumnIndex) );
+            maxSubmission.value = dataTable.getValue( rowIndex, valueColumnIndex);
+
+            console.log("max", maxSubmission);
+        }
+
+
+        var totalsElem = $("#totalSubmission");
+
+        //set values
+        $('.highestCounts', totalsElem).text( maxSubmission.value );
+        $('._highestCountDate', totalsElem).text( maxSubmission.date )
+
+        $('.totalCounts', totalsElem).text( totalCounts.total );
+        $('._fromRange', totalsElem).text( totalCounts.from );
+        $('._toRange', totalsElem).text( totalCounts.to );
+
+        totalsElem.show();
     },
 
     /**
@@ -295,47 +423,93 @@ var HistoryChartView = Backbone.View.extend({
     buildChart: function()
     {
         var self = this;
-        var dataTable = new google.visualization.DataTable();
-            dataTable.addColumn('date', self.column1Title);
-            dataTable.addColumn('number', self.column2Title);
-            dataTable.addRows(self._chartData.dataTable);
 
-        var dataView = new google.visualization.DataView(dataTable);
-            dataView.setColumns([{
-                calc: function(data, row) {
-                    return data.getFormattedValue(row, 0);
-                },
-                type:'string'
-            },  1 ]);
+        // //clear any previous chart resources
+        // if ( self._chartData.chart )
+        // {
+        //     self.clearChart();
+        // }
 
-        var chartElem = document.getElementById(self.chartDivElement);
-        var chartOpt = self.mainOptions;
-
-        switch( self._chartData.chartType )
+        //since we are using one data table, we need to delete the old one and set another
+        if ( typeof self._chartData.dataTableObj !== "undefined" )
         {
-            case 'barChart':
-                self._chartData.chart = new google.visualization.ColumnChart( chartElem );
-            break;
-            case 'lineChart':
-                self._chartData.chart = new google.visualization.LineChart( chartElem );
-            break;
-            case 'areaChart':
-                self._chartData.chart = new google.visualization.AreaChart( chartElem );
-            break;
-            case 'pieChart':
-                self._chartData.chart = new google.visualization.PieChart( chartElem );
-            break;
+            //get the total rows of all the data table
+            var currentDataTableRowCount = self._chartData.dataTableObj.getNumberOfRows();
+            console.log("currentDataTableRowCount", currentDataTableRowCount);
+
+            //if rows are greater than zero, meaning we do have current data on the dataTable
+            if ( currentDataTableRowCount > 0 )
+            {
+                //get the total rows of the current data table
+                var currentDataTableCount = self._chartData.dataTable.length;
+                console.log("currentDataTableCount", currentDataTableCount);
+                //get the index to start removing rows
+                //if and only if currentDataTableRowCount > currentDataTableCount
+                if ( currentDataTableRowCount > currentDataTableCount )
+                {
+                    var deepIndex = currentDataTableCount;
+                    var totalRowToRemove = ( currentDataTableRowCount - deepIndex );
+                    console.log("deepIndex totalRowToRemove", deepIndex,totalRowToRemove);
+
+                    self._chartData.dataTableObj.removeRows( deepIndex, totalRowToRemove);
+                }
+                else
+                {
+                    console.log("second");
+                    var totalRowToAdd = ( currentDataTableCount - currentDataTableRowCount );
+                    console.log("totalRowToAdd", totalRowToAdd);
+                    self._chartData.dataTableObj.addRows(totalRowToAdd);
+                }
+
+                var z = self._chartData.dataTable;
+                for( var x = 0; x < z.length; x++ )
+                {
+                    console.log( z[x]);
+                    console.log(x, 0, new Date(z[x][0]));
+                    console.log(x, 1, z[x][1]);
+
+                    //set date
+                    self._chartData.dataTableObj.setValue(x, 0, new Date(z[x][0]));
+
+                    //set value
+                    self._chartData.dataTableObj.setValue(x, 1, z[x][1]);
+                }
+            }
+            else
+            {
+                //add some data to the data table
+                self._chartData.dataTableObj.addRows(self._chartData.dataTable);
+            }
         }
+
+        //get max submissions index array
+        var columnIndex = 1;
+        var maxSubmissionRowIndex = self._chartData.dataTableObj.getFilteredRows([{
+            column: columnIndex,
+            value: self._chartData.dataTableObj.getColumnRange( columnIndex ).max
+        }])[0];
+
+        //register to global object
+        self._chartData.maxSubmissionsRowIndex = maxSubmissionRowIndex;
+
+        //build dataView
+        // var dataView = new google.visualization.DataView(self._chartData.dataTableObj);
+        //     dataView.setColumns([{
+        //         calc: function(data, row) {
+        //             return data.getFormattedValue(row, 0);
+        //         },
+        //         type:'string'
+        //     },  1 ]);
 
         //event when chart is ready
         google.visualization.events.addListener(self._chartData.chart, 'ready', function(){
             console.log("chart is now ready: total submissions", self._chartData.totalSubmissions);
             self.showEnd();
-            console.log( chartOpt );
+            console.log( self.mainOptions );
             self.showTotalSubmissions();
         });
 
-        self._chartData.chart.draw(dataView, chartOpt);
+        self._chartData.chart.draw(self._chartData.dataTableObj, self.mainOptions);
     },
 
     /**
@@ -357,46 +531,7 @@ var HistoryChartView = Backbone.View.extend({
         self.formID = formElem.val();
         self.formTitle = formElem.text();
 
-        self.chartDivElement = "chart_div";
-        self.column1Title = "Date";
-        self.column2Title = "Submission Counts";
-
-        self.chartTitle = "Submission Chart History for - " + self.formTitle;
-
-        self.hAxisOptions = {
-            title: "Submission Date",
-            titleTextStyle: {color: 'red'},
-            showTextEvery: 5
-        };
-
-        self.vAxisOptions = {
-            title: "Submissions Count",
-            titleTextStyle: {color: 'red'},
-            gridlines: {color: '#eee', count: 20},
-        };
-
-        //main options of the chart
-        self.mainOptions = {
-            height: 500,
-            animation: {
-                duration: 1000,
-                easing: 'inAndOut'
-            },
-            legend: {
-                position: 'bottom',
-                alignment: 'end'
-            },
-            pointSize: 5,
-            title: self.chartTitle,
-            vAxis: self.vAxisOptions,
-            hAxis: self.hAxisOptions,
-            slantedText: true,
-            chartArea: {
-                left: 100,
-                top: 50,
-                width: "85%"
-            }
-        };
+        self.mainOptions.title = "Submission Chart History for - " + self.formTitle;
 
         //reset total submission
         this._chartData.totalSubmissions = 0;
@@ -415,15 +550,35 @@ var HistoryChartView = Backbone.View.extend({
     {
         console.log('getFormSubmissions clicked');
 
-        if ( this._chartData.chart )
-        {
-            this.clearChart();
-        }
-
         //set chart type, default range elems and then process now the chartform
-        this.setChartType( this._elem.chart_el ).getTimeRange( this._elem.rangeFrom_el, this._elem.rangeTo_el ).processChartForm( this._elem.formSelected_el );
+        this.setChartType( this._elem.chartType_el ).getTimeRange( this._elem.rangeFrom_el, this._elem.rangeTo_el ).processChartForm( this._elem.formSelected_el );
 
         return false;
+    },
+
+    /**
+     * Get and display all submissions from all the dates
+     */
+    getFromAllDates: function()
+    {
+        if ( this._elem.allDates_el.is(":checked") )
+        {
+            console.log("all dates was checked");
+            this._elem.rangeFrom_el.val('').attr('disabled', true);
+            this._elem.rangeTo_el.val('').attr('disabled', true);
+
+        }
+        else
+        {
+            console.log("all dates not set");
+            this.setDefaultTimeRange();
+        }
+
+        //reset chart if present
+        if ( typeof this._chartData.chart !== "undefined" )
+        {
+            this.getFormSubmissionsEvt();
+        }
     }
 
 });

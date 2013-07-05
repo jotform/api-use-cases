@@ -7,8 +7,7 @@ var _jFCharts = {
 };
 
 google.load("visualization", "1", {packages:["corechart"]});
-
-$(document).ready(function(){
+google.setOnLoadCallback(function(){
     if ( !JF.getAPIKey() )
     {
         JF.login(function(){
@@ -21,5 +20,8 @@ $(document).ready(function(){
     }
 
     // JF.initialize( {apiKey: "76d37e1b759fcbe67063a39166747301"} );
-    // _jFCharts.init();
+    // JF.initialize( {apiKey: "1c4efba0d67e0e77aee4dee551b4259f"} );
+    _jFCharts.init();
 });
+
+$(document).ready();

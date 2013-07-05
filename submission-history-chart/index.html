@@ -16,15 +16,15 @@
     <div id="mainContainer">
         <div class="widget" style="width:100%;" id="historyChart">
             <div class="widget-header"><h2>Submission History Chart</h2></div>
-            <div class="widget-content">
-                <div>
-                    <div class="userFormsList sHContainer">
-                        <!--<div class="sHDivisions">
-                            <label class="sHLabel">Form List</label> -->
+            <div class="widget-content" id="mainContent">
+                <div class="main-sHContainer">
+                    <div class="sHContainer" id="navigation">
+                        <div class="sHDivisions">
+                            <label class="sHLabel">Form List</label> 
                             <select id="userFormsList" class="prettyInputs">
                                 <option>Loading forms...</option>
                             </select>
-                        <!-- </div> -->
+                        </div>
                         <input type="hidden" id="chartType" value="areaChart" />
                         <!-- <div class="sHDivisions">
                             <label class="sHLabel">Chart Type</label>
@@ -35,19 +35,23 @@
                                 <option value="pieChart">Pie Chart</option>
                             </select>
                         </div> -->
-                        <!-- <div class="sHDivisions"> -->
+                        <div class="sHDivisions">
                             <!-- <label class="sHLabel">Range</label> -->
-                            From: <input type="text" id="date-input-1" class="rangeInputs prettyInputs" /> To: <input type="Text" id="date-input-2" class="rangeInputs prettyInputs" />
-                        <!-- </div> -->
-                        <!-- <div class="sHDivisions"> -->
+                            <label class="sHlabel-mini">From: </label><input type="text" id="date-input-1" class="rangeInputs prettyInputs" />
+                            <label class="sHlabel-mini">To: <input type="text" id="date-input-2" class="rangeInputs prettyInputs" />
+                            <label class="sHlabel-mini">All Dates: <input type="checkbox" id="allDates" />
                             <button name="button" id="getFormSubmissions" class="go-btn btn-green">Display History</button>
-                        <!-- </div> -->
+                        </div>
+                        <!-- <div class="sHDivisions"> -->
+                            
+                        <!-- </div>  -->
                     </div>
                     <div class="sHContainer" id="chartContainer">
-                        <div id="chart_div"></div>
+                        <div id="chart_div" style="height: 500px;"></div>
                     </div>
                     <div class="sHContainer hiddenElem" id="totalSubmission">
-                        <b>Total submissions: </b> <span></span>
+                        <b>Highest submissions: </b><span class="counts"><b class="highestCounts"></b> - From <span class="totalDates _highestCountDate"></span></span><br />
+                        <b>Total submissions: </b> <span class="counts"><b class="totalCounts"></b> - From <span class="totalDates _fromRange"></span> to <span class="totalDates _toRange"></span></span>
                     </div>
                 </div>
             </div>

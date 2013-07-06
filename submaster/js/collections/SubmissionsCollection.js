@@ -1,4 +1,4 @@
-var SubmissionCollections = Backbone.Collection.extend({ 
+var SubmissionsCollection = Backbone.Collection.extend({ 
 
     cache: {},
     fetch : function(callback, query){

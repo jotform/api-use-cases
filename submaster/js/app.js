@@ -39,14 +39,24 @@ $(document).ready(function(){
                     formNames.push(forms[i].title);
                 }
 
+                var datums = [];
+                for(var i=0; i<forms.length; i++){
+                    datums.push({
+                        value: forms[i].title,
+                        tokens: [forms[i].title], 
+                        id: forms[i].id
+                    });
+                }                
+
                 var t = $(".form-list .typeahead").typeahead({
                     name: "forms",
-                    local: formNames
+                    local: datums,
+                    template: '<p><strong>{{value}}</strong></p>',
+                    engine: Hogan
                 });
 
                 t.on("typeahead:selected", function(evt, data){
-                    console.log('data', data, evt);
-                    app.sidebarView.addTab(data.value);
+                    app.sidebarView.addTab(data);
                 });
             });
 

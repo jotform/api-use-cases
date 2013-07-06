@@ -24,6 +24,7 @@
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
+
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
@@ -34,13 +35,13 @@
                     <a href="http://mustafa.jotform.pro/landing/submaster">Submaster</a>
                 </h1>
                 <ul class="mainnav">
-                    <li class="tab-link active"><i class="icon-home"></i><span>Home</span></li>
+                    <li class="tab-link active" id="home-tab"><i class="icon-home"></i><span>Home</span></li>
                 </ul>            
             </div>
             <div id="container">
                 <div id="top-nav">
                     <div class="form-list" style="display:none;">
-                        <input type="text" placeholder="Type form name" class="typeahead"/>
+                        <input type="text" placeholder="Type form name" class="typeahead" id="search-forms"/>
                     </div>                    
                 </div>
 
@@ -91,9 +92,9 @@
 
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script src="http://twitter.github.com/hogan.js/builds/2.0.0/hogan-2.0.0.js"></script>
         <script src="http://mustafa.jotform.pro/api/js/JotForm.js"></script>
 
+        <script src="js/vendor/hogan-2.0.0.js"></script>
         <script src="js/vendor/typeahead.min.js"></script>
         <script src="js/vendor/underscore-min.js"></script>
         <script src="js/vendor/backbone-min.js"></script>

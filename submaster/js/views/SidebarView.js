@@ -15,11 +15,11 @@ var SidebarView = Backbone.View.extend({
 
     },
 
-    addTab: function(name){
+    addTab: function(data){
         this.$el.find("li.active").removeClass("active");
-        this.$el.find(".mainnav").append('<li class="tab-link active">'+
+        this.$el.find(".mainnav").append('<li class="tab-link active" id="'+data.id+'">'+
                 '<i class="icon-th-large"></i>' +
-                '<span>' + name + '</span>' +
+                '<span>' + data.value + '</span>' +
             '</li>');
     },
 

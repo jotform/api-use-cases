@@ -22,8 +22,7 @@ var ProfileView = Backbone.View.extend({
         this.$el.html(this.template(window.app.user));
 
         //get daily submissions and save it in app cache
-        JF.getSubmissions(function(r){
-            window.app.cache.dailySubmissions = r;
+        window.app.submissionsCollection.fetch(function(r){
             $(".daily", self.el).html('<span>'+r.length+'</span>' + " submissions today");
         }, {filter: {"created_at:gte":moment().format("YYYY-MM-DD")}, limit:1000});
 
@@ -32,8 +31,7 @@ var ProfileView = Backbone.View.extend({
         var y = d.getUTCFullYear(), m = d.getMonth()+1+"", day = "01";
         if(m.length === 1) m = "0" + m;
         var date = moment(y+m+day, "YYYY-MM-DD").format("YYYY-MM-DD");
-        JF.getSubmissions(function(r){
-            window.app.cache.monthlySubmissions = r;
+        window.app.submissionsCollection.fetch(function(r){
             $(".monthly", self.el).html('<span>'+r.length+'</span>' + " submissions this month");
         }, {filter: {"created_at:gte":date}, limit:1000});
 

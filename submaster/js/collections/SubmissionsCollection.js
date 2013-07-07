@@ -1,16 +1,16 @@
 var SubmissionsCollection = Backbone.Collection.extend({ 
 
     cache: {},
-    
+
     fetch : function(callback, query){
         var key = createCacheKey(query), 
             self = this;
         if( this.cache[key] !== undefined ) {
-            return this.cache[key];
+            callback(this.cache[key]);
         }
 
         JF.getSubmissions(function(resp){
-            callback();
+            callback(resp);
             self.cache[key] = resp;
         }, query)
 

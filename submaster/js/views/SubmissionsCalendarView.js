@@ -6,6 +6,21 @@ var SubmissionsCalendarView = Backbone.View.extend({
     },
 
     render: function() {
+
+        //get submissions for one month time
+        var d = new Date(),
+            y = d.getUTCFullYear(), 
+            m = d.getMonth()+"", 
+            day = d.getDate();
+
+        if(m.length === 1) m = "0" + m;
+        var date = moment(y+m+day, "YYYY-MM-DD").format("YYYY-MM-DD"),
+            events = [];
+
+        JF.getSubmissions(function(r){
+            
+        }, {filter: {"created_at:gte":date}, limit:1000});
+
         var date = new Date();
         var d = date.getDate();
         var m = date.getMonth();

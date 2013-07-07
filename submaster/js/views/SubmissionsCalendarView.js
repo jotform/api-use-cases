@@ -23,11 +23,13 @@ var SubmissionsCalendarView = Backbone.View.extend({
                 var ca = r[i].created_at;
                 var y = ca.split("-")[0];
                 var m = parseInt(ca.split("-")[1]);
-                var d = ca.split("-")[2].split(" ")[0]
+                var d = ca.split("-")[2].split(" ")[0];
+                var h = ca.split("-")[2].split(" ")[1].split(":")[0];
                 events.push({
                     title: t,
-                    start: new Date(y,m-1+"",d),
-                    allDay:false
+                    start: new Date(y,m-1+"",d, h),
+                    allDay:false,
+                    backgroundColor: "orange",
                 });
             }
             self.$el.fullCalendar({

@@ -29,6 +29,10 @@ var FormsCollection = Backbone.Collection.extend({
         }
         //console.log(sorted);
         return sorted.slice(offset, limit);
+    },
+
+    getTitleById : function() {
+        
     }
 
 });

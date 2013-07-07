@@ -33,13 +33,7 @@ var ProfileView = Backbone.View.extend({
         var date = moment(y+m+day, "YYYY-MM-DD").format("YYYY-MM-DD");
         window.app.submissionsCollection.fetch(function(r){
             $(".monthly", self.el).html('<span>'+r.length+'</span>' + " submissions this month");
-        }, {filter: {"created_at:gte":date}, limit:1000});
-
-        //get yearly submissions
-        // JF.getSubmissions(function(r){
-        //     window.app.cache.yearlySubmissions = r;
-        //     $(".yearly", self.el).html('<span>'+r.length+'</span>' + " submissions this year");
-        // }, {filter: {"created_at:gte":y+"-01-01"}, limit:1000});        
+        }, {filter: {"created_at:gte":date}, limit:1000});     
     }
 
 });

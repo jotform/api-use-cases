@@ -1,9 +1,8 @@
 var SubmissionsCollection = Backbone.Collection.extend({ 
 
     cache: {},
+    
     fetch : function(callback, query){
-
-
         var key = createCacheKey(query), 
             self = this;
         if( this.cache[key] !== undefined ) {

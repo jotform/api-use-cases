@@ -24,6 +24,10 @@ var HomeView = Backbone.View.extend({
 
         window.app.profileView = new ProfileView({
             el: $("#profile").find(".widget-content")[0]
+        });
+
+        window.app.submissionsCalendarView = new SubmissionsCalendarView({
+            el: $("#calendar")[0]
         });       
     }
 

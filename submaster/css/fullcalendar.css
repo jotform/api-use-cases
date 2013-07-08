@@ -258,6 +258,7 @@ html .fc,
 	color: #fff;               /* default TEXT color */
 	font-size: .85em;
 	cursor: default;
+	border-width: 2px;
 	}
 
 a.fc-event {

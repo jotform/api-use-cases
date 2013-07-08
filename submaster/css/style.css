@@ -412,16 +412,16 @@ profile elements
 usage knobs
 */
 
-/*#usage-knobs {
-    padding: 0;
-    overflow: hidden;
-}
-
-.usage-knob {
-    overflow: hidden;
-}*/
-
 .usage-knob > span{
     display:block; 
     color: #707070;
+}
+
+.white-popup {
+    position: relative;
+    background: #FFF;
+    padding: 20px;
+    width: auto;
+    max-width: 500px;
+    margin: 20px auto;
 }

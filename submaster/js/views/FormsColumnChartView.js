@@ -21,7 +21,7 @@ var FormsColumnChartView = Backbone.View.extend({
 
         var values = [];
         for(var i=0; i<forms.length; i++){
-            values.push(parseInt(forms[i].get("new")));
+            values.push(parseInt(forms[i].get(this.field)));
         }
 
         var categories = [];

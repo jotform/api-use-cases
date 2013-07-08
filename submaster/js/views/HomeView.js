@@ -25,12 +25,12 @@ var HomeView = Backbone.View.extend({
             color: "#6895C1"
         });
 
-        window.app.usageView= new UsageView({
-            el: document.getElementById("usage")
-        });
+        // window.app.usageView= new UsageView({
+        //     el: document.getElementById("usage")
+        // });
 
         window.app.profileView = new ProfileView({
-            el: $("#profile").find(".widget-content")[0]
+            el: $("#profile")[0]
         });
         
         window.app.submissionsCalendarView = new SubmissionsCalendarView({

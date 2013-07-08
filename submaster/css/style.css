@@ -417,6 +417,9 @@ usage knobs
     color: #707070;
 }
 
+/*----------------------------------------------------
+popup
+*/
 .white-popup {
     position: relative;
     background: #FFF;
@@ -424,4 +427,29 @@ usage knobs
     width: auto;
     max-width: 500px;
     margin: 20px auto;
+}
+
+/*----------------------------------------------------
+submissions 
+*/
+.submission-q {
+    /*color:#b6b6b6;*/
+    text-align:right;
+    width:30%;
+    display:inline-block;
+    font-family: "SourceSansPro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;    
+}
+
+.submission-a {
+    color:#2a2a2a;
+    width:65%;
+    display:inline-block;
+    /*vertical-align:top;*/
+}
+
+.answer-wrapper {
+    margin: 4px 0;
 }

@@ -61,9 +61,14 @@ var SubmissionsCalendarView = Backbone.View.extend({
                 disableDragging: true,
                 events: events,
                 eventClick: function(event, element) {
+                    var sub = window.app.submissionsCollection.get(event.id).attributes;
+                    var sv = new SubmissionDetailView({
+                        submission: sub
+                    });
+                    console.log(sv.el);
                     $.magnificPopup.open({
                         items: {
-                            src: '<div class="white-popup">Submission with id '+event.id+'</div>', // can be a HTML string, jQuery object, or CSS selector
+                            src: sv.el, // can be a HTML string, jQuery object, or CSS selector
                             type: 'inline'
                         }
                     });

@@ -1,6 +1,6 @@
 var HomeView = Backbone.View.extend({
 
-    el: "#home",
+    el: "#home-tab",
 
     initialize: function(options) {
         _.bindAll(this, "render");

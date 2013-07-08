@@ -37,7 +37,7 @@
                     <a href="http://mustafa.jotform.pro/landing/submaster">Submaster</a>
                 </h1>
                 <ul class="mainnav">
-                    <li class="tab-link active" id="home-tab"><i class="icon-home"></i><span>Home</span></li>
+                    <li class="tab-link active" id="home"><i class="icon-home"></i><span>Home</span></li>
                 </ul>
                 
                 <ul id="usage-knobs" style="display: none;">
@@ -72,51 +72,42 @@
                     </div>                    
                 </div>
 
-                <div class="content" id="home" style="display:none">
-                    <div class="row area-top">
-                        <div>
-                            <div class="widget stacked" id="profile" style="width:30%;float:left;">
-                            </div>
-                        </div>                         
-                        <div style="width:30%; float: right; border-left: 1px solid #eee;padding: 0 12px;">
-                            <p>Forms with most new submissions</p>
-                            <div id="newest-forms"></div>
-                        </div>
-                        <div style="width:30%; float:right; border-right: 1px solid #ddd;padding: 0 12px;">
-                            <p>Forms with most submissions</p>
-                            <div id="fullest-forms"></div>                      
-                        </div>                                                
-                    </div>
-                    <div class="row" >
-                        <div class="column" style="width:100%;">
-                            <div>
-                                <div class="widget stacked" style="width:100%;">
-                                    <div class="widget-content"  id="calendar">
-                                    </div>                        
-                                </div>                            
-                            </div>                            
-                            <div style="">
-                            
-                          
-                            </div>
-                        </div>
+                <div id="tab-content">
 
-<!--                         <div class="column" style="width:35%; max-width:340px;">
+                    <div class="content" id="home-tab" style="display:none">
+                        <div class="row area-top">
                             <div>
-                                <div class="widget stacked" id="usage" style="width:100%;">
-                                    <div class="widget-header">
-                                        <i class="icon-signal"></i><h3>Usage</h3>
-                                    </div>
-                                    <div class="widget-content">
-                                    </div>                        
+                                <div class="widget stacked" id="profile" style="width:30%;float:left;">
+                                </div>
+                            </div>                         
+                            <div style="width:30%; float: right; border-left: 1px solid #eee;padding: 0 12px;">
+                                <p>Forms with most new submissions</p>
+                                <div id="newest-forms"></div>
+                            </div>
+                            <div style="width:30%; float:right; border-right: 1px solid #ddd;padding: 0 12px;">
+                                <p>Forms with most submissions</p>
+                                <div id="fullest-forms"></div>                      
+                            </div>                                                
+                        </div>
+                        <div class="row" >
+                            <div class="column" style="width:100%;">
+                                <div>
+                                    <div class="widget stacked" style="width:100%;">
+                                        <div class="widget-content"  id="calendar">
+                                        </div>                        
+                                    </div>                            
+                                </div>                            
+                                <div style="">
+                                
+                              
                                 </div>
                             </div>
-                        </div> -->
 
-                        <br style="clear: both;" />
-                    </div>
+                            <br style="clear: both;" />
+                        </div>
 
-                </div>                
+                    </div>  
+                </div>              
             </div>
         </div>
 
@@ -149,6 +140,8 @@
         <script src="js/views/UsageView.js"></script>
         <script src="js/views/UsagesKnobView.js"></script>
         <script src="js/views/FormsBarChartView.js"></script>
+
+        <script src="js/views/SubmissionDetailView.js"></script>
 
         <script src="js/views/FormsColumnChartView.js"></script>
         <script src="js/views/ProfileView.js"></script>

@@ -12,11 +12,11 @@ var HomeView = Backbone.View.extend({
         //$("#main").css("width", window.innerWidth-228);
         //set containers width
         var w = window.innerWidth-$("#sidebar").width();
-        $("#container").width(w);
+        $("#container").width(w-20);
 
         window.onresize = function(){
             var w = window.innerWidth-$("#sidebar").width();
-            $("#container").width(w);            
+            $("#container").width(w-20);            
         }
         this.$el.show();
 

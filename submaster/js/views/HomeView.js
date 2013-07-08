@@ -9,8 +9,15 @@ var HomeView = Backbone.View.extend({
 
     render: function(){
         
-        $("#main").css("width", window.innerWidth-228);
-        
+        //$("#main").css("width", window.innerWidth-228);
+        //set containers width
+        var w = window.innerWidth-$("#sidebar").width();
+        $("#container").width(w);
+
+        window.onresize = function(){
+            var w = window.innerWidth-$("#sidebar").width();
+            $("#container").width(w);            
+        }
         this.$el.show();
 
         window.app.formsColumnChartView = new FormsColumnChartView({
@@ -25,9 +32,9 @@ var HomeView = Backbone.View.extend({
             color: "#6895C1"
         });
 
-        // window.app.usageView= new UsageView({
-        //     el: document.getElementById("usage")
-        // });
+        window.app.usagesView= new UsagesKnobView({
+            el: document.getElementById("usage-knobs")
+        });
 
         window.app.profileView = new ProfileView({
             el: $("#profile")[0]

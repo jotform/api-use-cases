@@ -108,7 +108,7 @@ h1, h2, h3, h4, h5, h6 {
 /* --------------------------------------------------------------
    style for twitter typeahead */
 .form-list {
-    margin: 0 auto 0 auto;
+    /*margin: 0 auto 0 auto;*/
     width: 50%;
 }
 .form-list input {
@@ -118,9 +118,9 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 22px;
     line-height: 30px;
     border: 1px solid #ccc;
-    -webkit-border-radius: 8px;
+/*    -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
-    border-radius: 8px;
+    border-radius: 8px;*/
     outline: none;
 }
 .tt-hint {
@@ -137,7 +137,8 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 8px;
     -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-    box-shadow: 0 5px 10px rgba(0,0,0,.2);    
+    box-shadow: 0 5px 10px rgba(0,0,0,.2); 
+    font-family: "SourceSansPro", "Helvetica Neue", Helvetica, Arial, sans-serif;   
 }
 .tt-dropdown-menu > div {
     margin: 0 0;
@@ -405,4 +406,22 @@ profile elements
 .sub > span {
     font-family: "SourceSansPro", "Helvetica Neue", Helvetica, Arial, sans-serif;
     margin-right: 8px;
+}
+
+/*-------------------------------------------------------------------
+usage knobs
+*/
+
+/*#usage-knobs {
+    padding: 0;
+    overflow: hidden;
+}
+
+.usage-knob {
+    overflow: hidden;
+}*/
+
+.usage-knob > span{
+    display:block; 
+    color: #707070;
 }

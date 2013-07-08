@@ -46,6 +46,13 @@ var FormsColumnChartView = Backbone.View.extend({
                 text: ''
             },
             xAxis: {
+                categories: categories,
+                title: {
+                    text: null
+                },
+                labels: {
+                    enabled: false
+                }
             },
             yAxis: {
                 title: {

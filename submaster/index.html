@@ -37,6 +37,25 @@
                 </h1>
                 <ul class="mainnav">
                     <li class="tab-link active" id="home-tab"><i class="icon-home"></i><span>Home</span></li>
+                </ul>
+                
+                <ul id="usage-knobs" style="display: none;">
+                    <li class="usage-knob">
+                        <span>Submissions</span>
+                        <input id="submission" class="knob" data-width="100" data-displayprevious="true" data-fgcolor="#ffec03" data-skin="tron" data-cursor="false" data-thickness=".2" style="width: 41px; height: 25px; position: absolute; vertical-align: middle; margin-top: 25px; margin-left: -58px; border: 0px; background-image: none; font-weight: bold; font-style: normal; font-variant: normal; font-size: 15px; line-height: normal; font-family: Arial; text-align: center; color: rgb(255, 236, 3); padding: 0px; -webkit-appearance: none; background-position: initial initial; background-repeat: initial initial;">
+                    </li>
+                    <li class="usage-knob" style="margin-top:-90px;">
+                        <span>SSL Submissions</span>
+                        <input id="sslsubmission" class="knob" data-width="100" data-displayprevious="true" data-fgcolor="#ffec03" data-skin="tron" data-cursor="false" data-thickness=".2" style="width: 41px; height: 25px; position: absolute; vertical-align: middle; margin-top: 25px; margin-left: -58px; border: 0px; background-image: none; font-weight: bold; font-style: normal; font-variant: normal; font-size: 15px; line-height: normal; font-family: Arial; text-align: center; color: rgb(255, 236, 3); padding: 0px; -webkit-appearance: none; background-position: initial initial; background-repeat: initial initial;">
+                    </li> 
+                    <li class="usage-knob" style="margin-top:-90px;">
+                        <span>Payments</span>
+                        <input id="payment" class="knob" data-width="100" data-displayprevious="true" data-fgcolor="#ffec03" data-skin="tron" data-cursor="false" data-thickness=".2" style="width: 41px; height: 25px; position: absolute; vertical-align: middle; margin-top: 25px; margin-left: -58px; border: 0px; background-image: none; font-weight: bold; font-style: normal; font-variant: normal; font-size: 15px; line-height: normal; font-family: Arial; text-align: center; color: rgb(255, 236, 3); padding: 0px; -webkit-appearance: none; background-position: initial initial; background-repeat: initial initial;">
+                    </li>
+                    <li class="usage-knob" style="margin-top:-90px;">
+                        <span>Uploads</span>
+                        <input id="upload" class="knob" data-width="100" data-displayprevious="true" data-fgcolor="#ffec03" data-skin="tron" data-cursor="false" data-thickness=".2" style="width: 41px; height: 25px; position: absolute; vertical-align: middle; margin-top: 25px; margin-left: -58px; border: 0px; background-image: none; font-weight: bold; font-style: normal; font-variant: normal; font-size: 15px; line-height: normal; font-family: Arial; text-align: center; color: rgb(255, 236, 3); padding: 0px; -webkit-appearance: none; background-position: initial initial; background-repeat: initial initial;">
+                    </li>                                                             
                 </ul>            
             </div>
             <div id="container">
@@ -44,6 +63,11 @@
                 <div id="top-nav">
                     <div class="form-list" style="display:none;">
                         <input type="text" placeholder="Type form name" class="typeahead" id="search-forms"/>
+                    </div>
+
+                    <div class="userinfo" style="float: right;color: white;margin-top:-44px;">
+                        <span id="username" style="font-family: 'SourceSansPro', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:15px;"></span>
+                        <img id="avatar" style="margin:0 12px;"/>
                     </div>                    
                 </div>
 
@@ -53,12 +77,12 @@
                             <div class="widget stacked" id="profile" style="width:30%;float:left;">
                             </div>
                         </div>                         
-                        <div style="width:30%; float: right;">
-                            <p>Most unread</p>
+                        <div style="width:30%; float: right; border-left: 1px solid #eee;padding: 0 12px;">
+                            <p>Forms with most new submissions</p>
                             <div id="newest-forms"></div>
                         </div>
-                        <div style="width:30%; float:right;">
-                            <p>Most submissions</p>
+                        <div style="width:30%; float:right; border-right: 1px solid #ddd;padding: 0 12px;">
+                            <p>Forms with most submissions</p>
                             <div id="fullest-forms"></div>                      
                         </div>                                                
                     </div>
@@ -108,6 +132,7 @@
         <script src="js/vendor/justgage.1.0.1.min.js"></script>
         <script src="js/vendor/highcharts.js"></script>
         <script src="js/vendor/moment.min.js"></script>
+        <script src="js/vendor/jquery.knob.js"></script>
 
         <script src="js/vendor/fullcalendar.js"></script>
 
@@ -120,6 +145,7 @@
 
         <script src="js/views/SidebarView.js"></script>
         <script src="js/views/UsageView.js"></script>
+        <script src="js/views/UsagesKnobView.js"></script>
         <script src="js/views/FormsBarChartView.js"></script>
 
         <script src="js/views/FormsColumnChartView.js"></script>

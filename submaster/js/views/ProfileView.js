@@ -3,10 +3,6 @@ var ProfileView = Backbone.View.extend({
     initialize: function(options) {
         this.el = options.el;
         this.template = _.template('<ul class="profile">' + 
-                '<li class="user-info">'+
-                    '<p style="display:inline-block;">Welcome <%=name%></p>' +
-                    '<img class="avatar" src="<%=avatarUrl%>"/>' +
-                '</li>' + 
                 '<li class="daily sub">' +
                 '</li>' +
                 '<li class="monthly sub">' +

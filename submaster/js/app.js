@@ -17,6 +17,8 @@ $(document).ready(function(){
 
         JF.getUser(function(user){
 
+            $("#username").html(user.name);
+            $("#avatar").attr("src", user.avatarUrl);
             JF.getForms(function(forms){
                 $(".form-list").show();
                 

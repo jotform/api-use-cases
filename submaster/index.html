@@ -40,34 +40,34 @@
                 </ul>            
             </div>
             <div id="container">
+
                 <div id="top-nav">
                     <div class="form-list" style="display:none;">
                         <input type="text" placeholder="Type form name" class="typeahead" id="search-forms"/>
                     </div>                    
                 </div>
-
+                
                 <div class="content" id="home" style="display:none">
-
+                    <div class="row area-top">
+                        <div style="width:30%; float: right;">
+                            <p>Most unread</p>
+                            <div id="newest-forms"></div>
+                        </div>
+                        <div style="width:30%; float:right;">
+                            <p>Most submissions</p>
+                            <div id="fullest-forms"></div>                      
+                        </div>                                                
+                    </div>
                     <div class="row" >
                         <div class="column" style="width:65%;">
-                            <div style="">
+                            <div>
                                 <div class="widget stacked" style="width:100%;">
                                     <div class="widget-content"  id="calendar">
                                     </div>                        
                                 </div>                            
                             </div>                            
                             <div style="">
-                                <div class="widget stacked" style="width:100%;" id="newest-forms">
-                                    <div class="widget-header">
-                                        <select id="form-chart-options">
-                                            <option value="most-unread" checked="true">Forms with most unread submissions</option>
-                                            <option value="most">Forms with most submissions</option>
-                                        </select>
-                                    </div>
-                                    <div class="widget-content">
-                                
-                                    </div>                        
-                                </div>                            
+                            
                           
                             </div>
                         </div>
@@ -123,6 +123,8 @@
         <script src="js/views/SidebarView.js"></script>
         <script src="js/views/UsageView.js"></script>
         <script src="js/views/FormsBarChartView.js"></script>
+
+        <script src="js/views/FormsColumnChartView.js"></script>
         <script src="js/views/ProfileView.js"></script>
         <script src="js/views/SubmissionsCalendarView.js"></script>
         <script src="js/views/HomeView.js"></script>

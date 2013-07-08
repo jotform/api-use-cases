@@ -13,9 +13,16 @@ var HomeView = Backbone.View.extend({
         
         this.$el.show();
 
-        window.app.formsBarChartView = new FormsBarChartView({
-            el: $("#newest-forms")[0]
-            //data: window.app.formsCollection.getForms("new", 0, 5)
+        window.app.formsColumnChartView = new FormsColumnChartView({
+            el: $("#newest-forms")[0],
+            field: "new",
+            color: "#EC8D00"
+        });
+
+        window.app.formsColumnChartViewForCount = new FormsColumnChartView({
+            el: $("#fullest-forms")[0],
+            field: "count",
+            color: "#6895C1"
         });
 
         window.app.usageView= new UsageView({

@@ -8,6 +8,8 @@
 html, body {
     height: 100%;
     background-color: #333;
+
+    font-family: "SourceSansProLight", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 ul {
@@ -59,9 +61,38 @@ h1, h2, h3, h4, h5, h6 {
 
 #container {
     width: 80%;
-    padding: 16px;
+    /*padding: 16px;*/
     float: left;
+}
+
+.content {
     background: url('../img/content_inner_bg.png');
+}
+
+.area-top {
+    background: #ECECEC;
+    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgi…pZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+    background-size: 100%;
+    background-image: -webkit-gradient(linear,50% 0,50% 100%,color-stop(0%,#FAFAFA),color-stop(100%,#ECECEC));
+    background-image: -webkit-linear-gradient(top,#FAFAFA,#ECECEC);
+    background-image: -moz-linear-gradient(top,#FAFAFA,#ECECEC);
+    background-image: -o-linear-gradient(top,#FAFAFA,#ECECEC);
+    background-image: linear-gradient(top,#FAFAFA,#ECECEC);
+    -webkit-box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.07);
+    -moz-box-shadow: 0 2px 1px -1px rgba(0,0,0,0.07);
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.07);
+    border-bottom: 1px solid #CCC;
+    position: relative;
+    width: 100%;
+    padding: 10px 15px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+#top-nav {
+    margin: 7px 0;
 }
 
 .row {

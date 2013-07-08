@@ -1,0 +1,40 @@
+li {
+	list-style:none;
+	cursor:pointer;
+	width: 300px;
+	padding: 8px 14px;
+	border: 1px solid #e5e5e5;
+	margin-bottom: -1px;
+}
+
+a {
+	text-decoration: none;
+}
+
+.selected {
+	color: #fcab5f;
+	font-weight: bold;
+}
+
+#contents {
+	margin: auto;
+	width: 1000px;
+}
+
+#leftBar {
+	float:left;
+}
+
+#main {
+	margin-top: 20px;
+	float: right;
+	width: 600px;
+}
+
+#csvOptions {
+	padding: 10px;
+	border: 1px solid #e5e5e5;
+	margin-bottom: 10px;
+	width: 500px;
+	line-height:120%;
+}

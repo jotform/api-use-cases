@@ -9,10 +9,15 @@ var SubmissionsCollection = Backbone.Collection.extend({
             callback(this.cache[key]);
         }
 
-        JF.getSubmissions(function(resp){
+        JF.getSubmissions(function(resp) {
             callback(resp);
             self.cache[key] = resp;
-        }, query)
+            for (var i=0; i<resp.length; i++) {
+                if( self.get(resp[i].id) === undefined ) {
+                    self.add(resp[i]);
+                }
+            }
+        }, query);
 
         function createCacheKey(){
             if(typeof query === 'undefined') return "default";

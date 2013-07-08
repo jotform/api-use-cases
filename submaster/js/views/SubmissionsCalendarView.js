@@ -63,7 +63,7 @@ var SubmissionsCalendarView = Backbone.View.extend({
                 eventClick: function(event, element) {
                     $.magnificPopup.open({
                         items: {
-                            src: '<div class="white-popup">Dynamically created popup</div>', // can be a HTML string, jQuery object, or CSS selector
+                            src: '<div class="white-popup">Submission with id '+event.id+'</div>', // can be a HTML string, jQuery object, or CSS selector
                             type: 'inline'
                         }
                     });

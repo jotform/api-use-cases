@@ -21,16 +21,16 @@ $(document).ready(function(){
     }
 
     function initializeApp(){
-
+        
         var SM = Backbone.Model.extend({});
         window.app.stateModel = new SM();
-        window.app.usagesView= new UsagesKnobView({
-            el: document.getElementById("usage-knobs")
-        });
+
+        
 
         JF.getUser(function(user){
             $("#username").html(user.name);
             $("#avatar").attr("src", user.avatarUrl);
+            window.app.user = user;
             JF.getForms(function(forms){
                 //typeahead text box
                 $(".form-list").show();
@@ -40,7 +40,12 @@ $(document).ready(function(){
                     user.avatarURL = user.avatarUrl;
                 }
 
-                window.app.user = user;
+                JF.getUsage(function(usage){
+                    window.app.usagesView= new UsagesKnobView({
+                        usage: usage,
+                        el: document.getElementById("usage-knobs")
+                    });
+                });
                 window.app.formsCollection = new FormsCollection(forms);
                 window.app.submissionsCollection = new SubmissionsCollection();
                 window.app.sidebarView = new SidebarView();

@@ -2,17 +2,28 @@ var UsagesKnobView = Backbone.View.extend({
 
     initialize: function(options){
         this.el = options.el;
+        this.usage = options.usage;
         this.render();
     },
 
     render: function(){
+        var self = this;
+        $.ajax({
+            url: window.app.user.account_type,
+            dataType: 'json',
+            success: function(r){
+                window.app.limits = r.content.limits;
+                self.drawKnob($("#submission", self.el), r.content.limits.submissions, self.usage.submissions, "#FF0000");
+                self.drawKnob($("#sslsubmission", self.el), r.content.limits.sslSubmissions, self.usage.ssl_submissions, "#FF0000");
+                self.drawKnob($("#payment", self.el), r.content.limits.payments, self.usage.payments, "#FF0000");
+                self.drawKnob($("#upload", self.el), r.content.limits.uploads, self.usage.uploads, "#FF0000");
+                self.$el.show();
+            }
 
-        this.drawKnob($("#submission", this.el), 250, 100, "#FF0000");
-        this.drawKnob($("#sslsubmission", this.el), 100, 90, "#FF0000");
-        this.drawKnob($("#payment", this.el), 100, 10, "#FF0000");
-        this.drawKnob($("#upload", this.el), 100, 72, "#FF0000");
+        });
 
-        this.$el.show();
+
+        
 
     },
 

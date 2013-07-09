@@ -24,7 +24,10 @@ $(document).ready(function(){
 
         var SM = Backbone.Model.extend({});
         window.app.stateModel = new SM();
-
+        window.app.usagesView= new UsagesKnobView({
+            el: document.getElementById("usage-knobs")
+        });
+        
         JF.getUser(function(user){
             $("#username").html(user.name);
             $("#avatar").attr("src", user.avatarUrl);

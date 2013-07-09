@@ -4,7 +4,10 @@ var HomeView = Backbone.View.extend({
 
     initialize: function(options) {
         _.bindAll(this, "render");
+
+        //register itself in builded tabs view
         window.app.stateModel.set("home", true);
+        
         this.render();
     },
 
@@ -31,10 +34,6 @@ var HomeView = Backbone.View.extend({
             el: $("#fullest-forms")[0],
             field: "count",
             color: "#6895C1"
-        });
-
-        window.app.usagesView= new UsagesKnobView({
-            el: document.getElementById("usage-knobs")
         });
 
         window.app.profileView = new ProfileView({

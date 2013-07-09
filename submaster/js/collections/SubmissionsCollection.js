@@ -7,6 +7,7 @@ var SubmissionsCollection = Backbone.Collection.extend({
             self = this;
         if( this.cache[key] !== undefined ) {
             callback(this.cache[key]);
+            return;
         }
 
         JF.getSubmissions(function(resp) {
@@ -23,7 +24,9 @@ var SubmissionsCollection = Backbone.Collection.extend({
             if(typeof query === 'undefined') return "default";
             var key = "";
             for(var i in query){
-                if( query[i] !== 'undefined' ) key = key + i + query[i];
+                var t = query[i];
+                if(typeof query[i] === 'object') t = JSON.stringify(query[i]);
+                if( query[i] !== undefined ) key = key + i + t;
             }
             return key;
         }

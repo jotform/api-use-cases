@@ -13,18 +13,18 @@ var UsagesKnobView = Backbone.View.extend({
             dataType: 'json',
             success: function(r){
                 window.app.limits = r.content.limits;
-                self.drawKnob($("#submission", self.el), r.content.limits.submissions, self.usage.submissions, "#FF0000");
-                self.drawKnob($("#sslsubmission", self.el), r.content.limits.sslSubmissions, self.usage.ssl_submissions, "#FF0000");
-                self.drawKnob($("#payment", self.el), r.content.limits.payments, self.usage.payments, "#FF0000");
-                self.drawKnob($("#upload", self.el), r.content.limits.uploads, self.usage.uploads, "#FF0000");
+                // self.drawKnob($("#submission", self.el), r.content.limits.submissions, self.usage.submissions, "#FF0000");
+                // self.drawKnob($("#sslsubmission", self.el), r.content.limits.sslSubmissions, self.usage.ssl_submissions, "#FF0000");
+                // self.drawKnob($("#payment", self.el), r.content.limits.payments, self.usage.payments, "#FF0000");
+                // self.drawKnob($("#upload", self.el), r.content.limits.uploads, self.usage.uploads, "#FF0000");
+                self.drawKnob($("#submission", self.el), 100, 40, "#FF0000");
+                self.drawKnob($("#sslsubmission", self.el), 10, 8, "#FF0000");
+                self.drawKnob($("#payment", self.el), 10, 2, "#FF0000");
+                self.drawKnob($("#upload", self.el), 1000, 550, "#FF0000");                
                 self.$el.show();
             }
 
         });
-
-
-        
-
     },
 
     drawKnob: function(elem, max, value, fgColor){

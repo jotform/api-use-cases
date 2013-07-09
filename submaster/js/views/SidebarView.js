@@ -27,7 +27,11 @@ var SidebarView = Backbone.View.extend({
                 '<i class="icon-th-large"></i>' +
                 '<span>' + data.value + '</span>' +
             '</li>');
-        $('#tab-content').append('<div class ="content" id="'+data.id+'-tab">'+app.formsCollection.get(data.id).get("title")+'</div>');        
+        $('#tab-content').append(_.template($("#new-tab-template").html())({
+            id: data.id,
+            title: app.formsCollection.get(data.id).get("title")
+        }));
+        
         this.showTab(data.id);
     },
 

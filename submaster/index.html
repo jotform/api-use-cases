@@ -30,7 +30,14 @@
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
-
+        <script type="text/template" id="new-tab-template">
+            <div class ="content" id="<%=id%>-tab">
+                <div class="row area-top">
+                    <%=title%>
+                </div>
+            </div>
+        </script>
+        
         <div id="stage">
             <div id="sidebar">
                 <h1>

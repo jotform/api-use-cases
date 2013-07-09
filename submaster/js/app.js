@@ -46,10 +46,10 @@ $(document).ready(function(){
                         el: document.getElementById("usage-knobs")
                     });
                 });
+                
                 window.app.formsCollection = new FormsCollection(forms);
                 window.app.submissionsCollection = new SubmissionsCollection();
                 window.app.sidebarView = new SidebarView();
-                createTypeAhead(forms);
 
                 var Router = Backbone.Router.extend({
                     routes: {
@@ -57,6 +57,7 @@ $(document).ready(function(){
                         ":formID": "initializeFormView"
                     },
                     initializeHomeView : function(){
+                        createTypeAhead(forms);
                         window.app.sidebarView.showTab("home");
                         if(window.app.stateModel.get("home")){
                             return;
@@ -64,7 +65,7 @@ $(document).ready(function(){
                         window.app.homeView = new HomeView();
                     },
                     initializeFormView : function(formID){
-                        //var fid = formID.split("-")[0];
+                        createTypeAhead(forms);                        
                         var form = window.app.formsCollection.get(formID);
                         window.app.sidebarView.addTab({
                             id: formID,
@@ -99,6 +100,7 @@ $(document).ready(function(){
         });
         t.on("typeahead:selected", function(evt, data){
             window.app.router.navigate(data.id, { trigger: true });
+            t.val("");
         });        
     }    
 

@@ -14,7 +14,6 @@ var SubmissionDetailView = Backbone.View.extend({
         var contentMarkup = '<div>';
         var answers = this.submission.answers;
 
-        console.log(this.submission);
         _.each(answers, function(answer) {
 
             var questionText = answer.text.length > 23 ? answer.text.slice(0,20) + '...' : answer.text;

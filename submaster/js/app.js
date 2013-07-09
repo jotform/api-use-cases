@@ -27,7 +27,7 @@ $(document).ready(function(){
         window.app.usagesView= new UsagesKnobView({
             el: document.getElementById("usage-knobs")
         });
-        
+
         JF.getUser(function(user){
             $("#username").html(user.name);
             $("#avatar").attr("src", user.avatarUrl);
@@ -59,6 +59,7 @@ $(document).ready(function(){
                         window.app.homeView = new HomeView();
                     },
                     initializeFormView : function(formID){
+                        //var fid = formID.split("-")[0];
                         var form = window.app.formsCollection.get(formID);
                         window.app.sidebarView.addTab({
                             id: formID,

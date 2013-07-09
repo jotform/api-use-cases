@@ -17,13 +17,13 @@ var SidebarView = Backbone.View.extend({
 
     addTab: function(data){
         this.$el.find("li.active").removeClass("active");
-        if($('#'+data.id, this.el).length > 0) {
-            $('#'+data.id, this.el).addClass("active");
+        if($('#'+data.id+'-link', this.el).length > 0) {
+            $('#'+data.id+'-link', this.el).addClass("active");
             this.showTab(data.id);
             return ;
         }
         
-        this.$el.find(".mainnav").append('<li class="tab-link active" id="'+data.id+'">'+
+        this.$el.find(".mainnav").append('<li class="tab-link active" data-tab="'+data.id+'"id="'+data.id+'-link">'+
                 '<i class="icon-th-large"></i>' +
                 '<span>' + data.value + '</span>' +
             '</li>');
@@ -33,12 +33,12 @@ var SidebarView = Backbone.View.extend({
 
     activateTab: function(e){
         var li = $(e.target).closest("li");
-        window.app.router.navigate(li.attr("id") === 'home' ? '' : li.attr("id"), { trigger: true });
+        window.app.router.navigate(li.attr("data-tab") === 'home' ? '' : li.attr("data-tab"), { trigger: true });
     },
 
     showTab: function(id){
         this.$el.find("li.active").removeClass("active");
-        $('.mainnav #'+id).addClass("active");     
+        $('.mainnav #'+id+"-link").addClass("active");     
         $('#tab-content .content:visible').hide();
         $('#tab-content #'+id+'-tab').show();
     }

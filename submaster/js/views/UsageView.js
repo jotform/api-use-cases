@@ -39,11 +39,11 @@ var UsageView = Backbone.View.extend({
             }
         }
 
-        cases = [{id: "submissions", name: "Submissions", value: 75, limit: 100}, 
+       /* cases = [{id: "submissions", name: "Submissions", value: 75, limit: 100}, 
         {id: "sslSubmissions", name: "SSL Submissions", value: 40, limit: 1000}, 
         {id: "payments", name: "Payments", value:490, limit: 500}, 
         {id: "uploads", name: "Uploads", value: Math.ceil(this.bytesToHuman(7553708)), limit: Math.ceil(this.bytesToHuman(100000000))}];
-
+*/
         for(var i=0; i<cases.length; i++){
             this.$el.find(".widget-content").append(this.template(cases[i]));
         }

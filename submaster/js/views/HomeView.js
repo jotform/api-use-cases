@@ -4,6 +4,7 @@ var HomeView = Backbone.View.extend({
 
     initialize: function(options) {
         _.bindAll(this, "render");
+        window.app.stateModel.set("home", true);
         this.render();
     },
 

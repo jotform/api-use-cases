@@ -32,14 +32,13 @@ var SidebarView = Backbone.View.extend({
     },
 
     activateTab: function(e){
-        this.$el.find("li.active").removeClass("active");
         var li = $(e.target).closest("li");
-        li.addClass("active");
-        this.showTab(li.attr("id"));
-
+        window.app.router.navigate(li.attr("id") === 'home' ? '' : li.attr("id"), { trigger: true });
     },
 
     showTab: function(id){
+        this.$el.find("li.active").removeClass("active");
+        $('.mainnav #'+id).addClass("active");     
         $('#tab-content .content:visible').hide();
         $('#tab-content #'+id+'-tab').show();
     }

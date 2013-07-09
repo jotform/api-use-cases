@@ -12,7 +12,18 @@ $(document).ready(function(){
 
     var self = window.app = this;
 
+    if( JF.getAPIKey() === null){
+        JF.login(function(){
+            initializeApp();
+        });
+    } else {
+        initializeApp();
+    }
+
     function initializeApp(){
+
+        var SM = Backbone.Model.extend({});
+        window.app.stateModel = new SM();
 
         //define router
         var Router = Backbone.Router.extend({
@@ -21,13 +32,17 @@ $(document).ready(function(){
                 ":formID": "initializeFormView"
             },
             initializeHomeView : function(){
+                if(window.app.stateModel.get("home")){
+                    window.app.sidebarView.showTab("home");
+                    return;
+                }
+
                 JF.getUser(function(user){
                     $("#username").html(user.name);
                     $("#avatar").attr("src", user.avatarUrl);
                     JF.getForms(function(forms){
                         //typeahead text box
                         $(".form-list").show();
-                        
                         if (typeof user.avatarURL !== 'undefined') {
                             user.avatarUrl = user.avatarURL;
                         } else if (typeof user.avatarUrl !== 'undefined') {
@@ -37,24 +52,19 @@ $(document).ready(function(){
                         window.app.user = user;
                         window.app.formsCollection = new FormsCollection(forms);
                         window.app.submissionsCollection = new SubmissionsCollection();
-                        
                         window.app.sidebarView = new SidebarView();
-
                         window.app.homeView = new HomeView();
-
-                        
-                        var formNames = [];
-                        for(var i=0; i<forms.length; i++){
-                            formNames.push(forms[i].title);
-                        }
+                        window.app.sidebarView.showTab("home");
                         createTypeAhead(forms);
                     });
                 });
             },
             initializeFormView : function(formID){
+                console.log("adasdasd");
                 JF.getUser(function(user){
                     $("#username").html(user.name);
                     $("#avatar").attr("src", user.avatarUrl);
+
                     JF.getForms(function(forms){
                         //typeahead text box
                         $(".form-list").show();
@@ -67,15 +77,14 @@ $(document).ready(function(){
                         window.app.user = user;
                         window.app.formsCollection = new FormsCollection(forms);
                         window.app.submissionsCollection = new SubmissionsCollection();
-                        
                         window.app.sidebarView = new SidebarView();
+                        window.app.stateModel.set(formID, true);
 
-                        window.app.homeView = new HomeView();
-
-                        var formNames = [];
-                        for(var i=0; i<forms.length; i++){
-                            formNames.push(forms[i].title);
-                        }
+                        var form = window.app.formsCollection.get(formID);
+                        window.app.sidebarView.addTab({
+                            id: formID,
+                            value: form.get("title")
+                        });
 
                         createTypeAhead(forms);
                     });
@@ -86,8 +95,6 @@ $(document).ready(function(){
         //initialize router
         self.router = new Router();
         Backbone.history.start({pushState: false});
-
-
     };
 
     function createTypeAhead(forms) {
@@ -106,17 +113,9 @@ $(document).ready(function(){
             engine: Hogan
         });
         t.on("typeahead:selected", function(evt, data){
-            app.sidebarView.addTab(data);
+            window.app.router.navigate(data.id, { trigger: true });
         });        
     }    
-
-    if( JF.getAPIKey() === null){
-        JF.login(function(){
-            initializeApp();
-        })
-    } else {
-        initializeApp();
-    }
 
 });
 

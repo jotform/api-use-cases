@@ -61,6 +61,7 @@ var SubmissionsCalendarView = Backbone.View.extend({
                 disableDragging: true,
                 events: events,
                 eventClick: function(event, element) {
+                    console.log(event, window.app.submissionsCollection);
                     var sub = window.app.submissionsCollection.get(event.id).attributes;
                     var sv = new SubmissionDetailView({
                         submission: sub

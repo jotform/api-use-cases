@@ -25,76 +25,52 @@ $(document).ready(function(){
         var SM = Backbone.Model.extend({});
         window.app.stateModel = new SM();
 
-        //define router
-        var Router = Backbone.Router.extend({
-            routes: {
-                "": "initializeHomeView",
-                ":formID": "initializeFormView"
-            },
-            initializeHomeView : function(){
-                if(window.app.stateModel.get("home")){
-                    window.app.sidebarView.showTab("home");
-                    return;
+        JF.getUser(function(user){
+            $("#username").html(user.name);
+            $("#avatar").attr("src", user.avatarUrl);
+            JF.getForms(function(forms){
+                //typeahead text box
+                $(".form-list").show();
+                if (typeof user.avatarURL !== 'undefined') {
+                    user.avatarUrl = user.avatarURL;
+                } else if (typeof user.avatarUrl !== 'undefined') {
+                    user.avatarURL = user.avatarUrl;
                 }
 
-                JF.getUser(function(user){
-                    $("#username").html(user.name);
-                    $("#avatar").attr("src", user.avatarUrl);
-                    JF.getForms(function(forms){
-                        //typeahead text box
-                        $(".form-list").show();
-                        if (typeof user.avatarURL !== 'undefined') {
-                            user.avatarUrl = user.avatarURL;
-                        } else if (typeof user.avatarUrl !== 'undefined') {
-                            user.avatarURL = user.avatarUrl;
-                        }
+                window.app.user = user;
+                window.app.formsCollection = new FormsCollection(forms);
+                window.app.submissionsCollection = new SubmissionsCollection();
+                window.app.sidebarView = new SidebarView();
+                createTypeAhead(forms);
 
-                        window.app.user = user;
-                        window.app.formsCollection = new FormsCollection(forms);
-                        window.app.submissionsCollection = new SubmissionsCollection();
-                        window.app.sidebarView = new SidebarView();
-                        window.app.homeView = new HomeView();
+                var Router = Backbone.Router.extend({
+                    routes: {
+                        "": "initializeHomeView",
+                        ":formID": "initializeFormView"
+                    },
+                    initializeHomeView : function(){
                         window.app.sidebarView.showTab("home");
-                        createTypeAhead(forms);
-                    });
-                });
-            },
-            initializeFormView : function(formID){
-                console.log("adasdasd");
-                JF.getUser(function(user){
-                    $("#username").html(user.name);
-                    $("#avatar").attr("src", user.avatarUrl);
-
-                    JF.getForms(function(forms){
-                        //typeahead text box
-                        $(".form-list").show();
-                        if (typeof user.avatarURL !== 'undefined') {
-                            user.avatarUrl = user.avatarURL;
-                        } else if (typeof user.avatarUrl !== 'undefined') {
-                            user.avatarURL = user.avatarUrl;
+                        if(window.app.stateModel.get("home")){
+                            return;
                         }
-
-                        window.app.user = user;
-                        window.app.formsCollection = new FormsCollection(forms);
-                        window.app.submissionsCollection = new SubmissionsCollection();
-                        window.app.sidebarView = new SidebarView();
-                        window.app.stateModel.set(formID, true);
-
+                        window.app.homeView = new HomeView();
+                    },
+                    initializeFormView : function(formID){
                         var form = window.app.formsCollection.get(formID);
                         window.app.sidebarView.addTab({
                             id: formID,
                             value: form.get("title")
-                        });
+                        });                                      
+                    }
+                });
 
-                        createTypeAhead(forms);
-                    });
-                });                
-            }
+                self.router = new Router();
+                Backbone.history.start({pushState: false});
+
+            });
         });
 
-        //initialize router
-        self.router = new Router();
-        Backbone.history.start({pushState: false});
+        //define router
     };
 
     function createTypeAhead(forms) {

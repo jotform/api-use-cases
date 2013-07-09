@@ -1,7 +1,6 @@
 package main
 
 import (
-		"github.com/alphazero/Go-Redis"
         "github.com/gorilla/mux"
         "net/http"
         "fmt"

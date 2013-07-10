@@ -30,7 +30,13 @@ $(document).ready(function(){
         var SM = Backbone.Model.extend({});
         window.app.stateModel = new SM();
 
-        
+        var w = window.innerWidth-$("#sidebar").width();
+        $("#container").width(w-20);
+
+        window.onresize = function(){
+            var w = window.innerWidth-$("#sidebar").width();
+            $("#container").width(w-20);            
+        }
 
         JF.getUser(function(user){
             $("#username").html(user.name);

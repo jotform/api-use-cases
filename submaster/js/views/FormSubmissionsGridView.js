@@ -37,17 +37,18 @@ var FormSubmissionsGridView = Backbone.View.extend({
             mode: 'range',
             starts: 1,
             onChange: function(formated) {
-                console.log(formated);
-                //$('#widgetField span').get(0).innerHTML = formated.join(' &divide; ');
+                $('.grid-date-field > span', self.el).html(formated.join(' - '));
             }
         });
         var state = false;
         $('.grid-date-field>a', this.el).bind('click', function(){
-            // $('.grid-date-picker', self.el).stop().animate({height: state ? 0 : $('.grid-date-picker div.datepicker', self.el).get(0).offsetHeight}, 500);
-            // state = !state;
-            // return false;
-            $('.grid-date-picker', self.el).toggle();
+            $('.grid-date-picker', self.el).stop().animate({height: state ? 0 : $('.grid-date-picker div.datepicker', self.el).get(0).offsetHeight}, 500, function(){
+                
+            });
+            state = !state;
             return false;
+            // $('.grid-date-picker', self.el).toggle();
+            // return false;
         });
         //$('.grid-date-picker div.datepicker', this.el).css('position', 'absolute');        
         this.renderQuestionsDropdown();

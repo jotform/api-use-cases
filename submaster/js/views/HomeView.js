@@ -1,4 +1,4 @@
-var HomeView = Backbone.View.extend({
+ var HomeView = Backbone.View.extend({
 
     el: "#home-tab",
 

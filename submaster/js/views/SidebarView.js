@@ -7,7 +7,6 @@ var SidebarView = Backbone.View.extend({
     },
 
     initialize: function(){
-        _.bindAll(this, "render");
         this.render();
     },
 
@@ -17,6 +16,7 @@ var SidebarView = Backbone.View.extend({
 
     addTab: function(data){
         this.$el.find("li.active").removeClass("active");
+
         if($('#'+data.id+'-link', this.el).length > 0) {
             $('#'+data.id+'-link', this.el).addClass("active");
             this.showTab(data.id);
@@ -27,11 +27,17 @@ var SidebarView = Backbone.View.extend({
                 '<i class="icon-th-large"></i>' +
                 '<span>' + data.value + '</span>' +
             '</li>');
+
         $('#tab-content').append(_.template($("#new-tab-template").html())({
             id: data.id,
             title: app.formsCollection.get(data.id).get("title")
         }));
-        
+
+        new FormSubmissionsGridView({
+            formModel: app.formsCollection.get(data.id),
+            el: $('#'+data.id+'-tab')
+        });
+
         this.showTab(data.id);
     },
 

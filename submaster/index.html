@@ -22,6 +22,7 @@
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/fullcalendar.css">
         <link rel="stylesheet" href="css/magnific-popup.css">
+        <link rel="stylesheet" href="css/datepicker.css">
 
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
@@ -34,6 +35,16 @@
             <div class ="content" id="<%=id%>-tab">
                 <div class="row area-top">
                     <%=title%>
+                </div>
+                <div class="row grid-wrapper">
+                    <div class="column grid-head widget stacked" style="width:100%">
+                        <div class="grid-date-field">
+                            <span>28 July, 2008 &divide; 31 July, 2008</span>
+                            <a>Select date range</a>
+                        </div>
+                        <div class="grid-date-picker">
+                        </div>
+                    </div>
                 </div>
             </div>
         </script>
@@ -120,7 +131,9 @@
 
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script src="http://mustafa.jotform.pro/api/js/JotForm.js"></script>
+        <script src="http://js.jotform.com/JotForm.js"></script>
+
+        <!-- <script src="http://mustafa.jotform.pro/api/js/JotForm.js"></script> -->
 
         <script src="js/vendor/hogan-2.0.0.js"></script>
         <script src="js/vendor/typeahead.min.js"></script>
@@ -133,6 +146,7 @@
         <script src="js/vendor/moment.min.js"></script>
         <script src="js/vendor/jquery.knob.js"></script>
         <script src="js/vendor/jquery.magnific-popup.js"></script>
+        <script src="js/vendor/datepicker.js"></script>
 
         <script src="js/vendor/fullcalendar.js"></script>
 
@@ -154,6 +168,7 @@
         <script src="js/views/ProfileView.js"></script>
         <script src="js/views/SubmissionsCalendarView.js"></script>
         <script src="js/views/HomeView.js"></script>
+        <script src="js/views/FormSubmissionsGridView.js"></script>
 
         <script src="js/app.js"></script>
 

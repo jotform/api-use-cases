@@ -5,6 +5,7 @@ import(
     "net/http"
     "fmt"
 	"local/user/redis_back"
+	"local/user/jotform_api"
 )
 
 func main() {
@@ -12,7 +13,11 @@ func main() {
     r.HandleFunc("/", HomeHandler)
     http.Handle("/", r)
     fmt.Println("Hello world")
+    japi := new(jotform_api.Jotform_api)
+    japi.Init()
+    _ = japi.GetForms()
     http.ListenAndServe(":8080", nil)
+
 }
 
 func HomeHandler(w http.ResponseWriter, r *http.Request){

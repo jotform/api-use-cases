@@ -19,7 +19,14 @@ jotModule.config(function($routeProvider){
 		controller : 'ContactController'
 	});
 
+	$routeProvider.when('/backup',{
+		templateUrl : '/app/views/backup.tpl.html',
+		controller : 'BackupController'
+	});
+
 	$routeProvider.otherwise({
 		redirectTo : '/index'
 	});
+
+
 });

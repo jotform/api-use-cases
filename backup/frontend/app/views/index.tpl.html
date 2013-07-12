@@ -12,11 +12,14 @@
 <p>
 	Click below to connect your jotform account or login
 </p>
-<p ng-class="jf_connect_class">
+
+<div ng-hide="jot_logged_in">
 	<button class="btn btn-primary" ng-click="jotform_connect()">JotForm Connect</button>
-</p>
-<p ng-class="jf_after_connect_class">
+</div>
+
+<div ng-show="jot_logged_in">
 	Login Successful!! <br />
-	<button class="btn btn-primary" ng-click="jotform_start">Start Back-up</button>
-</p>
+	<button class="btn btn-primary" ng-click="go('!/backup')">Start Back-up</button> <br />
+</div>
+
 </div>

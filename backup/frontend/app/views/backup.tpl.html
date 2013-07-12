@@ -1,0 +1,36 @@
+<h2> Here are the list of your forms to be migrated :</h2>
+<table class="mytable">
+	<thead>
+		<tr>
+			<th> ID </th>
+			<th> Form Title </th>
+			<th> Field Count </th>
+			<th> Submissions Count </th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="form in forms">
+			<td>{{form.id}}</td>
+			<td class="form-title">{{ form.title|cutit:10:'...'}}</td>
+			<td>0</td>
+			<td>{{form.count}}</td>
+		</tr>
+	</tbody>
+<table>
+
+<style type="text/css">
+	table.mytable {
+		text-align: center;
+		width: 100%;
+	}
+	table.mytable td{
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	table.mytable td.form-title{
+		text-align: left;
+	}
+	table.mytable {
+
+	}
+</style>

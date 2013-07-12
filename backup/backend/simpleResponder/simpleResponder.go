@@ -11,12 +11,24 @@ import(
 func main() {
     r := mux.NewRouter()
     r.HandleFunc("/", HomeHandler)
+    r.HandleFunc("/addTask",addTask)
     http.Handle("/", r)
-    fmt.Println("Hello world")
+
+
+    /*
     japi := new(jotform_api.Jotform_api)
     japi.Init()
-    _ = japi.GetForms()
+    _ = japi.GetForms() */
+    
     http.ListenAndServe(":8080", nil)
+
+}
+
+func addTask(w http.ResponseWriter, r *http.Request){
+	redis := new(redis_back.RedisBack)
+	redis.Init()
+
+	
 
 }
 

@@ -453,3 +453,23 @@ submissions
 .answer-wrapper {
     margin: 4px 0;
 }
+
+/*----------------------------------------------------
+submissions grid form
+*/
+.grid-form-questions-list {
+    margin: 0;
+    padding: 0;
+}
+
+.grid-query-wrapper {
+    width:20%;
+    float:left;
+}
+
+.grid-query-wrapper > .sliding {
+    position: absolute; 
+    top:42px; 
+    height:0; 
+    overflow:hidden;
+}

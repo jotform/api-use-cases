@@ -24,6 +24,9 @@
         <link rel="stylesheet" href="css/magnific-popup.css">
         <link rel="stylesheet" href="css/datepicker.css">
 
+
+        <link rel="stylesheet" href="css/JotFormAPIWidgets.css">
+
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
@@ -37,13 +40,38 @@
                     <%=title%>
                 </div>
                 <div class="row grid-wrapper">
-                    <div class="column grid-head widget stacked" style="width:100%">
-                        <div class="grid-date-field">
-                            <span>28 July, 2008 - 31 July, 2008</span>
-                            <a><i class="icon-calendar"></i></a>
+                    <div class="column grid-head widget" style="width:100%">
+
+                        <div class="grid-query-wrapper">
+                            <div class="grid-date-picker-toggle">
+                                <span>28 July, 2008 - 31 July, 2008</span>
+                                <a><i class="icon-calendar"></i></a>
+                            </div>
+                            <div class="grid-date-picker sliding">
+                            </div>
                         </div>
-                        <div class="grid-date-picker" style="height:0; overflow:hidden;">
+                        <div class="grid-query-wrapper">
+                            <div class="grid-form-questions-toggle">
+                                Questions
+                            </div>
+                            <div class="grid-form-questions sliding">
+                                <ul class="grid-form-questions-list">
+                                    <li>
+                                        <input type="checkbox" data-qid="ip" /><span>IP</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" data-qid="created_at" /><span>Creation Date</span>
+                                    </li>
+                                </ul>
+                            </div> 
                         </div>
+                        <div class="grid-query-wrapper">
+                            <input type="checkbox" id="unread-flag"/><span>Unread</span>
+                        </div> 
+                    </div>
+
+                    <div style="width: 100%; height: 500px; background: white">
+                        Content
                     </div>
                 </div>
             </div>
@@ -148,6 +176,8 @@
         <script src="js/vendor/jquery.magnific-popup.js"></script>
         <script src="js/vendor/datepicker.js"></script>
 
+        <script src="js/JotFormAPIWidgets.js"></script>
+
         <script src="js/vendor/fullcalendar.js"></script>
 
         <script src="js/collections/FormsCollection.js"></script>
@@ -161,9 +191,7 @@
         <script src="js/views/UsageView.js"></script>
         <script src="js/views/UsagesKnobView.js"></script>
         <script src="js/views/FormsBarChartView.js"></script>
-
         <script src="js/views/SubmissionDetailView.js"></script>
-
         <script src="js/views/FormsColumnChartView.js"></script>
         <script src="js/views/ProfileView.js"></script>
         <script src="js/views/SubmissionsCalendarView.js"></script>

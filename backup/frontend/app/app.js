@@ -9,6 +9,16 @@ jotModule.config(function($routeProvider){
 		controller : 'IndexController'
 	});
 
+	$routeProvider.when('/about',{
+		templateUrl : '/app/views/about.tpl.html',
+		controller : 'AboutController'
+	});
+
+	$routeProvider.when('/contact',{
+		templateUrl : '/app/views/contact.tpl.html',
+		controller : 'ContactController'
+	});
+
 	$routeProvider.otherwise({
 		redirectTo : '/index'
 	});

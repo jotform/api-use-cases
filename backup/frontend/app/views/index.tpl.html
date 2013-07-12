@@ -1,3 +1,22 @@
-<div>
-Controller Name {{title}}
+<div class="ah">
+<h2> Wellcome to the Jotform data back-up service</h2>
+<p>
+	This service connects to your Jotform account and back-ups all your forms&submissions to our databases.
+</p>
+<p>
+	You may then browse your submissions and your forms from here. If you loose your data on jotform accidentaly, you can easily copy your data back to jotform.
+</p>
+<p>
+	Your forms and submissions is now trully safe!
+</p>
+<p>
+	Click below to connect your jotform account or login
+</p>
+<p ng-class="jf_connect_class">
+	<button class="btn btn-primary" ng-click="jotform_connect()">JotForm Connect</button>
+</p>
+<p ng-class="jf_after_connect_class">
+	Login Successful!! <br />
+	<button class="btn btn-primary" ng-click="jotform_start">Start Back-up</button>
+</p>
 </div>

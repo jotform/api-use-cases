@@ -1,12 +1,43 @@
 <!DOCTYPE html>
-<html ng-app="">
+<html ng-app="jot">
 <head>
 
+<title> Jotform Backup Service </title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Bootstrap -->
+<link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 </head>
 <body>
+	<div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">JotForm Back-Up</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><a href="#/index">Home</a></li>
+              <li><a href="#/about">About</a></li>
+              <li><a href="#/contact">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 
-	Type something : <input type="text" ng-model="name"/> <br />{{name}}
+    <div class="container" ng-view=""> <!-- Also home of the angular views -->
+
+    </div> <!-- /container -->
 
 	<script type="text/javascript" src="/js/angular.js"></script>
+	<script src="/lib/jquery2.min.js"></script> <!-- jquery is globally a must! -->
+	<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+
+
+	<script type="text/javascript" src="/app/app.js"></script>
+	<script type="text/javascript" src="/app/controllers/controllers.js"></script>
 </body>
 </html>

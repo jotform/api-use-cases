@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Submission Map</title>
+    <link rel="stylesheet" href="css/stylesheet.css" type="text/css" media="screen, projection" />
+
+    <script type="text/javascript" src="http://js.jotform.com/JotForm.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+    <script type="text/javascript" src="js/libraries.js"></script>
+    <script type="text/javascript" src="views/submissionMapView.js"></script>
+    <script type="text/javascript" src="js/application.js"></script>
+</head>
+<body>
+    <?php 
+    
+    ?>
+    <div id="mainContainer">
+        <div class="widget" style="width:100%;" id="submissionMap">
+            <div class="widget-header"><h2>Submission Contribution Map</h2></div>
+            <div class="widget-content">
+                <div>
+                    <div class="userFormsList sHContainer">
+                        <!--<div class="sHDivisions">
+                            <label class="sHLabel">Form List</label> -->
+                            <select id="userFormsList" class="prettyInputs">
+                                <option>Loading forms...</option>
+                            </select>
+                        <!-- </div> -->
+                        <input type="hidden" id="chartType" value="areaChart" />
+                        <!-- <div class="sHDivisions">
+                            <label class="sHLabel">Chart Type</label>
+                            <select id="chartType">
+                                <option value="barChart">Bar Chart</option>
+                                <option value="lineChart">Line Chart</option>
+                                <option value="areaChart" selected>Area Chart</option>
+                                <option value="pieChart">Pie Chart</option>
+                            </select>
+                        </div> -->
+                        <!-- <div class="sHDivisions"> -->
+                            <!-- <label class="sHLabel">Range</label> -->
+                            <!-- From: <input type="text" id="date-input-1" class="rangeInputs prettyInputs" /> To: <input type="Text" id="date-input-2" class="rangeInputs prettyInputs" /> -->
+                        <!-- </div> -->
+                        <!-- <div class="sHDivisions"> -->
+                            <button name="button" id="getFormSubmissions" class="go-btn btn-green">Show Map</button>
+                        <!-- </div> -->
+                    </div>
+                    <div class="sHContainer" id="chartContainer">
+                        <div id="chart_div"></div>
+                    </div>
+                    <div class="sHContainer hiddenElem" id="totalSubmission">
+                        <b>Total submissions: </b> <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <script type='text/javascript'>
+        //  google.load('visualization', '1', {'packages': ['geochart']});
+        //  google.setOnLoadCallback(drawRegionsMap);
+
+        //  var arrayData = new Array();
+             // arrayData = [['Country', 'Popularity'],
+             //      ['Germany', 200],
+             //      ['United States', 300],
+             //      ['Brazil', 400],
+             //      ['Canada', 500],
+             //      ['France', 600],
+             //      ['RU', 700]];
+
+        //   function drawRegionsMap() {
+        //     var data = google.visualization.arrayToDataTable(arrayData);
+
+        //     var options = {};
+
+        //     var chart = new google.visualization.GeoChart(document.getElementById('map'));
+        //     chart.draw(data, options);
+        // };
+    </script>
+</body>
+</html>

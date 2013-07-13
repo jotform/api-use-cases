@@ -4,6 +4,7 @@ var CS = {
     **Make sure user is logged and then setup page
     */
     setup: function() {
+        JF.initialize({ appName: "Combine Submissions"});
         if(JF.getAPIKey()) {
             CS.getForms();
         } else {

@@ -18,12 +18,17 @@
     vertical-align: top;
 }
 .jf-checkbox-icon {
-    background: url(../images/ch-box.png);
+    background: url(../images/icons.png);
+    background-position: 0px -30px;
     width: 20px;
     height: 20px;
 }
+.jf-checkbox-icon.active {
+    background-position: 0px 0px;
+}
 .jf-form-icon {
-    background: url(../images/form.png);
+    background: url(../images/icons.png);
+    background-position: 0px -60px;
     width: 20px;
     height: 20px;
 }

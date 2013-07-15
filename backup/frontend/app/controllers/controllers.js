@@ -57,9 +57,10 @@ jotModule.controller('ContactController',function($scope){
 
 	and after receiving ACK message 
 */
-jotModule.controller('BackupController',function($scope,jotservice){
+jotModule.controller('BackupController',function($scope,jotservice,$timeout){
 	$scope.forms = [];
-	jotservice.getForms().then(function(response){
+	var promis = jotservice.getForms();
+	promis.then(function(response){
 		$scope.forms = response;
 	});
 

@@ -1,5 +1,6 @@
+
 /*
-	General Jot Module to define app
+General Jot Module to define app
 */
 var jotModule = angular.module('jot', []);
 
@@ -27,6 +28,4 @@ jotModule.config(function($routeProvider){
 	$routeProvider.otherwise({
 		redirectTo : '/index'
 	});
-
-
 });

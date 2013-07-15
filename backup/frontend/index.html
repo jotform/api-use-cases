@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html ng-app="jot">
+<html>
 <head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title> Jotform Backup Service </title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
@@ -39,16 +39,22 @@
 
     </div> <!-- /container -->
 
-	<script type="text/javascript" src="/js/angular.js"></script>
-	<script src="/lib/jquery2.min.js"></script> <!-- jquery is globally a must! -->
-	<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+<!-- load scripts using require.js -->
+<script src="/lib/jquery2.min.js"></script> <!-- jquery is globally a must! -->
+<script type="text/javascript" src="/js/angular.js"></script>
 
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/app/app.js"></script>
+<script type="text/javascript" src="/app/filters/filters.js"></script>
 
-	<script type="text/javascript" src="/app/app.js"></script>
-	<script type="text/javascript" src="/app/filters/filters.js"></script>
-	
-	<script type="text/javascript" src="/app/services/jotformService.js"></script>
-	<script type="text/javascript" src="/app/controllers/controllers.js"></script>
-	<script type="text/javascript" src="http://js.jotform.com/JotForm.js"></script>
+<script type="text/javascript" src="/app/services/jotformService.js"></script>
+<script type="text/javascript" src="/app/controllers/controllers.js"></script> 
+<script type="text/javascript" src="http://js.jotform.com/JotForm.js"></script>
+<script type="text/javascript">
+//bootstrap angularjs
+window.onload=function(){
+   angular.bootstrap(document, ['jot']);
+}
+</script>
 </body>
 </html>

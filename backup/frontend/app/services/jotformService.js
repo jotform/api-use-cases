@@ -1,10 +1,15 @@
-jotModule.factory('jotservice',function($q){
+jotModule.factory('jotservice',function($q,$timeout){
 	var jotservice = {};
 
 	jotservice.getForms = function(){
+
 		var deferred = $q.defer();
+		
+
 		JF.getForms(function(response){
-			deferred.resolve(response);
+			$timeout(function(){// put deferred into a $timeout to make it in $digest cycle
+				deferred.resolve(response);
+			},1);
 		});
 
 		return deferred.promise;

@@ -4,14 +4,16 @@ import(
     "github.com/gorilla/mux"
     "net/http"
     "fmt"
+    "log"
 	"local/user/redis_back"
-	"local/user/jotform_api"
+	"github.com/mikespook/gearman-go/client"
+	//"local/user/jotform_api"
 )
 
 func main() {
     r := mux.NewRouter()
     r.HandleFunc("/", HomeHandler)
-    r.HandleFunc("/addTask",addTask)
+    r.HandleFunc("/addBackupTasks",addBackupTasks)
     http.Handle("/", r)
 
 
@@ -19,16 +21,34 @@ func main() {
     japi := new(jotform_api.Jotform_api)
     japi.Init()
     _ = japi.GetForms() */
-    
+    fmt.Println("test2")
     http.ListenAndServe(":8080", nil)
 
 }
 
-func addTask(w http.ResponseWriter, r *http.Request){
-	redis := new(redis_back.RedisBack)
-	redis.Init()
+func addBackupTasks(w http.ResponseWriter, r *http.Request){
+	//redis := new(redis_back.RedisBack)
+	//redis.Init()
 
-	
+	//let put redis aside for now! just stick with gearman 
+
+
+	c, _ := client.New("127.0.0.1:4730")
+	// ...
+	defer c.Close()
+	data := []byte("JOB 1")
+	c.ErrHandler = func(e error) {
+	    log.Println(e)
+	    panic(e)
+	}
+
+	jobHandler := func(job *client.Job) {
+	    log.Printf("%s", job.Data)
+	}
+
+	_ = c.Do("backupForm", data, client.JOB_NORMAL, jobHandler)
+	fmt.Println("Tasks added")
+		
 
 }
 

@@ -14,7 +14,7 @@ jotModule.controller('NavigationController',function($scope){
 	}
 });
 
-jotModule.controller('IndexController',function($scope,$location,valStorage){
+jotModule.controller('IndexController',function($scope,$location,valStorage,$timeout){
 	$scope.title = "Index Controller Title";
 	
 	$scope.forms = [];
@@ -24,12 +24,9 @@ jotModule.controller('IndexController',function($scope,$location,valStorage){
 	$scope.jotform_connect = function(){
 		JF.login(
 				function(){
-					$scope.jot_logged_in=valStorage.set("jot_logged_in",true);
-					JF.getForms(function(response){
-						for(var i=0; i<response.length; i++){
-							//document.write( "<li> " + response[i].title);
-						}
-					});
+					$timeout(function(){
+						$scope.jot_logged_in=valStorage.set("jot_logged_in",true);
+					},1);
 				},
 				function(){
 					window.alert("Could not authorize user");
@@ -38,7 +35,7 @@ jotModule.controller('IndexController',function($scope,$location,valStorage){
 	}
 
 	$scope.go = function ( ) {
-	 	$location.path('/backup');
+		$location.path('/backup');
 	};
 
 
@@ -59,12 +56,18 @@ jotModule.controller('ContactController',function($scope){
 */
 jotModule.controller('BackupController',function($scope,jotservice,$timeout){
 	$scope.forms = [];
-	var promis = jotservice.getForms();
+	var service = jotservice;
+	var promis = service.getForms();
 	promis.then(function(response){
 		$scope.forms = response;
 	});
 
-
+	$scope.startBackup = function(){
+		//send scope.forms over http to server
+		service.sendFormListToServer($scope.forms).then(function(){
+			console.log("I am now here $scope.startBackup");
+		});
+	}
 });
 
 

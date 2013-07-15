@@ -14,7 +14,6 @@ jotModule.filter('cutit', function() {
 		for (var i = 0; i < count; i++) {
 			out += input.charAt(i);
 		}
-		console.log(input,count,append);
 		return out+append;
 	}
 });

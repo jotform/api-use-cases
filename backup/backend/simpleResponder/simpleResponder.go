@@ -3,6 +3,7 @@ package main
 import(
     "github.com/gorilla/mux"
     "net/http"
+    "net/http/httputil"
     "fmt"
     "log"
 	"local/user/redis_back"
@@ -12,8 +13,7 @@ import(
 
 func main() {
     r := mux.NewRouter()
-    r.HandleFunc("/", HomeHandler)
-    r.HandleFunc("/addBackupTasks",addBackupTasks)
+    r.HandleFunc("/goback/addBackupTasks",addBackupTasks)
     http.Handle("/", r)
 
 
@@ -31,8 +31,17 @@ func addBackupTasks(w http.ResponseWriter, r *http.Request){
 	//redis.Init()
 
 	//let put redis aside for now! just stick with gearman 
+	r.ParseForm()
+	tasks  := r.FormValue("tasks")
 
+	fmt.Println("header => ",r.Header)
+	fmt.Println("tasks => ",tasks)
+	fmt.Println("hello world in addBackupTasks")
 
+	//read request body
+	var p []byte;
+	p,_ = httputil.DumpRequest(r,true)
+	fmt.Println("READ BODY ",string(p))
 	c, _ := client.New("127.0.0.1:4730")
 	// ...
 	defer c.Close()

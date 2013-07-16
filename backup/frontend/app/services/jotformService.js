@@ -46,7 +46,7 @@ jotModule.factory('jotservice',function($q,$timeout,$http){
 		}
 		console.log(tasks);
 
-		return $http.post("/goback/addBackupTasks",{tasks:angular.toJson(tasks)}).then(function(response){
+		return $http.post("/goback/addBackupTasks","tasks=asd").then(function(response){
 			console.log("/addBackupTasks  => ",response);
 			return response;
 		});

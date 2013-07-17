@@ -3,13 +3,21 @@ package main
 import(
     "github.com/gorilla/mux"
     "net/http"
-    "net/http/httputil"
+    "io/ioutil"
     "fmt"
     "log"
 	"local/user/redis_back"
 	"github.com/mikespook/gearman-go/client"
+	"encoding/json"
 	//"local/user/jotform_api"
 )
+
+//struct definitions for easy json decoding
+type Task struct {
+	FormTitle string
+	Id	string
+	SubmissionTasks [][]int
+}
 
 func main() {
     r := mux.NewRouter()
@@ -31,17 +39,20 @@ func addBackupTasks(w http.ResponseWriter, r *http.Request){
 	//redis.Init()
 
 	//let put redis aside for now! just stick with gearman 
-	r.ParseForm()
-	tasks  := r.FormValue("tasks")
+	
+	body, _ := ioutil.ReadAll(r.Body)
 
-	fmt.Println("header => ",r.Header)
-	fmt.Println("tasks => ",tasks)
-	fmt.Println("hello world in addBackupTasks")
+	var tasks []Task
+	fmt.Println("received tasks in raw format => " ,string(body))
+
+	json.Unmarshal(body,&tasks)
+
+	fmt.Println("unmarshalled tasks ",tasks)
 
 	//read request body
-	var p []byte;
-	p,_ = httputil.DumpRequest(r,true)
-	fmt.Println("READ BODY ",string(p))
+	//var p []byte;
+	//_,_ = httputil.DumpRequest(r,true)
+	//fmt.Println("READ BODY ",string(p))
 	c, _ := client.New("127.0.0.1:4730")
 	// ...
 	defer c.Close()

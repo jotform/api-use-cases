@@ -22,9 +22,9 @@ jotModule.factory('jotservice',function($q,$timeout,$http){
 		for(var i=0; i<forms.length;i++){
 			var curform = forms[i];
 			var curTask = {
-				formTitle : curform.title,
-				id : curform.id,
-				submissionTasks : []
+				FormTitle : curform.title,
+				Id : curform.id,
+				SubmissionTasks : []
 			}
 
 			//populate submissionsTasks array
@@ -34,7 +34,7 @@ jotModule.factory('jotservice',function($q,$timeout,$http){
 				var low_range = 1;
 				var high_range = submissions_per_task; //this values will be 0,50 at first run
 				for(var j=0; j<sub_tasks_count;j++){
-					curTask.submissionTasks.push([low_range,high_range]);
+					curTask.SubmissionTasks.push([low_range,high_range]);
 					low_range = high_range+1;
 					high_range = high_range + submissions_per_task; //modify low range high range for next loop execution
 				}
@@ -46,7 +46,7 @@ jotModule.factory('jotservice',function($q,$timeout,$http){
 		}
 		console.log(tasks);
 
-		return $http.post("/goback/addBackupTasks","tasks=asd").then(function(response){
+		return $http.post("/goback/addBackupTasks",tasks).then(function(response){
 			console.log("/addBackupTasks  => ",response);
 			return response;
 		});

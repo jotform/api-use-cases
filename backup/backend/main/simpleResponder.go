@@ -7,17 +7,15 @@ import(
     "fmt"
     "log"
 	"local/user/redis_back"
+	"local/user/definitions"
 	"github.com/mikespook/gearman-go/client"
 	"encoding/json"
+	"sync"
 	//"local/user/jotform_api"
 )
 
 //struct definitions for easy json decoding
-type Task struct {
-	FormTitle string
-	Id	string
-	SubmissionTasks [][]int
-}
+
 
 func main() {
     r := mux.NewRouter()
@@ -42,31 +40,59 @@ func addBackupTasks(w http.ResponseWriter, r *http.Request){
 	
 	body, _ := ioutil.ReadAll(r.Body)
 
-	var tasks []Task
-	fmt.Println("received tasks in raw format => " ,string(body))
+	var tasks []definitions.Task
+	//fmt.Println("received tasks in raw format => " ,string(body))
 
 	json.Unmarshal(body,&tasks)
 
-	fmt.Println("unmarshalled tasks ",tasks)
-
-	//read request body
-	//var p []byte;
-	//_,_ = httputil.DumpRequest(r,true)
-	//fmt.Println("READ BODY ",string(p))
+	//connect gearman
 	c, _ := client.New("127.0.0.1:4730")
 	// ...
 	defer c.Close()
-	data := []byte("JOB 1")
 	c.ErrHandler = func(e error) {
 	    log.Println(e)
 	    panic(e)
 	}
-
+	var wg sync.WaitGroup
 	jobHandler := func(job *client.Job) {
-	    log.Printf("%s", job.Data)
+	    wg.Done()
 	}
+	
+	//lets create tasks
+	for _,task := range tasks {
 
-	_ = c.Do("backupForm", data, client.JOB_NORMAL, jobHandler)
+		type GearTask struct{
+			OpType string //form or submission 
+			FormId string //id of the form
+			ApiKey string //jotform api key of the user
+			ExtraData string //extra data of tasks, std value is empty string for case submissions it will be a range string ie, 51-100
+		}
+		//add backupForm Task  //example api key, TODO: receive jotform api key via cookie :)
+		gtask := definitions.GearTask{
+			"form",
+			task.Id,
+			"05f5108864eb5ee828ef9b7f8218b448",
+			""}
+		gtask_arr,_ := json.Marshal(gtask)	
+		wg.Add(1)
+		_ = c.Do("backupForm", gtask_arr, client.JOB_NORMAL, jobHandler)
+		fmt.Println("backupForm tasks added for form id "+task.Id)
+		//add backupSubmissons Task
+		if(len(task.SubmissionTasks) != 0){
+			for _,sub_range := range task.SubmissionTasks {
+				gtask := definitions.GearTask{
+					"submissions",
+					task.Id,
+					"05f5108864eb5ee828ef9b7f8218b448",
+					string(sub_range[0])+"-"+string(sub_range[1])}
+				_,_ = json.Marshal(gtask)
+				//_ = c.Do("backupSubmissions", gtask_arr, client.JOB_NORMAL, jobHandler)
+				fmt.Println("backupSubmissions task added for form id "+task.Id+" and for range "+string(sub_range[0])+"-"+string(sub_range[1]))
+			}
+		}
+
+	}
+	wg.Wait()
 	fmt.Println("Tasks added")
 		
 

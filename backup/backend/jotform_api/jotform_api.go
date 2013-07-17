@@ -7,8 +7,9 @@
 package jotform_api
 
 import(
-	"github.com/jotform/jotform-api-go-old"
+	"github.com/jotform/jotform-api-go"
 	"fmt"
+	"strconv"
 )
 
 type Jotform_api struct{
@@ -16,14 +17,20 @@ type Jotform_api struct{
 }
 
 //initalizes the Jotform_api struct with correct details
-func (ja *Jotform_api) Init(){
+func (ja *Jotform_api) Init(apikey string){
 	ja.Client = new(jotform.JotformAPIClient)
-	ja.Client.ApiKey = "05f5108864eb5ee828ef9b7f8218b448"
+	ja.Client.ApiKey = apikey
 }
 
 func (ja *Jotform_api) GetForms() (forms []byte) {
 	forms = ja.Client.GetForms()
 	//debug
 	fmt.Println("Forms JSON = "+string(forms))
+	return
+}
+
+func (ja *Jotform_api) GetFormQuestions(formId string) (questions []byte) {
+	formid64,_ := strconv.ParseInt(formId,10,64)
+	questions = ja.Client.GetFormQuestions(formid64 )
 	return
 }

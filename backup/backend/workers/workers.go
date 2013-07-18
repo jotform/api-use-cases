@@ -14,7 +14,7 @@ import (
 
 func backupForm(job *worker.Job) ([]byte, error) {
     
-    /*
+    
     data := job.Data
 
     log.Println("backupForm function entered")
@@ -24,9 +24,10 @@ func backupForm(job *worker.Job) ([]byte, error) {
     jj := new(definitions.GearTask)
 
     json.Unmarshal(data,&jj)
-    */
+    
     //cal async version to do job in backgroudn
     //go backFormAsyn(job)
+    log.Println("JOB Received by me task ID => ",jj.TaskId)
     return []byte("JOB RECEIVED"),nil
 }
 /*

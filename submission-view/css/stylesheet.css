@@ -1,0 +1,30 @@
+/* Stylesheet for 
+  
+   Submission View app
+
+   -------------
+
+   for displaying each submission
+   as one page presentation.
+
+   ------------- */
+
+   .header
+   {
+    font-weight: bold;
+    padding-bottom: 10px;
+    text-align: center;
+   }
+   .row-fluid
+   {
+    padding-bottom:10px;
+    text-align: center;
+   }
+   .columnCell
+   {
+    
+   }
+   #getFormSubmissions
+   {
+    margin-top: -9px;
+   }

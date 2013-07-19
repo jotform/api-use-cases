@@ -10,7 +10,8 @@ import(
 	"local/user/definitions"
 	"github.com/mikespook/gearman-go/client"
 	"encoding/json"
-	//"sync"
+	//"time"
+	"sync"
 	//"local/user/jotform_api"
 )
 
@@ -36,7 +37,7 @@ func addBackupTasks(w http.ResponseWriter, r *http.Request){
 	var jcount = 0 //counter holding job count
 	//redis := new(redis_back.RedisBack)
 	//redis.Init()
-	//var wg sync.WaitGroup //create sync.WaitGroup for
+	var wg sync.WaitGroup //create sync.WaitGroup for
 	//let put redis aside for now! just stick with gearman 
 	
 	body, _ := ioutil.ReadAll(r.Body)
@@ -49,7 +50,7 @@ func addBackupTasks(w http.ResponseWriter, r *http.Request){
 	
 	
 	jobHandler := func(job *client.Job) {
-	    //wg.Done() //release the lock on
+	    wg.Done() //release the lock on
 	    log.Println("JOB COMPLETED")
 	}
 	
@@ -74,7 +75,7 @@ func addBackupTasks(w http.ResponseWriter, r *http.Request){
 				"",
 				jcount}
 			gtask_arr,_ := json.Marshal(gtask)	
-			//wg.Add(1) //lock wg
+			wg.Add(1) //lock wg
 			c.Do("backupForm", gtask_arr, client.JOB_BG, jobHandler)
 			
 			fmt.Println("backupForm task added for form id "+task.Id+" TaskID =>  ",jcount)
@@ -94,10 +95,11 @@ func addBackupTasks(w http.ResponseWriter, r *http.Request){
 			}
 
 		}
-		//wg.Wait()
+		
 	}
-	go sendTasks()
 	
+	go sendTasks()
+	wg.Wait()
 	fmt.Println("Tasks added")
 		
 

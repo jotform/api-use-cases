@@ -14,30 +14,17 @@ import (
 
 func backupForm(job *worker.Job) ([]byte, error) {
     
-    
-    data := job.Data
-
-    log.Println("backupForm function entered")
-
-    //fetch form questions from jotform
-    //first unmarshal job.Data string
-    jj := new(definitions.GearTask)
-
-    json.Unmarshal(data,&jj)
-    
-    //cal async version to do job in backgroudn
-    //go backFormAsyn(job)
-    log.Println("JOB Received by me task ID => ",jj.TaskId)
+    go backFormAsync(job)
     return []byte("JOB RECEIVED"),nil
 }
 /*
-    asyn version of backForm,
+    asyn version of backForm, does not return anything
 */
-func backFormAsyn(job *worker.Job)([]byte,error){
+func backFormAsync(job *worker.Job){
       
     data := job.Data
 
-    log.Println("backupForm function entered")
+    log.Println("backupFormAsync function entered")
 
     //fetch form questions from jotform
     //first unmarshal job.Data string
@@ -45,14 +32,9 @@ func backFormAsyn(job *worker.Job)([]byte,error){
 
     json.Unmarshal(data,&jj)
     
-    jotformAPI := new(jotform.JotformAPIClient)
-    jotformAPI.ApiKey = jj.ApiKey
-    formidint64,_ := strconv.ParseInt(jj.FormId,10,64)
+    log.Println("JOB Received by me task ID => ",jj.TaskId)
     //get forms questions
-    questions := jotformAPI.GetFormQuestions(formidint64)
-    log.Println("received questions => ",string(questions))
-
-    return nil,nil
+    //questions := jotformAPI.GetFormQuestions(formidint64)
 }
 
 func backupSubmissions(job *worker.Job)([]byte, error){
@@ -81,8 +63,8 @@ func main() {
         }
     }
     w.AddServer("127.0.0.1:4730")
-    w.AddFunc("backupForm", backupForm, worker.Immediately)
-    w.AddFunc("backupSubmissions", backupSubmissions, worker.Immediately)
+    w.AddFunc("backupForm", backupForm, worker.OneByOne)
+    w.AddFunc("backupSubmissions", backupSubmissions, worker.OneByOne)
     w.AddFunc("SysInfo", worker.SysInfo, worker.Immediately)
     w.AddFunc("MemInfo", worker.MemInfo, worker.Immediately)
     go w.Work()

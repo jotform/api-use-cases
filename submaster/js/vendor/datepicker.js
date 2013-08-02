@@ -503,7 +503,7 @@
 									break;
 								case 'datepickerViewYears':
 									tblEl.get(0).className = 'datepickerViewDays';
-									el.find('span').text(formatDate(tmp, 'B, Y'));
+									el.find('span').text(formatDate(tmp, 'B Y'));
 									break;
 							}
 						} else if (parentEl.parent().parent().is('thead')) {

@@ -44,7 +44,7 @@
 
                         <div class="grid-query-wrapper">
                             <div class="grid-date-picker-toggle">
-                                <span>28 July, 2008 - 31 July, 2008</span>
+                                Calendar: 
                                 <a><i class="icon-calendar"></i></a>
                             </div>
                             <div class="grid-date-picker sliding">
@@ -52,7 +52,9 @@
                         </div>
                         <div class="grid-query-wrapper">
                             <div class="grid-form-questions-toggle">
-                                Questions
+                            <!---->
+                                <a class="grid-form-question-toggle-click"href="">Select Questions▾</a>
+                            <!---->
                             </div>
                             <div class="grid-form-questions sliding">
                                 <ul class="grid-form-questions-list">
@@ -63,15 +65,23 @@
                                         <input type="checkbox" data-qid="created_at" /><span>Creation Date</span>
                                     </li>
                                 </ul>
-                            </div> 
+                            </div>
                         </div>
                         <div class="grid-query-wrapper">
                             <input type="checkbox" id="unread-flag"/><span>Unread</span>
                         </div> 
                     </div>
 
-                    <div style="width: 100%; height: 500px; background: white">
+                    <div class="grid-content-wrapper" style="width: 100%; height: 500px; background: white">
                         Content
+                        <!---->
+                        <table class="grid-content-table" border="1">
+                            <thead></thead>
+                            <tbody></tbody>
+                        <table>
+                        <br>
+                        <span style="display: none;" class="grid-content-span">No Submissions</span>
+                        <!---->
                     </div>
                 </div>
             </div>
@@ -182,6 +192,7 @@
 
         <script src="js/collections/FormsCollection.js"></script>
         <script src="js/collections/SubmissionsCollection.js"></script>
+        <script src="js/collections/FormSubmissionsCollection.js"></script>
         <script src="js/models/TestModel.js"></script>
 
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>

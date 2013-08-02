@@ -60,6 +60,7 @@ $(document).ready(function(){
                 
                 window.app.formsCollection = new FormsCollection(forms);
                 window.app.submissionsCollection = new SubmissionsCollection();
+                window.app.formSubmissionsCollection = new FormSubmissionsCollection();
                 window.app.sidebarView = new SidebarView();
 
                 var Router = Backbone.Router.extend({

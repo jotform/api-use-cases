@@ -20,6 +20,7 @@ var SubmissionsCollection = Backbone.Collection.extend({
             }
         }, query);
 
+        
         function createCacheKey(){
             if(typeof query === 'undefined') return "default";
             var key = "";

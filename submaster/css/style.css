@@ -458,8 +458,11 @@ submissions
 submissions grid form
 */
 .grid-form-questions-list {
+
+
     margin: 0;
     padding: 0;
+    background-color: rgba(225, 217, 228, 1);
 }
 
 .grid-query-wrapper {
@@ -473,3 +476,25 @@ submissions grid form
     height:0; 
     overflow:hidden;
 }
+/**/
+.grid-content-table {
+    border-width: 0px;
+    border-spacing: 0px;
+    border-style: outset;
+    border-color: black;
+    border-collapse: collapse;
+    background-color: #FFF5EE;
+
+}
+.grid-content-table th {
+    background-color: white;
+    width: 150px;
+}
+.grid-content-table tr {
+    width: 150px;
+}
+.grid-form-question-toggle-click {
+  text-decoration: none;
+  color: black;
+}
+/**/

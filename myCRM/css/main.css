@@ -1,0 +1,28 @@
+.dn{
+	display: none;
+}
+.left{
+	float:left;
+}
+.right{
+	float:right;
+}
+.oh{
+	overflow: hidden;
+}
+.db{
+	display: block;
+}
+.w980{
+	width:980px;
+}
+.center{
+	margin-left: auto;
+	margin-right: auto;
+}
+.centert{
+	text-align: center;
+}
+.w300{
+	width: 300px;
+}

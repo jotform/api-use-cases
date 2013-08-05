@@ -1,0 +1,9 @@
+
+<div class="navbar">
+  <a class="navbar-brand" href="/">My CRM</a>
+	<ul class="nav navbar-nav">
+		{foreach $menu as $mel}
+		    <li><a href="{$mel.url}">{$mel.text}</a></li>
+		{/foreach}
+	</ul>
+</div>

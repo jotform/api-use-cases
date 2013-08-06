@@ -128,6 +128,8 @@ if(array_key_exists("requestUrl", $_POST)){
 					formId : formId
 				},function(resp){
 						console.log(resp);
+						//call complete to finish this
+						JF.complete();
 				});
 		},function(){
 			alert("error creating webhook");

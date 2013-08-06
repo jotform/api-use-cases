@@ -16,3 +16,6 @@ webhook_callback.php does this:
 1. If it is called, receive formId and look-up integrations table to see that it is a pre-defined integration with jotform,
 2. fetch matches, read jotform submissions, then insert them to contacts table using matches,
 3. done. integration now working as intended, our 3rd party app myCRM now successfully integrated to jotform.
+
+
+All files mentioned here are in jotform_integration folder

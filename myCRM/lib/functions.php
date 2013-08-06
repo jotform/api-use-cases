@@ -118,6 +118,12 @@ function add_contact($params){
 	return $db->Insert($params,"contacts");
 }
 
+function edit_contact($params,$id){
+	global $db;
+	
+	return $db->Update("contacts",$params,array("id"=>$id));
+}
+
 function assignDefaultSmartyVars(){
 	global $smarty;
 	//assign menu els

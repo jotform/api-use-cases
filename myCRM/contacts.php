@@ -11,12 +11,11 @@
 
 	switch($action){
 		case "list":
-				contacts::listContacts();
+			contacts::listContacts();
 			break;
 		case "add":
 			if($method === "GET"){
 				contacts::displayAddContactForm();
-
 			}elseif($method === "POST"){
 				contacts::handleAddContact();
 			}
@@ -28,8 +27,13 @@
 			break;
 		case "edit":
 			$id = $_GET["id"];
-				contacts::displayEditContactForm($id);
 				
+			if($method === "GET"){
+				contacts::displayEditContactForm($id);
+
+			}elseif($method === "POST"){
+				contacts::handleEditContact($id);
+			}
 			break;
 
 		case "view":
@@ -92,14 +96,14 @@
 		public static function displayEditContactForm($id,$vars = array()){
 			global $smarty,$db;
 
-			$vars = self::ext($vars,array("error"=>"false","buttonText" => "Update Record","formAction" => "/contacts.php?action=add","oldValues" => $db->sql("select * from contacts where id = '".$db->escape($id)."'") ));
+			$vars = self::ext($vars,array("error"=>"false","buttonText" => "Update Record","formAction" => "/contacts.php?action=edit&id=$id","oldValues" => $db->sql("select * from contacts where id = '".$db->escape($id)."'") ));
 
 
 			$smarty->assign($vars);
 			$smarty->display("contacts.add.tpl.html");
 		}
 
-		public static function handleEditContact(){
+		public static function handleEditContact($id){
 			//login user or display loginForm with errors
 			$first_name = $_POST["first_name"];
 			$last_name = $_POST["last_name"];
@@ -107,7 +111,7 @@
 			$email = $_POST["email"];
 			$comments = $_POST["comments"];
 
-			if(!add_contact(
+			if(!edit_contact(
 				array(
 						"first_name" => $first_name,
 						"last_name" => $last_name,
@@ -115,6 +119,7 @@
 						"email" => $email,
 						"comments" => $comments
 					)
+				,$id
 			)){
 				self::displayAddContactForm(array("error" => "Error inserting contact to list"));
 			}else{

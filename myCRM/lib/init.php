@@ -3,7 +3,7 @@ ini_set('memory_limit', '256M');
 //all intializations put here
 ini_set("display_errors", true);
 error_reporting(E_ALL);
-
+session_start();
 define("ROOT","/home/io4crm/www");
 define("SMARTY",ROOT."/lib/smarty/libs/Smarty.class.php");
 define("TPL",ROOT."/tpl");
@@ -31,8 +31,11 @@ class Smarty_Ext extends Smarty{
 		override parent display method, just to do some operations before tpl show
 	*/
 	public function display($template = null, $cache_id = null, $compile_id = null, $parent = null){
+		$oldini = ini_get("display_errors");
+		ini_set("display_errors", false);
 		assignDefaultSmartyVars();
 		parent::display($template , $cache_id , $compile_id , $parent );
+		ini_set("display_errors", $oldini);
 	}
 
 }

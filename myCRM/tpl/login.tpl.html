@@ -1,18 +1,48 @@
 
 {include file="common/head.tpl.html"}
 <div class="w300 center">
-	<h2>Please Login!</h2>
-	<form method="POST" action="{$formAction}" >
-		<div class="input-group">
-		  <input type="text" class="form-control" placeholder="Username" name="username" />
-		</div>
-		<div class="input-group">
-		  <input type="password" class="form-control" placeholder="Password" name="password" />
-		</div>
-		<div class="input-group">
-		  <input type="submit" class="form-control" name="submit" value="submit" />
-		</div>
-	</form>
-</div>
+	<form class="form-horizontal" action="{$formAction}" method="POST" name="login-form" id="login-form" >
+		<fieldset>
 
+		<!-- Form Name -->
+		<legend>Login</legend>
+
+		{if $error != "false"}
+			<div class="control-group">
+			  <label class="control-label">Error</label>
+			  	<div class="controls">
+			    	<div class="alert alert-danger">{$error}</div>
+				</div>
+			</div>
+		{/if}
+		<!-- Text input-->
+		<div class="control-group">
+		  <label class="control-label">Username</label>
+		  <div class="controls">
+		    <input id="username" name="username" placeholder="username" class="input-xlarge" required="" type="text">
+		    <p class="help-block">your username on myCRM</p>
+		  </div>
+		</div>
+
+		<!-- Password input-->
+		<div class="control-group">
+		  <label class="control-label">Password</label>
+		  <div class="controls">
+		    <input id="password" name="password" placeholder="password" class="input-xlarge" required="" type="password">
+		    <p class="help-block">Your password</p>
+		  </div>
+		</div>
+
+		<!-- Button -->
+		<div class="control-group">
+		  <label class="control-label"></label>
+		  <div class="controls">
+		    <button id="submit" name="submit" class="btn btn-primary" onclick="document.getElementById('login-form').submit();">Login</button>
+		  </div>
+		</div>
+
+		</fieldset>
+		</form>
+
+</div>
 {include file="common/footer.tpl.html"}

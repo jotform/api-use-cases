@@ -26,3 +26,14 @@
 .w300{
 	width: 300px;
 }
+.w600{
+	width: 600px;	
+}
+
+.controls input,.controls textarea{
+	width:90%;
+}
+
+.cp:hover{
+	cursor: pointer;
+}

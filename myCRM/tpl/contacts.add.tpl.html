@@ -1,0 +1,71 @@
+{include file="common/head.tpl.html"}
+
+<div class="w600 center">
+	<form class="form-horizontal"  action="{$formAction}" method="POST" name="contact-add-form" id="contact-add-form" >
+	<fieldset>
+
+	<!-- Form Name -->
+	<legend>Add Contact Form</legend>
+	{if $error != "false"}
+		<div class="control-group">
+		  <label class="control-label">Error</label>
+		  	<div class="controls">
+		    	<div class="alert alert-danger">{$error}</div>
+			</div>
+		</div>
+	{/if}
+	<!-- Text input-->
+	<div class="control-group">
+	  <label class="control-label">First Name</label>
+	  <div class="controls">
+	    <input id="first_name" name="first_name" placeholder="First Name" class="input-xlarge" type="text" value="{$oldValues.first_name}"> 
+	    <p class="help-block">First name of the contact</p>
+	  </div>
+	</div>
+
+	<!-- Text input-->
+	<div class="control-group">
+	  <label class="control-label">Last Name</label>
+	  <div class="controls">
+	    <input id="last_name" name="last_name" placeholder="Last Name" class="input-xlarge" type="text"  value="{$oldValues.last_name}">
+	    <p class="help-block">Last name of the contact</p>
+	  </div>
+	</div>
+
+	<!-- Text input-->
+	<div class="control-group">
+	  <label class="control-label">Email</label>
+	  <div class="controls">
+	    <input id="email" name="email" placeholder="Email" class="input-xlarge" type="text" value="{$oldValues.email}">
+	    <p class="help-block">Email adress of the contact</p>
+	  </div>
+	</div>
+
+	<!-- Textarea -->
+	<div class="control-group">
+	  <label class="control-label">Address</label>
+	  <div class="controls">                     
+	    <textarea id="location" name="location">{$oldValues.location}</textarea>
+	  </div>
+	</div>
+
+	<!-- Textarea -->
+	<div class="control-group">
+	  <label class="control-label">Comments</label>
+	  <div class="controls">                     
+	    <textarea id="comments" name="comments">{$oldValues.comments}</textarea>
+	  </div>
+	</div>
+
+	<!-- Button -->
+	<div class="control-group">
+	  <label class="control-label"></label>
+	  <div class="controls">
+	    <button id="submit" name="submit" class="btn btn-primary"  onclick="document.getElementById('contact-add-form').submit();" >{$buttonText}</button>
+	  </div>
+	</div>
+
+	</fieldset>
+	</form>
+</div>
+{include file="common/footer.tpl.html"}

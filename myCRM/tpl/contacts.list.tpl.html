@@ -1,0 +1,36 @@
+{include file="common/head.tpl.html"}
+
+
+<table class="table zebra-striped">
+	
+		<tr>
+			<th>#</th>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Email</th>
+			<th>Actions</th>
+		</tr>
+	
+		{foreach $contacts as $contact}
+			<tr>
+				
+				<td>{$contact.id}</td>
+				<td>{$contact.first_name}</td>
+				<td>{$contact.last_name}</td>
+				<td>{$contact.email}</td>
+				<td>
+					<span class="glyphicon glyphicon-eye-open cp" onclick="document.location.href='/contacts.php?action=view&id={$contact.id}'"></span>
+					<span class="glyphicon glyphicon-pencil cp" onclick="document.location.href='/contacts.php?action=edit&id={$contact.id}'"></span>
+					<span class="glyphicon glyphicon-remove cp" onclick="document.location.href='/contacts.php?action=delete&id={$contact.id}'"></span>
+				</td>
+			</tr>
+			{if $contact@last}
+				<tr colspan="5"><button class="button button-primary" onclick="document.location.href='/contacts.php?action=add'">Add New</button> </tr>
+			{/if}
+		{foreachelse}
+				<tr colspan="5"><button class="button button-primary" onclick="document.location.href='/contacts.php?action=add'">Add New</button> </tr>
+		{/foreach}
+	
+</table>
+
+{include file="common/footer.tpl.html"}

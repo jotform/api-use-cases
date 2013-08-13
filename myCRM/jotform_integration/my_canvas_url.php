@@ -16,8 +16,8 @@ if(array_key_exists("requestUrl", $_POST)){
 <head>
 
 <script type="text/javascript" src="/js/jquery.js"></script>
-<script type="text/javascript" src="http://js.jotform.com/JotForm.js?REV=1005"></script>
-<script type="text/javascript" src="http://js.jotform.com/JotFormConnect.js?REV=1005"></script>
+<script type="text/javascript" src="http://js.jotform.com/JotForm.js?REV=1006"></script>
+<script type="text/javascript" src="http://js.jotform.com/JotFormConnect.js?REV=1006"></script>
 <!-- INCLUDE JOTFORM Javascript Files-->
 
 
@@ -78,8 +78,12 @@ if(array_key_exists("requestUrl", $_POST)){
 			el : document.getElementById("fieldMatcher"),
 			targetFields : [
 				{
-					value: "Name",
-					key : "name"
+					value: "First Name",
+					key : "first_name"
+				},
+				{
+					value: "Last Name",
+					key : "last_name"
 				},
 				{
 					value: "Email",
@@ -115,8 +119,14 @@ if(array_key_exists("requestUrl", $_POST)){
 		
 		//create webhook
 		JF.createFormWebhook(formId,webhookUrl,function(){
-			alert("webhook created now continuing with save of settings");
-				$.post("save_settings.php",
+					
+		},function(){
+			alert("error creating webhook");
+		});
+
+		//workaround wait for 2 seconds then save settings
+		setTimeout(function(){
+			$.post("save_settings.php",
 				{
 					matches:JSON.stringify(matches),
 					username :myCRMUsername,
@@ -127,9 +137,7 @@ if(array_key_exists("requestUrl", $_POST)){
 						//call complete to finish this
 						JF.complete();
 				});
-		},function(){
-			alert("error creating webhook");
-		})
+		},2000);
 	}
 
 

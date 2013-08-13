@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Submission View</title>
+    
+
+</head>
+<body>
+    <?php 
+    
+    ?>
+    <div id="submissionView"></div>
+    <script type="text/javascript" src="http://js.jotform.com/JotForm.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="js/libraries.js"></script>
+    <script type="text/javascript" src="js/handlebars.js"></script>
+	<script>
+        if (JF.getAPIKey() == null)
+        {
+            JF.login();
+        }
+        var submissionID = "239704597742991251";
+        var apiKey = JF.getAPIKey();
+        var url = "http://api.jotform.com/submission/" + submissionID + "?apiKey=" + apiKey;
+        $.getJSON(url, function(response){
+            var content = response.content;
+            var answers = content.answers;
+            qids = get_qids(answers);
+            var source   = $("#submission-template").html();
+            var template = Handlebars.compile(source);
+            var context = {
+                //header: this.model.answers[header].text,
+                overview: qids.overview? answers[qids.overview].answer : 'No information',
+                //form_id: form.id,
+                //form_title: form.title,
+                id: submissionID,
+                fullname: qids.fullname? answers[qids.fullname].prettyFormat : 'no name',
+                phone: qids.phone? answers[qids.phone].answer : 'no phone',
+                email: qids.email? answers[qids.email].answer : 'no email',
+                title: qids.title? answers[qids.title].answer : 'no title',
+                price: qids.price? answers[qids.price].answer : 'no price',
+                photo_src: qids.photo? answers[qids.photo].answer[0] : 'default.png',
+                photo_label: qids.photo? answers[qids.photo].text : 'No picture'
+            };
+            var html = template(context);
+            $('#SubmissionView').html(html);
+        });
+        function get_qids(answers)
+        {
+            //get form used qids
+            var qids = new Object();
+            $.each(answers,function(index,answer)
+            {
+                switch(answer.type)
+                {
+                    case 'control_textbox':
+                      qids.title = index;
+                      break;
+                    case 'control_number':
+                      qids.price = index;
+                      break;
+                    case 'control_textarea':
+                      qids.overview = index;
+                      break;
+                    case 'control_fullname':
+                      qids.fullname = index;
+                      break;
+                    case 'control_fileupload':
+                      qids.photo = index;
+                      break;
+                    case 'control_email':
+                      qids.email = index;
+                      break;
+                }
+            });
+            return qids; 
+        }
+        </script>
+        <script id="submission-template" type="text/x-handlebars-template">
+    <div class='container-fluid well'>
+        <div class='row-fluid'>
+            <div class='span6 offset3'><h2>{{ title }} </h2></div>
+        </div>
+        <div class='row-fluid'>
+            <div class='span6 offset1'>
+                <div class='row-fluid'><div class='span5 offset1'><h3>Overview</h3></div><div class='span1'></div></div>
+                <div class='row-fluid'>
+                    <div class='span5 offset1'>
+                        {{ overview }}
+                    </div>
+                </div>
+                <div class='row-fluid'><div class='span5 offset1'><h3>Form ID</h3></div><div class='span1'></div></div>
+                
+                <div class='row-fluid'><div class='span5 offset1'><h3>ID</h3></div><div class='span1'></div></div>
+                <div class='row-fluid'><div class='span5 offset1'>{{ id }}</div><div class='span1'></div></div>
+            </div>
+            <div class='span3' style='text-align:center;font-weight:bold;'>
+                <div class='row-fluid'> {{ fullname }} </div>
+                <div class='row-fluid'> {{ phone }} </div>
+                <div class='row-fluid'> {{ email }} </div>
+                <div class='row-fluid'> {{ price }} $ </div>
+                <img src='{{ photo_src }}' alt='{{ photo_label }}'/>
+            </div>
+        </div>
+        <div class='row-fluid'>
+            <div class='span6 offset3' style='text-align:center;'><br/> - Footer - <br/></div>
+        </div>
+    </div>
+    </script>
+    </body>
+    </html>
+

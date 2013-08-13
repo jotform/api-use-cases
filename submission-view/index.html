@@ -2,78 +2,346 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="keywords" content="jotview, jotform view, view submission, render, view, see form, online view" />
+    <meta name="description" content="JotForm Views - Create your own views" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <base href="http://views.jotform.io/" /> -->
     <title>Submission View</title>
     
 
+    <link rel="Shortcut Icon" href="favicon.ico" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="screen, projection" />
+    <script type="text/javascript" src="js/vendor/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="css/stylesheet.css?v=1.9.4" type="text/css" media="screen, projection" />
 </head>
 <body>
     <?php 
     
     ?>
-        <div class="container-fluid" id="submissionView">
-            <div class="row-fluid" style='text-align:left;'><h2>Submission List View</h2></div>
-            <div class="row-fluid">
-                <div class="navbar-form pull-left">
-                    <select id="userFormsList" class="selectpicker">
-                        <option>Loading forms...</option>
-                    </select>                  
-                    <button name="button" id="getFormSubmissions" class="btn btn-success">Show Submissions</button>
+    <div class="navbar navbar-inverse">
+      <div class="navbar-inner">
+        <a class="brand" href="" style='color:#fcab5f;'><img src='img/logo.png' alt='Views Logo' width='50' height='50' style='padding-right:20px;' />Submission Views</a>
+        <ul id="nav"class="nav">
+          <li id="home" class="active"><a href="#">Home</a></li>
+          <li id="widgetPreview"><a href="#submissions">Preview</a></li>
+          <li id="createListTemplate"><a href="#createList">Create List</a></li>
+          <li id="createTemplate"><a href="#createView">Create View</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row-fluid">  
+            <div class='span12' style='text-align:left;'>
+                <div id="error" class="container-fluid" style="display:none">   
+                    <div class="alert alert-danger warning">
+                        You should select a form first!
+                    </div>
                 </div>
-            </div>
-            <div class='row-fluid'><div class='span10 offset1'>
-                <div class="container-fluid" id="SubmissionList" style="padding-top:30px;"></div>
-            </div></div>
+            
+                <div id="homeView" class="container-fluid page">   
+                    <div class="row-fluid">
+                        <div class='span8'>   
+                            <h3>Welcome to JotForm's Submission Viewer</h3>
+                            <p>This application makes it very easy for you to display your form's submissions. 
+                            </p>
+                            <p>
+                                A typical example for this can be a 2nd hand shop. When users submit their ads, anyone can see it in shop's inventory and view it instantly with your template. 
+                            </p>
+                            <p>
+                                
+
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row-fluid" id="formList">
+                        <button id="formpicker" class="btn-large">Pick your Form</button>
+                        <div id="form"></div>             
+                    </div>
+                    <!-- <div class="row-fluid" id="WhatIsThis">
+                        <h3> Introduction </h3>      
+                        <p>
+                            This application makes it very easy for you to display your form's submissions in your website.
+
+
+                        </p>
+                    </div> -->
+                    <div class="row-fluid" id="HowTo">
+                        <h3> How To Use </h3>
+                        <h4> Pick Your Form </h3>
+                        <p>
+                            Use the button above to choose the form you want to display on your website. 
+                        </p>
+                        <h4> Create a Template </h3>
+                        <p>
+                            Get to "Create View Template" tab to create and edit your template. It is basic CSS and HTML that you can write or copy/paste with form variable beside. You just add the variables and you are all done!
+                        </p>
+                        <h4> Display on your Webpage </h3>
+                        <p>
+                            Now, it is time to make a request to this APP to make your submissions shine as you wish. Just make an AJAX request and put the response in your html body. An example lies below:
+                        </p>
+                        <p>
+                        <div class='codewrap'>
+                            <button type="button" class="btn btn-info" data-toggle="modal" href="#fullExample">Full HTML with JS</button>
+                            <button type="button" class="btn btn-danger" onclick="window.open('view.html', '_blank');">Demo</button>
+                            <div class="modal hide fade" id="fullExample">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                      <h4 class="modal-title">Working Example</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                      <code>
+&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01//EN&quot; &quot;http://www.w3.org/TR/html4/strict.dtd&quot;&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+&lt;title&gt;Submission View&lt;/title&gt;
+
+    &lt;script type=&quot;text/javascript&quot; src=&quot;//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"&quot;&gt;&lt;/script&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css&quot; type=&quot;text/css&quot; media=&quot;screen, projection&quot; /&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;?php 
+    
+    ?&gt;
+    &lt;button class='submission' id='239704597742991251'&gt;View Submission&lt;/button&gt;
+    &lt;div id='view' style='padding-top:20px'&gt;&lt;/div&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;http://js.jotform.com/JotForm.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;https://www.google.com/jsapi&quot;&gt;&lt;/script&gt;
+
+    &lt;script&gt;
+    
+    //Below is the script enough to fill your view
+
+    $(&quot;.submission&quot;).click(function(e) {
+        url = &quot;http://views.jotform.io/view/&quot;;
+        $.post(url, {'username': JotFormUsername, 'id': e.currentTarget.id }, function(response) {
+            if(response)
+            {
+                $('#view').html(response);
+            }
+            else
+            {
+                $('#view').html(&quot;There is nothing to display&quot;);
+            }
+        });
+    });
+        
+    &lt;/script&gt;
+        
+&lt;/body&gt;
+&lt;/html&gt;
+                            </code>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                              </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                          </div><!-- /.modal -->
+                            
+                            <code>
+     &lt;button class=&#39;submission&#39; id=&#39;{submission_id_1}&#39;&gt;&lt;/button&gt;
+     &lt;button class=&#39;submission&#39; id=&#39;{submission_id_2}&#39;&gt;&lt;/button&gt;
+
+     &lt;div id=&#39;view&#39;&gt;&lt;/div&gt;
+        
+     //Below is the script enough to fill your view
+
+     $(".submission").click(function(e) {
+         url = "http://views.jotform.io/view/";
+         $.post(url, {'username': JotFormUsername , 'id': e.currentTarget.id }, function(response) {
+             if(response)
+             {
+                 $('#view').html(response);
+             }
+             else
+             {
+                 $('#view').html("There is nothing to display");
+             }
+         });
+     });
+                            </code>
+                        </div>
+                        </p>
+                    </div>
+                </div>
+        
+                <div class="container-fluid page" id="submissionView" style="display: none;">   
+                    
+                </div>
+                <div class="container-fluid page" id="submissionListView" style="display: none;">         
+                        <div id="SubmissionList">
+                        </div>              
+                </div>
+                <div class="container-fluid page" id="createList" style="display: none;">
+                    <div class="row-fluid" style='text-align:left;'>
+                        <div class='span8 offset1' style='text-align:left;'>
+                            <h3>Create List View</h3>
+                        </div>
+                    </div>
+                    <div class='row-fluid' >
+                        <div class='span8 offset1' style='text-align:left;'>  
+                            <textarea id="listTemplate" class="field span12">
+                            </textarea><br/><br/>
+                            <button name="button" id="saveTemplate" class="btn btn-success">Save Template</button><br/>
+                        </div>
+                        <div id='listFields' class='span2' style='text-align:left;'>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid page" id="createView" style="display: none;">
+                    
+                    <div class="row-fluid" style='text-align:left;'>
+                        <div class='span8 offset1' style='text-align:left;'>
+                            <h3>Create Submission View</h3>
+                        </div>
+                    </div>
+                    <div class='row-fluid' >
+                        <div class='span8 offset1' style='text-align:left;'>  
+                            <textarea id="viewTemplate" class="field span12">
+                            </textarea><br/><br/>
+                            <button name="button" id="saveTemplate" class="btn btn-success">Save Template</button><button name="button" id="preview" class="btn btn-info" data-toggle="modal" href="#previewModal">>Save Template</button><br/>
+                        </div>
+                        <div id='fields' class='span2' style='text-align:left;'>
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+                            
+                            <div class="modal hide fade" id="previewModal">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                      <h4 class="modal-title">Working Example</h4>
+                                    </div>
+                                    <div id='previewDiv' class="modal-body">
+
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                              </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                          </div><!-- /.modal -->
     <script id="submission-template" type="text/x-handlebars-template">
-    <div class='container-fluid well'>
+        <div class='container-fluid well'>
         <div class='row-fluid'>
-            <div class='span6 offset3'><h2>{{ title }} - {{ form_title }} </h2></div>
+            <div class='span6 offset3'><h2>Title</h2></div>
         </div>
         <div class='row-fluid'>
             <div class='span6 offset1'>
                 <div class='row-fluid'><div class='span5 offset1'><h3>Overview</h3></div><div class='span1'></div></div>
                 <div class='row-fluid'>
                     <div class='span5 offset1'>
-                        {{ overview }}
+                        Lorem ipsum dolor sit amet
                     </div>
                 </div>
                 <div class='row-fluid'><div class='span5 offset1'><h3>Form ID</h3></div><div class='span1'></div></div>
-                <div class='row-fluid'><div class='span5 offset1'>{{ form_id }}</div><div class='span1'></div></div>
+                <div class='row-fluid'><div class='span5 offset1'>{$form_id}</div><div class='span1'></div></div>
                 <div class='row-fluid'><div class='span5 offset1'><h3>ID</h3></div><div class='span1'></div></div>
-                <div class='row-fluid'><div class='span5 offset1'>{{ id }}</div><div class='span1'></div></div>
+                <div class='row-fluid'><div class='span5 offset1'>{$id}</div><div class='span1'></div></div>
             </div>
             <div class='span3' style='text-align:center;font-weight:bold;'>
-                <div class='row-fluid'> {{ fullname }} </div>
-                <div class='row-fluid'> {{ phone }} </div>
-                <div class='row-fluid'> {{ email }} </div>
-                <div class='row-fluid'> {{ price }} $ </div>
-                <img src='{{ photo_src }}' alt='{{ photo_label }}'/>
+                <div class='row-fluid'> Full Name </div>
+                <div class='row-fluid'> Price $ </div>
+                <div class='row-fluid'> Image </div>
             </div>
         </div>
         <div class='row-fluid'>
             <div class='span6 offset3' style='text-align:center;'><br/> - Footer - <br/></div>
         </div>
     </div>
+    
     </script>
+
     <script type="text/javascript" src="http://js.jotform.com/JotForm.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript" src="js/libraries.js"></script>
+    <script type="text/javascript" src="js/vendor/underscore-min.js"></script>
+    <script type="text/javascript" src="js/vendor/backbone-min.js"></script>
+    <script src="http://js.jotform.com/JotFormAPIWidgets.min.js"></script>
     <script type="text/javascript" src="js/models/submissionModel.js"></script>
     <script type="text/javascript" src="js/collections/submissionCollection.js"></script>
     <script type="text/javascript" src="js/models/formModel.js"></script>
-    <script type="text/javascript" src="js/views/submissionListView.js"></script>
-    <script type="text/javascript" src="js/views/submissionView.js"></script>
-    <script type="text/javascript" src="js/application.js"></script>
-    <script type="text/javascript" src="js/handlebars.js"></script>   
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="screen, projection" />
-    <script type="text/javascript" src="js/vendor/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
-    <script type="text/javascript" src="js/vendor/bootstrap-select.min.js"></script>
-    <link rel="stylesheet" href="css/stylesheet.css" type="text/css" media="screen, projection" />
-    <script>
-    $('.selectpicker').selectpicker();
-    </script>
+    <script type="text/javascript" src="js/views/submissionListView.js?v=1.6"></script>
+    <script type="text/javascript" src="js/views/submissionView.js?v=1.9.1"></script>
+    <script type="text/javascript" src="js/views/appView.js"></script>
+    <script type="text/javascript" src="js/views/createView.js?v=1.9"></script>
+    <script type="text/javascript" src="js/views/createListView.js?v=1.9"></script>
+
+    <script type="text/javascript" src="js/application.js?v=1.6"></script>   
+
+    <script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+<script>
+        tinymce.init({
+        selector: "textarea",
+        height: '600',
+        plugins: [
+                "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
+                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                "table contextmenu directionality emoticons template textcolor paste fullpage textcolor"
+        ],
+
+        toolbar1: "newdocument fullpage | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
+        toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | inserttime preview | forecolor backcolor",
+        toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft",
+
+        menubar: false,
+
+        style_formats: [
+                {title: 'Bold text', inline: 'b'},
+                {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+                {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+                {title: 'Example 1', inline: 'span', classes: 'example1'},
+                {title: 'Example 2', inline: 'span', classes: 'example2'},
+                {title: 'Table styles'},
+                {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+        ],
+        setup: function(editor) {
+            editor.on('keypress change', function(e) {
+                $('#saveTemplate').text('Save Template');
+                $('#saveTemplate').removeAttr('disabled');
+            });
+        }
+    });
+    //code for the button above
+        $("#formpicker").click(function(e) {
+            JFWidgets.FormPicker({
+                multiSelect: false,
+                onSelect: function(r) {
+                    form = r[0];
+                    app.main.loadForm(form.id,form.title);
+                    $("#form").html('Selected : ' + form.title);
+                },
+                onProgress: function() {
+                    $("#form").html('Fetching user forms');
+                }
+            });
+        });
+
+        $('.nav li').click(function(e){
+            if(window.app.form)
+            {
+                $('#error').hide();
+            }
+            else
+            {
+                $('#error').show();
+            }
+        });
+</script>
+                        
 </body>
 </html>

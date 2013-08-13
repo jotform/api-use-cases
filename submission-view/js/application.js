@@ -1,7 +1,7 @@
 
 $(document).ready(function(){
 
-    var self = window.app = this;
+    window.app = this;
 
     if( JF.getAPIKey() === null){
         JF.login(function(){
@@ -12,29 +12,78 @@ $(document).ready(function(){
     }
 
     function initializeApp(){
-        
-        var SM = Backbone.Model.extend({});
-        window.app.stateModel = new SM();
+        $('.page').hide();
         var Router = Backbone.Router.extend({
 
           routes: {
             "":                         "home",    // #help
-            ":formID":                      "form", 
-            "submission/:id":        "submission",  // #search/kiwis
+            "submissions":              "submissions", 
+            "submission/:id":           "submission",
+            "createList":               "createList",
+            "createView":               "createView",
           },
 
           home: function() {
             //--
-            window.app.submissionsView = new submissionListView();
+            $('#nav').find('li').removeClass('active');
+            $('#home').addClass('active');
+            window.app.main = new appView();
           },
-          form: function() {
+          submissions: function() {
             //--
-            window.app.submissionsView.getFormSubmissions();
+            if(window.app.form)
+            {
+              $('#nav').find('li').removeClass('active');
+              $('#widgetPreview').addClass('active');
+              window.app.submissionsView = new submissionListView();
+            }
+            else
+            {
+              this.navigate('',{trigger:true});
+            }
           },
           submission: function(id) {
-            window.app.submissionView = new submissionView({
-                                                            model : window.app.form.get('submissions').get(id),
-                                                        });         
+            if(window.app.form)
+            {       
+              if(id)
+              {
+                $('#nav').find('li').removeClass('active');
+                $('#widgetPreview').addClass('active');
+                window.app.submissionView = new submissionView({'id' : id});
+              }     
+              else
+              {
+                this.navigate('submissions',{trigger:true});
+              }
+            }
+            else
+            {
+              this.navigate('', { trigger: true });
+            }         
+          },
+          createList: function() {
+            if(window.app.form)
+            { 
+              $('#nav').find('li').removeClass('active');
+              $('#createList').addClass('active');
+              window.app.createView = new createList();
+            }
+            else
+            {
+              this.navigate('', { trigger: true });       
+            }
+          },
+          createView: function() {
+            if(window.app.form)
+            { 
+              $('#nav').find('li').removeClass('active');
+              $('#createTemplate').addClass('active');
+              window.app.createView = new createView();
+            }
+            else
+            {
+              this.navigate('', { trigger: true });       
+            }
           }
 
         });
@@ -46,22 +95,20 @@ $(document).ready(function(){
             // $("#username").text(user.username);
             // $("#avatar").attr("src", user.avatarUrl);
             window.app.user = user;
-            JF.getForms(function(e){
-                //typeahead text box
-                var opt = "";
-                for ( var i in e )
-                {
-                    var value = e[i].id;
-                    var text = e[i].title;
-                    opt += "<option value=\""+value+"\">"+text+ " - " + e[i].count + "</option>\n";
-                }
-
-                $("#userFormsList").html(opt);
-                $('.selectpicker').selectpicker('refresh');
-                app.router.navigate('', { trigger: true })           
-
-            });
+            registerUser(user);
+            if(window.app.form)
+            {
+              $('#form').html("<b>".window.app.form.get('formTitle')+"</b>");
+            }
+            
         });
+
+    };
+
+    function registerUser(user){
+      $.post('register.php', {'user':user, 'apiKey': JF.getAPIKey()}, function(response) {
+            //--
+        }, 'json');
 
     };
 

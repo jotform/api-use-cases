@@ -8,28 +8,16 @@ var formModel = Backbone.Model.extend({
       //-- 
       this.set({'id':id});
       this.get('submissions').reset(submissions);
+      //set form fields
+      fields = new Object();
+      
       self = this;
       $.each(submissions[0].answers,function(index,answer)
       {
-          switch(answer.type)
-          {
-            case 'control_textbox':
-              self.set({'title': index});
-              break;
-            case 'control_number':
-              self.set({'price': index});
-              break;
-            case 'control_textarea':
-              self.set({'overview': index});
-              break;
-            case 'control_fullname':
-              self.set({'fullname': index});
-              break;
-            case 'control_fileupload':
-              self.set({'photo': index});
-              break;
-          }
-      });                        
+        fields[answer.type] = answer.text;
+      });
+      //set form fields
+      this.set({'fields':fields});                        
     },
 
 });

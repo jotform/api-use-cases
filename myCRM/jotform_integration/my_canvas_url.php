@@ -16,8 +16,8 @@ if(array_key_exists("requestUrl", $_POST)){
 <head>
 
 <script type="text/javascript" src="/js/jquery.js"></script>
-<script type="text/javascript" src="http://js.jotform.com/JotForm.js?REV=1004"></script>
-<script type="text/javascript" src="http://js.jotform.com/JotFormConnect.js?REV=1004"></script>
+<script type="text/javascript" src="http://js.jotform.com/JotForm.js?REV=1005"></script>
+<script type="text/javascript" src="http://js.jotform.com/JotFormConnect.js?REV=1005"></script>
 <!-- INCLUDE JOTFORM Javascript Files-->
 
 
@@ -31,7 +31,7 @@ if(array_key_exists("requestUrl", $_POST)){
 	var requestUrl = <?=$development?>;
 
 	//our webhook callback url
-	var webhookUrl = "http://crm.jotform.io/jotform_connect/webhook_callback.php"; 
+	var webhookUrl = "http://crm.jotform.io/jotform_integration/webhook_callback.php"; 
 	//start flow on load
 	$(document).ready(function(){
 
@@ -78,12 +78,8 @@ if(array_key_exists("requestUrl", $_POST)){
 			el : document.getElementById("fieldMatcher"),
 			targetFields : [
 				{
-					value: "First Name",
-					key : "first_name"
-				},
-				{
-					value: "Last Name",
-					key : "last_name"
+					value: "Name",
+					key : "name"
 				},
 				{
 					value: "Email",

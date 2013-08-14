@@ -5,13 +5,15 @@ Answer Comparator
 
 Answer Comparator compares the current form entries to those that have already been submitted.
 
+You can see the script in action [here](http://www.jotform.com/answer-comparator)
+
 Steps to use the script:
 
 1. [Download](http://www.jotform.com/help/104-How-to-Download-a-Source-Code-of-your-Form) the source for your form.
 
 2. Drop in the following files at the bottom:
 ```javascript
-<script type="text/javascript" src="js/md5-min.js"></script>
+<script src="js/md5-min.js" type="text/javascript"></script>
 <script src="http://js.jotform.com/JotForm.js"></script>
 <script src="js/answerComparator.js"></script>
 ```

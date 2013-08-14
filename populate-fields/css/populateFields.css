@@ -1,0 +1,44 @@
+
+body {
+	color: #555 !important;
+	font-family: 'Lucida Grande';
+}
+label {
+	display:inline-block;
+	width: 400px;
+	padding: 3px;
+    float: left;
+}
+
+.simpleInput  {
+	width: 300px;
+	padding: 3px;
+	margin-left: 0;
+}
+
+.shortInput {
+	width: 100px;
+}
+
+
+.miniInput {
+    width: 50px;
+}
+
+.question {
+	padding: 4px;
+}
+
+.datetime {
+	width: 50px;
+    margin-right: 0px !important;
+}
+
+#populateURL {
+	color: black;
+	margin-left: 25px;
+}
+
+.miniSelect {
+	width: 80px;
+}

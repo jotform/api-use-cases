@@ -1,12 +1,11 @@
 <?php
-echo "a";
-sl(0);
+ini_set("display_errors",true);
+error_reporting(E_ALL);
 
 
 ob_start();
 echo "Hi I am webhook URL \n";
 echo "**************\n";
-sl(1);
 
 $formId = $_POST["formID"];
 $submissionID = $_POST["submissionID"];
@@ -16,7 +15,6 @@ $escapedRawRequest = unescapeJSON($rawRequest);
 echo "escaped raw request => $escapedRawRequest \n";
 
 $req = json_decode($escapedRawRequest,true);
-sl(2);
 //fetch matches and username from formId inside settings table
 
 //establish mysql connection
@@ -26,26 +24,21 @@ mysql_select_db("io4crm_main",$handle);
 
 $formId = mysql_real_escape_string($formId,$handle);
 $result = mysql_query("select * from settings where formId = '$formId'",$handle);
-sl(3);
 if(mysql_num_rows($result) !== 0){
 	$fetch = mysql_fetch_assoc($result);
-	sl(4);
 	$matches = str_replace('\\"', '"', $fetch["matches"]);
 
-	$matches = json_decode($matches,true);
+	$matches = json_decode($matches);
 	$insertValues = array(); //lets populate insert values using matches and rawRequest
-	sl(5);
 	$username = $fetch["username"];
 	//find userid
 	$sq = "select id from user where username = '".mysql_real_escape_string($username,$handle)."'";
 	$sr = mysql_query($sq,$handle);
 	$sf = mysql_fetch_assoc($sr);
 	$user_id = $sf["id"];
-	sl(6);
 	var_dump($matches);
-
+	sl("small matches log ".print_r($matches,true));
 	foreach( $req as $key => $value){
-		sl("6.1");
 
 		if(is_array($value) ){
 			
@@ -57,29 +50,28 @@ if(mysql_num_rows($result) !== 0){
 				sl("6.3");
 				$finded = searchFromMatches($matches,$search_key."_".$sk,"true");
 				var_dump($finded);
-				sl("6.4");
+				sl("6.4a");
 				if($finded !== false){
-					$insertValues[$finded["key"]] = $sv;	
+					sl("6.5");
+					$insertValues[$finded->key] = $sv;	
 				}
-
+				sl("6.51");
 			}
 			//handle subfields
 		}else{
 			echo "search started => $key \n";
 			$finded = searchFromMatches($matches,$key,"false");
 			var_dump($finded);
-			sl("6.5");
+			sl("6.6");
 			if($finded !== false){
-				$insertValues[$finded["key"]] = $value;	
+				$insertValues[$finded->key] = $value;	
 			}
 		}
-		
+		sl("6.7");	
 	}
-	sl(7);
 	//set userid
 	$insertValues["user_id"] = $user_id;
-	
-	sl(8);
+	sl("6.8");
 	//now we have to insert $insertValues array
 	$query = "insert into contacts";
 	$keys = array();
@@ -87,14 +79,14 @@ if(mysql_num_rows($result) !== 0){
 
 	foreach($insertValues as $key => $value){
 		$keys[]=$key;
+		sl("6.81");
 		$values[]=mysql_real_escape_string($value,$handle);
 	}
+	sl("6.9");
 	$query = $query." (`".implode("`,`",$keys)."`) values ('".implode("','",$values)."')";
 	echo $query;
-	sl(9);
 	mysql_query($query,$handle);
 	//we are done, record inserted
-	sl(10);
 
 }else{
 	echo "no integration settings detected";
@@ -121,14 +113,13 @@ function searchFromMatches($matches,$key,$sss){
 		$key = array($key);
 	}
 	$key = str_replace("q", "", $key[0]);
-
 	foreach($matches as $match){
-
-		if($match[0]["key"] == $key){
-			return $match[1];
+		if($match->question->key == $key){
+			sl("will return found question => ".print_r($match->question,true));
+			return $match->target;
 		}
 	}
-
+	sl("sfm returning false");
 	return false;
 }
 

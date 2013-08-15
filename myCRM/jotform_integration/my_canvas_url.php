@@ -16,8 +16,8 @@ if(array_key_exists("requestUrl", $_POST)){
 <head>
 
 <script type="text/javascript" src="/js/jquery.js"></script>
-<script type="text/javascript" src="http://js.jotform.com/JotForm.js?REV=1006"></script>
-<script type="text/javascript" src="http://js.jotform.com/JotFormConnect.js?REV=1006"></script>
+<script type="text/javascript" src="http://js.jotform.com/JotForm.js?REV=1008"></script>
+<script type="text/javascript" src="http://js.jotform.com/JotFormIntegrate.js?REV=1008"></script>
 <!-- INCLUDE JOTFORM Javascript Files-->
 
 
@@ -79,23 +79,33 @@ if(array_key_exists("requestUrl", $_POST)){
 			targetFields : [
 				{
 					value: "First Name",
-					key : "first_name"
+					key : "first_name",
+					type:"control_textbox",
+					autoMatch:true
 				},
 				{
 					value: "Last Name",
-					key : "last_name"
+					key  : "last_name",
+					type :"control_textbox",
+					autoMatch:true
 				},
 				{
 					value: "Email",
-					key : "email"
+					key : "email",
+					type:"control_email",
+					autoMatch:true
 				},
 				{
 					value: "Address",
-					key : "location"
+					key : "location",
+					type:"control_adress",
+					autoMatch:true
 				},
 				{
 					value: "Comments",
-					key : "comments"
+					key : "comments",
+					type:"control_textbox",
+					autoMatch:true
 				},
 			],
 			callback : function(m){

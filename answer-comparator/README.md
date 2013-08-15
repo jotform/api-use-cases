@@ -22,6 +22,6 @@ Steps to use the script:
 
 4. Include the JotForm API PHP file in your directory.
 
-5. Include your API key and FORM key in answerComparator.php.
+5. Include your API key and [FORM ID](http://www.jotform.com/get-form-info) in answerComparator.php.
 
 You are all set!

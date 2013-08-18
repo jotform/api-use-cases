@@ -3,7 +3,7 @@ Import Submissions
 
 *View the [import-submissions source](https://github.com/jotform/api-use-cases/tree/master/import-submissions).*
 
-Import Submissions imports data from .CSV and Microsft Excel files and submits them to JotForm via the PHP API.
+Import Submissions imports data from .CSV and Microsoft Excel files and submits them to JotForm via the PHP API.
 
 You can see the script in action [here](http://www.jotform.com/import-submissions).  
 

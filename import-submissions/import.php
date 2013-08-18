@@ -70,7 +70,7 @@
     }
 
     /**
-     * Handle and read uploaded file
+     * Decide uploaded file type
      * @param string - path to uploaded file
      * @return string - csv if plain text, tryExcel otherwise
      */
@@ -85,7 +85,7 @@
     }
 
     /**
-     * Format data and submit to JotForm
+     * Format data for submission to JotForm
      * @param array - data for one submission
      * @param array - column names matchine data
      * @return string - csv if plain text, tryExcel otherwise

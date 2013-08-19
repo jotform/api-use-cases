@@ -111,6 +111,7 @@ if(array_key_exists("requestUrl", $_POST)){
 			callback : function(m){
 				//we have matches go step3
 				matches = m;
+				console.log(JSON.stringify(m));
 				step3();
 			}
 
@@ -137,16 +138,16 @@ if(array_key_exists("requestUrl", $_POST)){
 		//workaround wait for 2 seconds then save settings
 		setTimeout(function(){
 			$.post("save_settings.php",
-				{
-					matches:JSON.stringify(matches),
-					username :myCRMUsername,
-					jotUsername : username,
-					formId : formId
-				},function(resp){
-						console.log(resp);
-						//call complete to finish this
-						JF.complete();
-				});
+			{
+				matches:JSON.stringify(matches),
+				username :myCRMUsername,
+				jotUsername : username,
+				formId : formId
+			},function(resp){
+					console.log(resp);
+					//call complete to finish this
+					JF.complete();
+			});
 		},2000);
 	}
 

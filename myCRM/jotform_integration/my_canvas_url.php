@@ -179,7 +179,7 @@ if(array_key_exists("requestUrl", $_POST)){
 	<div class="page page1">
 		Enter myCRM login credentials <br />
 		Username : <input type="text" name="username" id="username"/> <br />
-		Password : <input type="text" name="password" id="password"/> <br />
+		Password : <input type="password" name="password" id="password"/> <br />
 		<button id="loginButton">Login</button><br />
 		<span id="loginError"></span>
 	</div>

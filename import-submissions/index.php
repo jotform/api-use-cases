@@ -16,7 +16,7 @@
     <link href="css/bootstrap.css" type="text/css" rel="stylesheet" /> 
     <link href="css/bootstrap-fileupload.min.css" type="text/css" rel="stylesheet" /> 
     <link href="css/bootstrap-responsive.css" type="text/css" rel="stylesheet" />
-    <script src='http://js.jotform.com/JotFormFormPicker.js?ver=<?php echo microtime();?>'></script>
+    <script src='http://js.jotform.com/FormPicker.js'></script>
 </HEAD>
 <BODY>
 

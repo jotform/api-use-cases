@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="css/populateFields.css">
     <link href="css/bootstrap.css" type="text/css" rel="stylesheet" />  
     <link href="css/bootstrap-responsive.css" type="text/css" rel="stylesheet" />
-    <script src='http://js.jotform.com/JotFormFormPicker.min.js'></script>
+    <script src='http://js.jotform.com/FormPicker.js'></script>
 </HEAD>
 <BODY>
 

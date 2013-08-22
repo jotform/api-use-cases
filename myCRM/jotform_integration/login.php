@@ -18,10 +18,16 @@ if(mysql_num_rows($result) === 0){
 	$fetch = mysql_fetch_assoc($result);
 
 	if($pass === $fetch["password"]){
+		session_start();
+		$_SESSION["loggedin"] = true;
+		$_SESSION["username"] = $fetch["username"];
 		$output = $fetch["username"];
 	}else{
 		$output = "NOTOK";
 	}
+	
+
+
 }
 mysql_close($handle);
 echo $output;//send username or NOTOK to client

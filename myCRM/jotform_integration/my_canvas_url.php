@@ -9,6 +9,15 @@ if(array_key_exists("requestUrl", $_POST)){
 	$development = "undefined"; //on live server this alway return false!!!
 }
 
+//lets do some simple login check to see user was already logged in or not, if logged in we will not render login window again
+session_start();
+$mycrmusername = "false"; //we should use this to by pass login window or not
+if(array_key_exists("loggedin", $_SESSION)){
+	if($_SESSION["loggedin"] === true){
+		//yay our user already logged into myCRM
+		$mycrmusername = $_SESSION["username"];
+	}
+}
 
 ?>
 <!DOCTYPE html>
@@ -26,7 +35,7 @@ if(array_key_exists("requestUrl", $_POST)){
 	var formId = "<?=$formId?>";
 	var username = "<?=$username?>";
 	var apiKey = "<?=$apiKey?>";
-	var myCRMUsername = false;
+	var myCRMUsername = "<?=$mycrmusername?>";
 	var matches = false;
 	var requestUrl = <?=$development?>;
 
@@ -42,7 +51,12 @@ if(array_key_exists("requestUrl", $_POST)){
 			requestUrl : requestUrl
 		});
 
-		step1();
+		if(myCRMUsername === "false"){
+			step1();	
+		}else{
+			step2();  //go directly to step2 since user is already logged in!
+		}
+		
 	});
 
 	/*

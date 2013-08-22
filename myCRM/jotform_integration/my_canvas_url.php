@@ -16,8 +16,8 @@ if(array_key_exists("requestUrl", $_POST)){
 <head>
 
 <script type="text/javascript" src="/js/jquery.js"></script>
-<script type="text/javascript" src="http://js.jotform.com/JotForm.js?REV=1008"></script>
-<script type="text/javascript" src="http://js.jotform.com/JotFormIntegrate.js?REV=1008"></script>
+<script type="text/javascript" src="http://js.jotform.com/JotForm.js?REV=1022"></script>
+<script type="text/javascript" src="http://js.jotform.com/JotFormIntegrate.js?REV=1022"></script>
 <!-- INCLUDE JOTFORM Javascript Files-->
 
 
@@ -108,6 +108,7 @@ if(array_key_exists("requestUrl", $_POST)){
 					autoMatch:true
 				},
 			],
+			waitForResources:true,
 			callback : function(m){
 				//we have matches go step3
 				matches = m;
@@ -178,8 +179,14 @@ if(array_key_exists("requestUrl", $_POST)){
 	<!--myCRM authentication page -->
 	<div class="page page1">
 		Enter myCRM login credentials <br />
-		Username : <input type="text" name="username" id="username"/> <br />
-		Password : <input type="password" name="password" id="password"/> <br />
+		<table>
+			<tr>
+				<td>Username : </td><td><input type="text" name="username" id="username"/> </td>
+			</tr>
+			<tr>
+				<td>Password : </td><td><input type="password" name="password" id="password"/> </td>
+			</tr>
+		</table>
 		<button id="loginButton">Login</button><br />
 		<span id="loginError"></span>
 	</div>

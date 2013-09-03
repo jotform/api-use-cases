@@ -49,7 +49,7 @@ class JotForm {
 
         $this->_debugDump($params);
 
-        if ($method=="GET"){
+        if ($method=="GET" && $params != null){
             $params_array = array();
             foreach ($params as $key => $value) {
                 $params_array[] = $key ."=". $value;
@@ -57,9 +57,9 @@ class JotForm {
             $params_string = "?" . implode("&",$params_array);
             unset($params_array);
             $url = $url.$params_string;
+            $this->_debugLog("params string".$params_string);
+            
         }
-
-        $this->_debugLog("params string".$params_string);
 
         $this->_debugLog("fetching url : ".$url);
 
@@ -74,6 +74,11 @@ class JotForm {
             $this->_debugLog("posting");
             curl_setopt($ch,CURLOPT_POST, true);
             curl_setopt($ch,CURLOPT_POSTFIELDS, $params);
+        }
+
+        if ($method=="DELETE"){
+            $this->_debugLog("delete");
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE" );
         }
 
         $result = curl_exec($ch);
@@ -117,6 +122,32 @@ class JotForm {
         return $this->_executeHttpRequest($url, $params, "POST");
     }
 
+    private function _executeDeleteRequest($url, $params=array()){
+        return $this->_executeHttpRequest($url, $params, "DELETE");
+    }
+
+    private function createConditions($offset, $limit, $filter, $orderBy) {
+        $params = array();
+
+        if($offset) {
+            $params["offset"] = $offset;
+        }
+
+        if ($limit) {
+            $params["limit"] = $limit;
+        }
+
+        if ($filter != null) {
+            $params["filter"] = json_encode($filter);
+        }
+
+        if ($orderBy) {
+            $params["orderBy"] = $orderBy;
+        }
+
+        return $params;
+    }
+
     /**
      * Returns User object
      * @return [type] [description]
@@ -138,16 +169,20 @@ class JotForm {
      * [getForms description]
      * @return [type] [description]
      */
-    public function getForms(){
-        return $this->_executeGetRequest("user/forms");
+    public function getForms($offset = 0, $limit = 0, $filter = null, $orderBy = null){
+        $params = $this->createConditions($offset, $limit, $filter, $orderBy);
+
+        return $this->_executeGetRequest("user/forms", $params);
     }
 
     /**
      * [getSubmissions description]
      * @return [type] [description]
      */
-    public function getSubmissions(){
-        return $this->_executeGetRequest("user/submissions");
+    public function getSubmissions($offset = 0, $limit = 0, $filter = null, $orderBy = null){
+        $params = $this->createConditions($offset, $limit, $filter, $orderBy);
+
+        return $this->_executeGetRequest("user/submissions", $params);
     }
 
     /**
@@ -223,8 +258,10 @@ class JotForm {
      * @param  [type] $formID [description]
      * @return [type]         [description]
      */
-    public function getFormSubmissions($formID){
-        return $this->_executeGetRequest("form/". $formID ."/submissions");
+    public function getFormSubmissions($formID, $offset = 0, $limit = 0, $filter = null, $orderBy = null){
+        $params = $this->createConditions($offset, $limit, $filter, $orderBy);
+
+        return $this->_executeGetRequest("form/". $formID ."/submissions", $params);
     }
 
     /**
@@ -233,7 +270,19 @@ class JotForm {
      * @return [type]         [description]
      */
     public function createFormSubmissions($formID, $submission){
-        return $this->_executePostRequest("form/". $formID ."/submissions", $submission);
+        $sub = array();
+
+        foreach ($submission as $key => $value) {
+            if (strpos($key, "_")) {
+                $qid = substr($key, 0, strpos($key, "_"));
+                $type = substr($key, strpos($key, "_") + 1);
+                $sub["submission[$qid][$type]"] = $value;
+            } else {
+                $sub["submission[".$key."]"] = $value;
+            }
+        }
+
+        return $this->_executePostRequest("form/". $formID ."/submissions", $sub);
     }
 
     /**
@@ -283,11 +332,78 @@ class JotForm {
 
     /**
     * [getFolderById description]
-    * @param  [type] $subId [description]
+    * @param  [type] $folderID [description]
     * @return [type] [description]
     */
     public function getFolder($folderID) {
         return $this->_executeGetRequest("folder/".$folderID);
+    }
+
+    /**
+    * [getFormProperties description]
+    * @param  [type] $formID [description]
+    * @return [type] [description]
+    */
+    public function getFormProperties($formID) {
+        return $this->_executeGetRequest("form/".$formID."/properties");
+    }
+
+    /**
+    * [getFormProperty description]
+    * @param  [type] $formID [description]
+    * @param  [type] $propertyKey [description]
+    * @return [type] [description]
+    */
+    public function getFormProperty($formID, $propertyKey) {
+        return $this->_executeGetRequest("form/".$formID."/properties/".$propertyKey);
+    }
+
+    /**
+    * [deleteSubmission description]
+    * @param  [type] $sid [description]
+    * @return [type] [description]
+    */
+    public function deleteSubmission($sid) {
+        return $this->_executeDeleteRequest("submission/".$sid);
+    }
+
+    /**
+    * [editSubmission description]
+    * @param  [type] $sid [description]
+    * @return [type] [description]
+    */
+    public function editSubmission($sid, $submission) {
+        $sub = array();
+
+        foreach ($submission as $key => $value) {
+            if (strpos($key, "_")) {
+                $qid = substr($key, 0, strpos($key, "_"));
+                $type = substr($key, strpos($key, "_") + 1);
+                $sub["submission[$qid][$type]"] = $value;
+            } else {
+                $sub["submission[".$key."]"] = $value;
+            }
+        }
+
+        return $this->_executePostRequest("submission/".$sid, $sub);
+    }
+
+    /**
+    * [cloneForm description]
+    * @param  [type] $formID [description]
+    * @return [type] [description]
+    */
+    public function cloneForm($formID) {
+        return $this->_executePostRequest("form/".$formID."/clone", null);
+    }
+
+    /**
+    * [deleteFormQuestion description]
+    * @param  [type] $formID [description]
+    * @return [type] [description]
+    */
+    public function deleteFormQuestion($formID, $qid) {
+        return $this->_executeDeleteRequest("form/".$formID."/question/".$qid, null);
     }
 }
 

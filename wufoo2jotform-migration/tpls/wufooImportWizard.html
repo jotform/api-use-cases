@@ -1,0 +1,67 @@
+<style>
+	.import-gen-page {
+		padding: 12px 24px;
+	}
+    
+</style>
+<div class="wufoowizard-page1 import-gen-page" id="page1">
+    
+    <p>WellCome to Wufoo2JotForm Migration Wizard!
+    Please read the following carefully.</p>
+    This tool designed to transfer your Wufoo data to your JotForm account. We'll only need your Wufoo username and your Wufoo api key.
+
+    <p>We will never store your Wufoo username and api key, this proccess mainly will happen in your browser and in any interruption or completion of the proccess, you will not be able to continue the proccess. We'll immediately discard</p>
+    <p>Any other data we may have stored. The only data will not be deleted is the data pushed to JotForm backend via JotForm API. This migration tool will not initiate any write operations on your Wufoo account. It will only read from it and write into JotForm API. IF you feel ready, click the button below to continue.</p>
+
+
+</div>
+
+
+<div class="wufoowizard-page2 import-gen-page" id="wufoo-credentials-form" style="display:none">
+    
+    <p>Please enter your Wufoo username and API-KEY below :</p>
+    <table>
+        <tr>
+            <td>Username</td>
+            <td><input type="text" id="wusername" value=""/></td>
+        </tr>
+        <tr>
+            <td>API-KEY</td>
+            <td><input type="text" id="wapikey" value=""/></td>
+        </tr>
+        <tr>
+            <td colspan=2><input type="button" id="wcredentialscheck" value="Check and Continue"/><span id="wcerr" class="error" style="display:none;color:red">An error occured, please check your username and API-key</span><span id="wcsuccess" class="success" style="display:none;color:green">Credentials checked successfully! Moving to next phase.</span></td>
+        </tr>
+    </table>
+
+    
+</div>
+
+<div class="wufoowizard-page3 import-gen-page" id="wufoo-show-status-page" style="display:none">
+    
+    <div id="wufoo-show-status-page-intro" style="display:block">
+        <img src='/images/ajax-loader.gif' /> Fetching details of your Wufoo account to calculating operations on migration. 
+    </div>
+    <div id="wufoo-show-status-page-status" style="display:none">
+        Here are the details <br /><br />
+        You currently have {{formCount}} forms and {{submissionsCount}} submissions on your Wufoo account to be transferred. <br /><br />
+        This operation may require couple of minutes depending the numbers of forms and submissions. Please click "Start Import" button to start the proccess. <br />
+        <br />
+        <button id="wufoo-show-status-page-start-import">Start Import</button>
+    </div>
+     <div id="wufoo-show-status-page-preparing" style="display:none">
+       <img src='/images/ajax-loader.gif' /> Preparing operations! Please wait, this may take couple of seconds!
+    </div>
+
+    
+</div>
+<div class="wufoowizard-page4 import-gen-page" id="wufoo-show-migration-status" style="display:none;text-align:center">
+    Now migrating your account! <br />
+    <span class="progressBar" id="element1">15%</span> <br />
+    <span id="current_operation"> </span>
+  
+</div>
+<div class="wufoowizard-page5 import-gen-page" id="wufoo-completion-page" style="display:none">
+    
+  
+</div>

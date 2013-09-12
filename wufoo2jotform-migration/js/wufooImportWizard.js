@@ -44,7 +44,7 @@ function openWufooImportWizard(){
                                 migration_task_handler.renderPage("wufoo-credentials-form"); //pageid 1 is wufoo form
                                 $("wcredentialscheck").observe("click",function(){
                                     migration_task_handler.showLoader("wcredentialscheck");
-                                    new Ajax.Request('/opt/migration/backend.php', {
+                                    new Ajax.Request('/backend.php', {
                                       method:"POST",
                                       parameters:{
                                         m:"checkWufooCredentials",
@@ -85,7 +85,7 @@ function openWufooImportWizard(){
                             taskName : "Calculating required tasks",
                             execute:function(){
                                  migration_task_handler.renderPage("wufoo-show-status-page"); //show status page first
-                                 new Ajax.Request('/opt/migration/backend.php', {
+                                 new Ajax.Request('/backend.php', {
                                       method:"POST",
                                       parameters:{
                                         m:"getWufooStatus",
@@ -105,7 +105,7 @@ function openWufooImportWizard(){
                                             //first show #wufoo-show-status-page-preparing div
                                             $("wufoo-show-status-page-status").hide();
                                             $("wufoo-show-status-page-preparing").show();
-                                            new Ajax.Request('/opt/migration/backend.php', {
+                                            new Ajax.Request('/backend.php', {
                                                   method:"POST",
                                                   parameters:{
                                                     m:"getWufooFormsWithCount",
@@ -126,7 +126,7 @@ function openWufooImportWizard(){
                                                                     taskName : "Migrating structure of form "+fh+"",
                                                                     execute:function(){
                                                                         console.log("executing task migrate form with hash ",fh);
-                                                                        new Ajax.Request('/opt/migration/backend.php', {
+                                                                        new Ajax.Request('/backend.php', {
                                                                           method:"POST",
                                                                           parameters:{
                                                                             m:"migrateFormToJotForm",
@@ -168,7 +168,7 @@ function openWufooImportWizard(){
                                                                             taskName : "Migrating submissions of form "+fh+": completed "+pageStart+" out of "+fsc,
                                                                             execute:function(){
                                                                                 var newId = WufooFHToJotformFormId[fh]; //I hope this to work
-                                                                                new Ajax.Request('/opt/migration/backend.php', {
+                                                                                new Ajax.Request('/backend.php', {
                                                                                   method:"POST",
                                                                                   parameters:{
                                                                                     m:"migrateSubmissionsToJotForm",

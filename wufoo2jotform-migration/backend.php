@@ -9,6 +9,9 @@ $method = $_REQUEST["m"];
 
 @$wapikey = $_REQUEST["wapikey"];
 @$wusername = $_REQUEST["wusername"];
+@$japiKey = $_COOKIE["japikey"];
+@$jusername = $_COOKIE["jusername"];
+
 if(stripos($_SERVER["HTTP_HOST"],".jotform.pro") !== false){ //allow development accounts to use migration
 	$jotformAPIHostName = $_SERVER["HTTP_HOST"]."/API";
 }else{
@@ -387,10 +390,14 @@ class very_simple_responder{
 		Authentication could be achieved by sending the $_COOKIE["jotApi"] 
 		and  $_SERVER['HTTP_USER_AGENT'] parameter using curl
 	*/
+	private function putJotApiKeyToUrl($url){
+		global $japikey,$jusername;
+		return $url."&apiKey=$japikey";
+	}	
+
 	private function getJotAuthenticated($url){
+		$url = self::putJotApiKeyToUrl($url);
 		$curl = curl_init($url);
-		curl_setopt( $curl, CURLOPT_COOKIE, "jotApi=".$_COOKIE["jotApi"] );  
-		curl_setopt($curl, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 		$response = curl_exec($curl);
 		$http_status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
@@ -399,10 +406,9 @@ class very_simple_responder{
 	}
 
 	private function postJotAuthenticated($url,$postParams){
+		$url = self::putJotApiKeyToUrl($url);
 		echo "jot post URL = $url \n";
 		$curl = curl_init($url);
-		curl_setopt( $curl, CURLOPT_COOKIE, "jotApi=".$_COOKIE["jotApi"] );  
-		curl_setopt($curl, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
 		curl_setopt($curl, CURLOPT_POST, true);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($curl, CURLOPT_POSTFIELDS, $postParams);	
@@ -413,6 +419,7 @@ class very_simple_responder{
 	}
 
 	private function putJotAuthenticated($url,$putParams){
+		$url = self::putJotApiKeyToUrl($url);
 		$curl = curl_init();
 	    
 	    
@@ -422,8 +429,6 @@ class very_simple_responder{
 	    fwrite($putData, $putString);
 	    fseek($putData, 0);
 
-	    curl_setopt($curl, CURLOPT_COOKIE, "jotApi=".$_COOKIE["jotApi"] );  
-		curl_setopt($curl, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
 	    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 	    curl_setopt($curl, CURLOPT_URL, $url);
 	    curl_setopt($curl, CURLOPT_PUT, true);

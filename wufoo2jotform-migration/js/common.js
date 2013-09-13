@@ -9,7 +9,6 @@ function init(){
     //Second argument will be called if authorization fails
     JF.login(
         function(){
-            alert("auth success going for wufoo");
             window.japiKey = JF.getAPIKey();
             JF.getUser(function(response){
             window.jusername = response.username;

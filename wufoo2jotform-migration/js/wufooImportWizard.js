@@ -320,6 +320,7 @@ var migration_task_handler = {
         this.tasksCount = 0;
 
         //inform RequestServer about this
+        /*
         new Ajax.Request('/server.php', {
           method:"POST",
           parameters:{
@@ -328,7 +329,7 @@ var migration_task_handler = {
           },onSuccess: function(response){
             console.log("request server informed");
           }
-        });
+        }); */
 
     },
     updateTaskStatus:function(){

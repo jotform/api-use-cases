@@ -48,7 +48,7 @@ function openWufooImportWizard(){
                                       method:"POST",
                                       parameters:{
                                         m:"checkWufooCredentials",
-                                        wusername: $("wusername").value,
+                                        wusername:$("wusername").value,
                                         wapikey:$("wapikey").value
                                       }, 
                                       onSuccess: function(response) {
@@ -89,7 +89,7 @@ function openWufooImportWizard(){
                                       method:"POST",
                                       parameters:{
                                         m:"getWufooStatus",
-                                        wusername: $("wusername").value,
+                                        wusername:$("wusername").value,
                                         wapikey:$("wapikey").value
                                       }, 
                                       onSuccess: function(response) {
@@ -109,7 +109,7 @@ function openWufooImportWizard(){
                                                   method:"POST",
                                                   parameters:{
                                                     m:"getWufooFormsWithCount",
-                                                    wusername: $("wusername").value,
+                                                    wusername:$("wusername").value,
                                                     wapikey:$("wapikey").value
                                                   }, 
                                                   onSuccess: function(response) {
@@ -130,7 +130,7 @@ function openWufooImportWizard(){
                                                                           method:"POST",
                                                                           parameters:{
                                                                             m:"migrateFormToJotForm",
-                                                                            wusername: $("wusername").value,
+                                                                            wusername:$("wusername").value,
                                                                             wapikey:$("wapikey").value,
                                                                             formHash:fh
                                                                           },
@@ -172,7 +172,7 @@ function openWufooImportWizard(){
                                                                                   method:"POST",
                                                                                   parameters:{
                                                                                     m:"migrateSubmissionsToJotForm",
-                                                                                    wusername: $("wusername").value,
+                                                                                    wusername:$("wusername").value,
                                                                                     wapikey:$("wapikey").value,
                                                                                     pageStart:pageStart, //pass pageStart parameter to AJAX POST request
                                                                                     pageSize:submissionsFetchPageSize, // pass pageSize parameter
@@ -324,7 +324,7 @@ var migration_task_handler = {
           method:"POST",
           parameters:{
             action:"wufooLog",
-            log: $("wusername").value+" completed wufoo import. "
+            log:$("wusername").value+" completed wufoo import. "
           },onSuccess: function(response){
             console.log("request server informed");
           }

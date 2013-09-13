@@ -22,9 +22,9 @@
 
         <link rel="Shortcut Icon" href="http://max.jotfor.ms/favicon.ico?123456&v=3.0.2405" />
 
-        <link rel="stylesheet" type="text/css" href="css/reset.css?rev=1">
-        <link rel="stylesheet" type="text/css" href="css/style.css?rev=1">
-        <link rel="stylesheet" type="text/css" href="css/common-page-styles.css?rev=1">
+        <link rel="stylesheet" type="text/css" href="/css/reset.css?rev=1">
+        <link rel="stylesheet" type="text/css" href="/css/style.css?rev=1">
+        <link rel="stylesheet" type="text/css" href="/css/common-page-styles.css?rev=1">
 
 		<script type="text/javascript" src="/js/prototype.js"></script>
 		<script type="text/javascript" src="/js/protoplus.js"></script>
@@ -35,7 +35,9 @@
 
 		<script type="text/javascript">
 			function _init(){
-				init();
+				document.getElementById("start_migration").onclick = function(){
+					init();
+				}
 			}
 		</script>
 </head>
@@ -147,7 +149,7 @@
             <div class="jumbo-head">
                 <h1>Transform Your Wufoo Forms into JotForm Forms!</h1>
                 <p><img src="images/wufoo2jotform.png" alt=""></p>
-                <p><button class="cta">Transform Now!</button></p>
+                <p><button class="cta" id="start_migration">Transform Now!</button></p>
             </div>
             <div class="page-desc">
                 <p>
@@ -167,8 +169,10 @@
     
     <!-- scripts here -->
     <script type="text/javascript" src="http://js.jotform.com/vendor/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript">$.noConflict();</script>
     <script>
-        $("#login-toggler").click(function(e) {
+    (function($){
+    	$("#login-toggler").click(function(e) {
             e.preventDefault();
             $(".login-box").toggleClass("dn");
             $("#login-toggler").toggleClass("activated");
@@ -188,6 +192,8 @@
             $(".login-box").toggleClass("dn");
             $("#logged-in").toggleClass("activated");
         });
+    })(jQuery);
+        
     </script>
 
     <!-- Google Analytics Code -->

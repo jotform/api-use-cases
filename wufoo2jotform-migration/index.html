@@ -1,30 +1,213 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Move your data from Wufoo to Jotform</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<script type="text/javascript" src="/js/prototype.js"></script>
-	<script type="text/javascript" src="/js/protoplus.js"></script>
-	<script type="text/javascript" src="/js/protoplus-ui.js"></script>
-	<script type="text/javascript" src="/js/wufooImportWizard.js"></script>
-	<script type="text/javascript" src="/js/common.js"></script>
-	<script src="http://js.jotform.com/JotForm.js"></script>
-	<style type="text/css">
-		.container  {
-			width: 700px;
-			margin: 0 auto;
-			margin-top: 20px;
-		}
-	</style>
-	<script type="text/javascript">
-		function _init(){
-			init();
-		}
-	</script>
-</head>
-<body onload="_init();">
-<div class="container">
+    <head>
+        
+        <base href="<?echo defined('HTTP_URL') ? HTTP_URL : '/'; ?>api-use-cases/wufoo2jotform-migration/" target="_blank" />
+        <title>Wufoo to JotForm</title>
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+        <meta name="keywords" content="wufoo, wufoo to jotform, wufoo form builder, wufoo form, wufoo forms, wufoo web forms, wufoo web form, wufoo online form, wufoo online forms" />
+        <meta name="description" content="Transform your Wufoo forms into JotForm forms." />
+        <meta name="google-site-verification" content="CG6F2CQMNJ3nvu1pdPuN7Ww_YcG1-0cMc06ntbB12wk" />
+        <meta property="og:title" content="Wufoo to JotForm" />
+        <meta property="og:description" content="Transform your Wufoo forms into JotForm forms." />
+        <meta property="og:image" content="http://cms.interlogy.com/uploads/image_upload/image_upload/global/9260_150X150.jpg" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="http://www.jotform.com/wufoo2jotform-migration.index.html" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:url" content="http://www.jotform.com/wufoo2jotform-migration/index.html" />
+        <meta name="twitter:title" content="Wufoo to JotForm" />
+        <meta name="twitter:description" content="Transform your Wufoo forms into JotForm forms." />
+        <meta name="twitter:image" content="http://cms.interlogy.com/uploads/image_upload/image_upload/global/9260_150X150.jpg" />
+
+        <link rel="Shortcut Icon" href="http://max.jotfor.ms/favicon.ico?123456&v=3.0.2405" />
+        <!-- You can also include common-page-styles.css file into yourstyle.css, it is recommended -->
+        <link rel="stylesheet" type="text/css" href="css/style.css?rev=1">
+
+		<script type="text/javascript" src="/js/prototype.js"></script>
+		<script type="text/javascript" src="/js/protoplus.js"></script>
+		<script type="text/javascript" src="/js/protoplus-ui.js"></script>
+		<script type="text/javascript" src="/js/wufooImportWizard.js"></script>
+		<script type="text/javascript" src="/js/common.js"></script>
+		<script src="http://js.jotform.com/JotForm.js"></script>
+
+		<script type="text/javascript">
+			function _init(){
+				init();
+			}
+		</script>
+</head>
+
+<body onload="_init();">
+<div class="page-wrap">
+        <header id="header">
+            <div class="header">
+    <div class="header-content">
+        <a href="/" class="logo-link">
+            <img src="http://cdn.jotfor.ms/anywhere/img/jotformDevLogo.png" alt="JotForm Developers" />
+        </a>
+        
+        <div class="header-nav">
+            <div class="nav-toggler" id="navToggler">|||</div>
+            <!--             
+            <ul id="topMenu">
+                <li>
+                    <a class="{{headerClass}}" href="http://api.jotform.com/docs" id="api-link">API</a>
+                </li>
+                <li>
+                    <a class="{% if path === 'competition' %}activated{% endif %}" href="/competition/?s=1">Competition</a>
+                </li>
+                <li>
+                    <a class="{% if path === 'libraries' %}activated{% endif %}" href="/libraries">Libraries</a>
+                </li>
+                <li>
+                    <a class="{% if path === 'widgets' %}activated{% endif %}" href="/widgets">Widgets</a>
+                </li>
+                <li>
+                    <a class="{% if path === 'integrations' %}activated{% endif %}" href="/integrations">Integrations</a>
+                </li>
+                <li>
+                    <a class="{% if path === 'forum' %}activated{% endif %}" href="/forum">Forum</a>
+                </li>
+                <li>
+                    <a class="{% if path === 'myapps' %}activated{% endif %}" href="/myapps">My Apps</a>
+                </li>
+            </ul>  
+            -->
+
+            <div class="login-cont" id="accountSection">
+                    <a href="#" id="login-toggler">Login</a>
+                    <div class="login-box dn">
+                        <div class="login-box-content">
+                            <form action="#" method="post" onSubmit="return false;">
+                                <div class="wide-line">
+                                    <input type="text" placeholder="username" id="username" class="ajax-login-text"/>
+                                </div>
+                                <div class="wide-line">
+                                    <input type="password" placeholder="password" id="password" class="ajax-login-text"/>
+                                </div>
+                                <div class="wide-line">
+                                    <label id="signup_link" class="btn_link"><a href="#">Sign Up</a></label>
+                                    <input type="submit" id="login" value="Login" class="button ajax-login-button"/>
+                                    <div class="clearer"></div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="register-box-content dn">
+                            <form action="#" method="post" onSubmit="return false;">
+                                <div class="wide-line">
+                                    <input type="text" placeholder="username" id="username" class="ajax-reg-text"/>
+                                </div>
+                                <div class="wide-line">
+                                    <input type="email" placeholder="email" id="email" class="ajax-reg-text"/>
+                                </div>
+                                <div class="wide-line">
+                                    <input type="password" placeholder="password" id="password" class="ajax-reg-text"/>
+                                </div>
+                                <div class="wide-line">
+                                    <input type="password" placeholder="repeat password" id="repeat_password" class="ajax-reg-text"/>
+                                </div>
+                                <div class="wide-line">
+                                    <label id="login_link" class="btn_link"><a href="#">Login</a></label>
+                                    <input type="submit" id="signup" value="Sign Up" class="button ajax-reg-button"/>
+                                    <div class="clearer"></div>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="error-box"></div>
+                    </div>
+                    
+                <!-- if he is logged in -->
+                    <!--
+                    <div class="user-header-info">
+                        <a href="#" id="logged-in" style="padding:0"><img src="{{user.avatar}}" />  </a>
+                        <div class="login-box dn">
+                            <div class="wide-line">
+                                <a id="myaccount-link" target="_blank" href="http://www.jotform.com/myaccount">My Account</a>
+                            </div>
+                            <div class="wide-line">
+                                <form action="/logout" method="post">
+                                    <input type="submit" value="Logout" class="button ajax-login-button" style="width: 100%;">
+                                </form>
+                            </div>
+                        </div>                         
+                    </div>
+                    -->
+                <!-- if he is logged in -->
+            </div>
+        </div>
+    </div>
 </div>
+        </header>
+
+        <!-- write your content inside this div -->
+        <div class="content-container">
+            <div class="jumbo-head">
+                <h1>Transform Your Wufoo Forms into JotForm Forms!</h1>
+                <p><img src="images/wufoo2jotform.png" alt=""></p>
+                <p><button class="cta">Transform Now!</button></p>
+            </div>
+            <div class="page-desc">
+                <p>
+                    If there's an Excel to Google Spreadsheets transformation feature, why not try this on online forms? Let the painless form transformation era begin!
+                </p>
+            </div>
+        </div>
+
+    </div>
+    
+    <!-- sticky footer here -->
+    <footer class="footer" id="footer">
+    <a href="/" style="text-decoration: none;">
+        <img src="http://cdn.jotfor.ms/common-img/JotformDevLogoMini.png" width="160" height="25">
+    </a>
+    </footer>
+    
+    <!-- scripts here -->
+    <script type="text/javascript" src="http://js.jotform.com/vendor/jquery-1.10.2.min.js"></script>
+    <script>
+        $("#login-toggler").click(function(e) {
+            e.preventDefault();
+            $(".login-box").toggleClass("dn");
+            $("#login-toggler").toggleClass("activated");
+        });
+
+        $("#navToggler").click(function(e) {
+            e.preventDefault();
+            if($("#topMenu").css("display")=="none") {
+                $("#topMenu").show();
+            } else {
+                $("#topMenu").hide();
+            }
+        });
+
+        $("#logged-in").click(function(e) {
+            e.preventDefault();
+            $(".login-box").toggleClass("dn");
+            $("#logged-in").toggleClass("activated");
+        });
+    </script>
+
+    <!-- Google Analytics Code -->
+    <script type="text/javascript">
+
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-1170872-7']);
+          _gaq.push(['_setDomainName', 'jotform.com']);
+          _gaq.push(['_setAllowLinker', true]);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+
+     </script>
+    </body>
+</html>
+
+
 </body>
 </html>

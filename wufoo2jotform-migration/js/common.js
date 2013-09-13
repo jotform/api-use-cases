@@ -7,6 +7,7 @@ function init(){
     //Both arguments should be function 
     //First argument will be called after successful login
     //Second argument will be called if authorization fails
+    JF.init({accessType:"full"});
     JF.login(
         function(){
             window.japiKey = JF.getAPIKey();

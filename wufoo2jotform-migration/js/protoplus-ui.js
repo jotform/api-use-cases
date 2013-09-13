@@ -79,7 +79,7 @@ Object.extend(document, {
         dimColor:'#fff', // color of the dimming surface
         dimOpacity:0.8, // opacity of the dimming surface
         dimZindex: 10000,
-        dynamic: true, // Update the window dynamically while dragging
+        dynamic: false, // Update the window dynamically while dragging
         contentPadding: '8',
         closeTo:false,
         buttons:false, // [ { text:'', name:'', icon:'', className:'', handler:function(){} } ]
@@ -397,7 +397,7 @@ Object.extend(document, {
         }
         // document.observe('keyup', escClose); // Close the window when ESC is pressed
         // Make it draggable
-        win.setDraggable({handler:title_text, constrainViewport:true, dynamic:options.dynamic, dragEffect:false});
+       // win.setDraggable({handler:title_text, constrainViewport:true, dynamic:options.dynamic, dragEffect:false});
         win.close = closebox;
         document.openWindows.push(win);
         return win;

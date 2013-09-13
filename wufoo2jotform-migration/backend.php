@@ -9,7 +9,7 @@ $method = $_REQUEST["m"];
 
 @$wapikey = $_REQUEST["wapikey"];
 @$wusername = $_REQUEST["wusername"];
-@$japiKey = $_COOKIE["japikey"];
+@$japiKey = $_COOKIE["japiKey"];
 @$jusername = $_COOKIE["jusername"];
 
 if(stripos($_SERVER["HTTP_HOST"],".jotform.pro") !== false){ //allow development accounts to use migration
@@ -178,6 +178,7 @@ class very_simple_responder{
 		$postResult = $this->putJotAuthenticated($jotSubmissionsPostUrl,$formDetails);
 		//echo "result of POST <br /><pre>";
 		$tmp = json_decode($postResult,true);
+		//var_dump($tmp);
 		$newFormId = $tmp["content"]["id"];
 		
 		return array("result" => "migration of $formHash form has completed","formId" => $newFormId, "oldId" => $formHash);
@@ -391,8 +392,8 @@ class very_simple_responder{
 		and  $_SERVER['HTTP_USER_AGENT'] parameter using curl
 	*/
 	private function putJotApiKeyToUrl($url){
-		global $japikey,$jusername;
-		return $url."&apiKey=$japikey";
+		global $japiKey,$jusername;
+		return $url."&apiKey=$japiKey";
 	}	
 
 	private function getJotAuthenticated($url){
@@ -407,7 +408,7 @@ class very_simple_responder{
 
 	private function postJotAuthenticated($url,$postParams){
 		$url = self::putJotApiKeyToUrl($url);
-		echo "jot post URL = $url \n";
+		
 		$curl = curl_init($url);
 		curl_setopt($curl, CURLOPT_POST, true);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);

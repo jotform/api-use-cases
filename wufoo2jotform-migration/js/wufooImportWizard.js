@@ -15,6 +15,7 @@ function openWufooImportWizard(){
 
             },
             onInsert: function(w){
+                window.wizard_holder = w;
               	console.log("ON Insert");
                    // document.getElementById("page1").style.display = "block";
                    //load jsprogressbar
@@ -314,7 +315,7 @@ var migration_task_handler = {
     allTasksCompleted:function(){
         myJsProgressBarHandler.setPercentage("element1",100);
         var newStatusText = "Account Migration completed!";
-        $("current_operation").innerHTML = newStatusText+"<br/> <button onclick='$$(\".close-wiz\").each(function(el){__kemal_fireEvent(el,\"click\")});'>Okay</button>";
+        $("current_operation").innerHTML = newStatusText+"<br/> ";
         this.tasks = [];
         this.currentTaskIndex = 0;
         this.tasksCount = 0;

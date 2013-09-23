@@ -22,9 +22,9 @@
 
         <link rel="Shortcut Icon" href="http://max.jotfor.ms/favicon.ico?123456&v=3.0.2405" />
 
-        <link rel="stylesheet" type="text/css" href="/css/reset.css?rev=1">
-        <link rel="stylesheet" type="text/css" href="/css/style.css?rev=1">
-        <link rel="stylesheet" type="text/css" href="/css/common-page-styles.css?rev=1">
+        <link rel="stylesheet" type="text/css" href="/css/reset.css?rev=2">
+        <link rel="stylesheet" type="text/css" href="/css/common-page-styles.css?rev=2">
+        <link rel="stylesheet" type="text/css" href="css/your-style.css?rev=1">
 
 		<script type="text/javascript" src="/js/prototype.js"></script>
 		<script type="text/javascript" src="/js/protoplus.js"></script>
@@ -46,125 +46,40 @@
 <div class="page-wrap">
         <header id="header">
             <div class="header">
-    <div class="header-content">
-        <a href="/" class="logo-link">
-            <img src="http://cdn.jotfor.ms/anywhere/img/jotformDevLogo.png" alt="JotForm Developers" />
-        </a>
-        
-        <div class="header-nav">
-            <div class="nav-toggler" id="navToggler">|||</div>
-            <!--             
-            <ul id="topMenu">
-                <li>
-                    <a class="{{headerClass}}" href="http://api.jotform.com/docs" id="api-link">API</a>
-                </li>
-                <li>
-                    <a class="{% if path === 'competition' %}activated{% endif %}" href="/competition/?s=1">Competition</a>
-                </li>
-                <li>
-                    <a class="{% if path === 'libraries' %}activated{% endif %}" href="/libraries">Libraries</a>
-                </li>
-                <li>
-                    <a class="{% if path === 'widgets' %}activated{% endif %}" href="/widgets">Widgets</a>
-                </li>
-                <li>
-                    <a class="{% if path === 'integrations' %}activated{% endif %}" href="/integrations">Integrations</a>
-                </li>
-                <li>
-                    <a class="{% if path === 'forum' %}activated{% endif %}" href="/forum">Forum</a>
-                </li>
-                <li>
-                    <a class="{% if path === 'myapps' %}activated{% endif %}" href="/myapps">My Apps</a>
-                </li>
-            </ul>  
-            -->
-
-            <div class="login-cont" id="accountSection" style="visibility: hidden;">
-                    <a href="#" id="login-toggler">Login</a>
-                    <div class="login-box dn">
-                        <div class="login-box-content">
-                            <form action="#" method="post" onSubmit="return false;">
-                                <div class="wide-line">
-                                    <input type="text" placeholder="username" id="username" class="ajax-login-text"/>
-                                </div>
-                                <div class="wide-line">
-                                    <input type="password" placeholder="password" id="password" class="ajax-login-text"/>
-                                </div>
-                                <div class="wide-line">
-                                    <label id="signup_link" class="btn_link"><a href="#">Sign Up</a></label>
-                                    <input type="submit" id="login" value="Login" class="button ajax-login-button"/>
-                                    <div class="clearer"></div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="register-box-content dn">
-                            <form action="#" method="post" onSubmit="return false;">
-                                <div class="wide-line">
-                                    <input type="text" placeholder="username" id="username" class="ajax-reg-text"/>
-                                </div>
-                                <div class="wide-line">
-                                    <input type="email" placeholder="email" id="email" class="ajax-reg-text"/>
-                                </div>
-                                <div class="wide-line">
-                                    <input type="password" placeholder="password" id="password" class="ajax-reg-text"/>
-                                </div>
-                                <div class="wide-line">
-                                    <input type="password" placeholder="repeat password" id="repeat_password" class="ajax-reg-text"/>
-                                </div>
-                                <div class="wide-line">
-                                    <label id="login_link" class="btn_link"><a href="#">Login</a></label>
-                                    <input type="submit" id="signup" value="Sign Up" class="button ajax-reg-button"/>
-                                    <div class="clearer"></div>
-                                </div>
-                            </form>
-                        </div>
-                        <div id="error-box"></div>
-                    </div>
-                    
-                <!-- if he is logged in -->
-                    <!--
-                    <div class="user-header-info">
-                        <a href="#" id="logged-in" style="padding:0"><img src="{{user.avatar}}" />  </a>
-                        <div class="login-box dn">
-                            <div class="wide-line">
-                                <a id="myaccount-link" target="_blank" href="http://www.jotform.com/myaccount">My Account</a>
-                            </div>
-                            <div class="wide-line">
-                                <form action="/logout" method="post">
-                                    <input type="submit" value="Logout" class="button ajax-login-button" style="width: 100%;">
-                                </form>
-                            </div>
-                        </div>                         
-                    </div>
-                    -->
-                <!-- if he is logged in -->
+                <div class="header-content">
+                    <a href="/" class="logo-link">
+                        <img src="http://cdn.jotfor.ms/common-img/jotformCleanLogo.png" alt="JotForm Developers" />
+                    </a>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
         </header>
 
         <!-- write your content inside this div -->
         <div class="content-container">
-            <div class="jumbo-head">
-                <h1>Transform Your Wufoo Forms into JotForm Forms!</h1>
-                <p><img src="images/wufoo2jotform.png" alt=""></p>
-                <p><button class="cta" id="start_migration">Transform Now!</button></p>
-            </div>
-            <div class="page-desc">
-                <p>
-                    If there's an Excel to Google Spreadsheets transformation feature, why not try this on online forms? Let the painless form transformation era begin!
-                </p>
+            <div class="content">
+                <div class="banner-area">
+                    <div class="banner-content">
+                        <div class="title">Transform Your Wufoo Forms into JotForm Forms!</div>
+                        <div class="banner-text">Import your forms & data from Wufoo to JotForm easily. No more attachements, fear, or hesitations on moving to a new form builder!</div>
+                    </div>
+                    <div class="visual">
+                        <p><img src="images/wufoo2jotform.png" alt=""></p>
+                    </div>
+                </div>
             </div>
         </div>
-
-    </div>
+        <div class="clearer"></div>
+        <a href="#" class="cta, button big action" id="start_migration">Transform Now!</a>
     
+    </div>
+
     <!-- sticky footer here -->
     <footer class="footer" id="footer">
-    <a href="/" style="text-decoration: none;">
-        <img src="http://cdn.jotfor.ms/common-img/JotformDevLogoMini.png" width="160" height="25">
-    </a>
+        <div class="tm">
+            <span>Powered by </span>
+            <span><a href="http://www.jotform.com">JotForm</a></span>
+            <span class="app-g"><a href="http://apps.jotform.com">JotForm Apps</a></span>
+        </div>
     </footer>
     
     <!-- scripts here -->
@@ -213,8 +128,4 @@
 
      </script>
     </body>
-</html>
-
-
-</body>
 </html>

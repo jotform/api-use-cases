@@ -4,25 +4,25 @@
 	$format = $_GET['format'];
 
 	include 'jotform_mysqldump.php';
-	include 'jotform_postgresqldump.php';
-	include 'jotform_oracledump.php';
-	include 'jotform_sqlserverdump.php';
+	// include 'jotform_postgresqldump.php';
+	// include 'jotform_oracledump.php';
+	// include 'jotform_sqlserverdump.php';
 
 	if( $formID < 1)
 		die("Form ID Missing!");
 
 	switch ($format) {
 		case "PostgreSQL":
-			$sql = jotform_postgresqldump( $apiKey, $formID, $format);
+			$sql = jotform_postgresqldump($apiKey, $formID, $format);
 			break;
 		case "Oracle":
-			$sql = jotform_oracledump( $apiKey, $formID, $format);
+			$sql = jotform_oracledump($apiKey, $formID, $format);
 			break;
 		case "SQL Server":
-			$sql = jotform_sqlserverdump( $apiKey, $formID, $format);
+			$sql = jotform_sqlserverdump($apiKey, $formID, $format);
 			break;
 		default:
-			$sql = jotform_mysqldump( $apiKey, $formID, $format);
+			$sql = jotform_mysqldump($apiKey, $formID, $format);
 			break;
 	}
 

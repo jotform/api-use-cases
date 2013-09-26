@@ -1,17 +1,7 @@
 <?
-
-
-	include 'jotform-api-php/JotForm.php';
-
-	function jotform_sqlserverdump( $apiKey, $formID, $format ){
+	function jotform_sqlserverdump( $apiKey, $formID, $format, $formTitle, $questions, $submissions ){
 
 		// get a list of questions  
-		$jotformAPI = new JotForm( $apiKey );
-
-		$form = $jotformAPI->getForm( $formID );
-		$formTitle = $form['title'];
-
-		$questions = $jotformAPI->getFormQuestions( $formID );
 
 		$new_questions = array();
 		$ignored_fields = array("control_head", "control_button", "control_pagebreak", "control_collapse", "control_text");
@@ -24,11 +14,14 @@
 		}
 		$questions = $new_questions;
 
-
 		// prepare CREATE TABLE code
 		$table = mysql_fieldname_format($formTitle);
 		$sql .= "# $format output \n\n";
-		$sql .= "CREATE TABLE IF NOT EXISTS `".$table."` (\n";
+
+		$sql .= "IF OBJECT_ID ('".$table."', 'U') IS NOT NULL\n\tDROP TABLE ".$table.";\nGO\n";
+
+		$sql .= "CREATE TABLE ".$table."\n(\n";
+
 		$fields_sql = array();
 		$fields = array();
 		foreach ( $ordered_questions as $order => $i ){
@@ -37,20 +30,16 @@
 				$mysql_type = "text";
 			}
 			array_push($fields, $questions[$i]['text']);
-			array_push($fields_sql, "\t`".mysql_fieldname_format($questions[$i]['text'])."` ".$mysql_type);
+			array_push($fields_sql, "\t".mysql_fieldname_format($questions[$i]['text'])." ".$mysql_type);
 		}
 		$sql .= implode(",\n", $fields_sql);
-		$sql .= "\n);\n\n";
+		$sql .= "\n);\nGO\n";
 		//print $sql;
 
-		// get submission data 
-		$submissions = $jotformAPI->getFormSubmissions( $formID, 0, 10000 );
-		//print_r($submissions);
-
-
+		// prepare INSERT code 
 		foreach( $submissions as $s ){
 
-			$insert = "INSERT IGNORE INTO  `$table` (\n";
+			$insert = "INSERT INTO ".$table."\n(";
 			$keys = array();
 			$values = array();	
 			$answer = array();
@@ -71,16 +60,15 @@
 				}
 			}
 			$insert .= implode( ", ", $keys );
-			$insert .= "\n) VALUES (\n";
+			$insert .= ")\nVALUES (";
 			$insert .= implode( ", ", $values );
 
-			$insert .= "\n);\n\n";
+			$insert .= ");\n\n";
 			$sql .= $insert;
 			//print $insert; exit;
 		}
 
 		return $sql;
-
 	}
 
 	function mysql_fieldname_format($name){

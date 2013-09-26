@@ -1,18 +1,7 @@
 <?
-
-
-	include 'jotform-api-php/JotForm.php';
-
-	function jotform_oracledump( $apiKey, $formID, $format ){
+	function jotform_oracledump( $apiKey, $formID, $format, $formTitle, $questions, $submissions ){
 
 		// get a list of questions  
-		$jotformAPI = new JotForm( $apiKey );
-
-		$form = $jotformAPI->getForm( $formID );
-		$formTitle = $form['title'];
-
-		$questions = $jotformAPI->getFormQuestions( $formID );
-
 		$new_questions = array();
 		$ignored_fields = array("control_head", "control_button", "control_pagebreak", "control_collapse", "control_text");
 		$i = 0;
@@ -23,7 +12,6 @@
 			}
 		}
 		$questions = $new_questions;
-
 
 		// prepare CREATE TABLE code
 		$table = mysql_fieldname_format($formTitle);
@@ -40,14 +28,10 @@
 			array_push($fields_sql, "\t`".mysql_fieldname_format($questions[$i]['text'])."` ".$mysql_type);
 		}
 		$sql .= implode(",\n", $fields_sql);
-		$sql .= "\n);\n\n";
+		$sql .= "\n)\n\n";
 		//print $sql;
 
-		// get submission data 
-		$submissions = $jotformAPI->getFormSubmissions( $formID, 0, 10000 );
-		//print_r($submissions);
-
-
+		// prepare INSERT code 
 		foreach( $submissions as $s ){
 
 			$insert = "INSERT IGNORE INTO  `$table` (\n";

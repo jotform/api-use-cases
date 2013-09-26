@@ -1,18 +1,7 @@
 <?
-
-
-	include 'jotform-api-php/JotForm.php';
-
-	function jotform_mysqldump( $apiKey, $formID, $format ){
+	function jotform_mysqldump( $apiKey, $formID, $format, $formTitle, $questions, $submissions ){
 
 		// get a list of questions  
-		$jotformAPI = new JotForm( $apiKey );
-
-		$form = $jotformAPI->getForm( $formID );
-		$formTitle = $form['title'];
-
-		$questions = $jotformAPI->getFormQuestions( $formID );
-
 		$new_questions = array();
 		$ignored_fields = array("control_head", "control_button", "control_pagebreak", "control_collapse", "control_text");
 		$i = 0;
@@ -25,10 +14,14 @@
 		$questions = $new_questions;
 
 
-		// prepare CREATE TABLE code
+		// prepare CREATE TABLE code 
+		// $table = mysql_fieldname_format(getFormTitle($apiKey, $formID));
 		$table = mysql_fieldname_format($formTitle);
+
 		$sql .= "# $format output \n\n";
+
 		$sql .= "CREATE TABLE IF NOT EXISTS `".$table."` (\n";
+		
 		$fields_sql = array();
 		$fields = array();
 		foreach ( $ordered_questions as $order => $i ){
@@ -43,11 +36,7 @@
 		$sql .= "\n);\n\n";
 		//print $sql;
 
-		// get submission data 
-		$submissions = $jotformAPI->getFormSubmissions( $formID, 0, 10000 );
-		//print_r($submissions);
-
-
+		// prepare INSERT code 
 		foreach( $submissions as $s ){
 
 			$insert = "INSERT IGNORE INTO  `$table` (\n";
@@ -78,9 +67,7 @@
 			$sql .= $insert;
 			//print $insert; exit;
 		}
-
 		return $sql;
-
 	}
 
 	function mysql_fieldname_format($name){
@@ -97,6 +84,5 @@
 
 	// TODO: 
 	// - If there are more than one fields with same label, it will give a mysql duplicate field error.
-
 
 ?>

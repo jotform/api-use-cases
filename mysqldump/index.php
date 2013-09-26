@@ -12,8 +12,6 @@
 		$FORMAT = "SQL Server";
 	}
 
-
-
 ?><html>
 <head>
 	<title><?=$FORMAT?> Export for JotForm</title>

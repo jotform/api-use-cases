@@ -16,7 +16,6 @@
 
 		// prepare CREATE TABLE code
 		$table = mysql_fieldname_format($formTitle);
-		$sql .= "# $format output \n\n";
 
 		$sql .= "IF OBJECT_ID ('".$table."', 'U') IS NOT NULL\n\tDROP TABLE ".$table.";\nGO\n";
 

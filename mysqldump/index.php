@@ -50,7 +50,24 @@
 
 <center>
 <h1><?=$FORMAT?> Export for JotForm</h1>
-<font color="green" size=2>Get <?=$FORMAT?> output of your form submissions. Ready to be loaded on any phpMyAdmin.</font>
+
+<font color="green" size=2>Get <?=$FORMAT?> output of your form submissions. Ready to be loaded on any 
+	<? switch ($FORMAT) {
+		case 'PostgreSQL':
+			echo "phpPgAdmin";
+			break;
+		case 'Oracle':
+			echo "Oracle";
+			break;
+		case 'SQL Server':
+			echo "MS SQL Server";
+			break;
+		default:
+			echo "phpMyAdmin";
+			break;
+	} ?>
+</font>
+
 </center>
 
 <br/><br/><br/>

@@ -16,11 +16,10 @@
 
 		// prepare CREATE TABLE code
 		$table = mysql_fieldname_format($formTitle);
-		$sql .= "# $format output \n\n";
 
-		$sql .= "DROP TABLE IF EXISTS ".$table.";\n";
+		// $sql .= "DROP TABLE IF EXISTS \"".$table."\";\n";
 
-		$sql .= "CREATE TABLE ".$table." (\n";
+		$sql .= "CREATE TABLE IF NOT EXISTS \"".$table."\" (\n";
 
 		$fields_sql = array();
 		$fields = array();
@@ -40,7 +39,7 @@
 
 		foreach( $submissions as $s ){
 
-			$insert = "INSERT INTO ".$table." (";
+			$insert = "INSERT INTO \"".$table."\" (";
 			$keys = array();
 			$values = array();	
 			$answer = array();
@@ -50,7 +49,7 @@
 
 			foreach ( $fields as $k){
 				if( $k != "" && $k != "...."){
-					array_push( $keys, "`".mysql_fieldname_format($k)."`");
+					array_push( $keys, "\"".mysql_fieldname_format($k)."\"");
 					
 					if( is_array( $answer[$k] ) ){
 						$a = implode(",", $answer[$k]);

@@ -82,5 +82,4 @@
 	// TODO: 
 	// - If there are more than one fields with same label, it will give a mysql duplicate field error.
 
-
 ?>

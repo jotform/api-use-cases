@@ -1,5 +1,5 @@
 <?
-	function jotform_sqlserverdump( $apiKey, $formID, $format, $formTitle, $questions, $submissions ){
+	function jotform_sqlserverdump( $apiKey, $format, $formTitle, $questions, $submissions ){
 
 		// get a list of questions  
 

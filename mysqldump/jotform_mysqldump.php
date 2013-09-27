@@ -1,5 +1,5 @@
 <?
-	function jotform_mysqldump( $apiKey, $formID, $format, $formTitle, $questions, $submissions ){
+	function jotform_mysqldump( $apiKey, $format, $formTitle, $questions, $submissions ){
 
 		// get a list of questions  
 		$new_questions = array();
@@ -15,10 +15,7 @@
 
 
 		// prepare CREATE TABLE code 
-		// $table = mysql_fieldname_format(getFormTitle($apiKey, $formID));
 		$table = mysql_fieldname_format($formTitle);
-
-		$sql .= "# $format output \n\n";
 
 		$sql .= "CREATE TABLE IF NOT EXISTS `".$table."` (\n";
 		

@@ -1,5 +1,5 @@
 <?
-	function jotform_postgresqldump( $apiKey, $formID, $format, $formTitle, $questions, $submissions ){
+	function jotform_postgresqldump( $apiKey, $format, $formTitle, $questions, $submissions ){
 
 		// get a list of questions  
 		$new_questions = array();

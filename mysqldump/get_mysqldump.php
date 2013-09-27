@@ -15,19 +15,19 @@
 	switch ($format) {
 		case "PostgreSQL":
 			include 'jotform_postgresqldump.php';
-			$sql = jotform_postgresqldump($apiKey, $formID, $format, $formTitle, $questions, $submissions);
+			$sql = jotform_postgresqldump($apiKey, $format, $formTitle, $questions, $submissions);
 			break;
 		case "Oracle":
 			include 'jotform_oracledump.php';
-			$sql = jotform_oracledump($apiKey, $formID, $format, $formTitle, $questions, $submissions);
+			$sql = jotform_oracledump($apiKey, $format, $formTitle, $questions, $submissions);
 			break;
 		case "SQL Server":
 			include 'jotform_sqlserverdump.php';
-			$sql = jotform_sqlserverdump($apiKey, $formID, $format, $formTitle, $questions, $submissions);
+			$sql = jotform_sqlserverdump($apiKey, $format, $formTitle, $questions, $submissions);
 			break;
 		default:
 			include 'jotform_mysqldump.php';
-			$sql = jotform_mysqldump($apiKey, $formID, $format, $formTitle, $questions, $submissions);
+			$sql = jotform_mysqldump($apiKey, $format, $formTitle, $questions, $submissions);
 			break;
 	}
 

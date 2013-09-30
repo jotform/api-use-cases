@@ -17,7 +17,9 @@
 		// prepare CREATE TABLE code
 		$table = mysql_fieldname_format($formTitle);
 
-		$sql .= "IF OBJECT_ID ('".$table."', 'U') IS NOT NULL\n\tDROP TABLE ".$table.";\nGO\n";
+		// $sql .= "IF OBJECT_ID ('".$table."', 'U') IS NOT NULL\n\tDROP TABLE ".$table.";\nGO\n";
+
+		$sql .= "IF NOT EXISTS ( SELECT name FROM sys.databases WHERE name = ".$table." AND xtype = U)\nBEGIN\n";
 
 		$sql .= "CREATE TABLE ".$table."\n(\n";
 
@@ -32,7 +34,9 @@
 			array_push($fields_sql, "\t".mysql_fieldname_format($questions[$i]['text'])." ".$mysql_type);
 		}
 		$sql .= implode(",\n", $fields_sql);
-		$sql .= "\n);\nGO\n";
+		$sql .= "\n);";
+		$sql .= "\nEND";
+		$sql .= "\nGO\n";
 		//print $sql;
 
 		// prepare INSERT code 

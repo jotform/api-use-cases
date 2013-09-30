@@ -1,185 +1,261 @@
 <?
 	//print $_SERVER['HTTP_HOST'];
-	$FORMAT = "MySQL";  //default
+	// $FORMAT = "MySQL";  //default
 
-	if( $_SERVER['HTTP_HOST'] == "postgresql.jotform.io" ){
-		$FORMAT = "PostgreSQL";
-	} else if( $_SERVER['HTTP_HOST'] == "oracle.jotform.io" ){
-		$FORMAT = "Oracle";
-	} else if( $_SERVER['HTTP_HOST'] == "mariadb.jotform.io" ){
-		$FORMAT = "MariaDB";
-	} else if( $_SERVER['HTTP_HOST'] == "sqlserver.jotform.io" ){
-		$FORMAT = "SQL Server";
-	}
-
-?><html>
-<head>
-	<title><?=$FORMAT?> Export for JotForm</title>
-	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
-	<style>
-	.big-button{
-		border-radius: 5px 5px 5px 5px;
-		border: 1px solid rgb(19, 144, 69);
-		background-color: rgb(19, 144, 69);
-		color: white;
-		font-size: 14px;
-		text-align: center;
-		cursor: pointer;
-		height: 30px;
-		min-width: 100px;
-		line-height: 25px;
-		transition: all 0.1s linear 0s;
-	}
-	html, body {
-	    height: 100%;
-	}
-
-	html {
-	    display: table;
-	    margin: auto;
-	}
-	body {
-		max-width:600px;
-	    display: table-cell;
-	    vertical-align: middle;
-    }
-	</style>
-</head>
-
-<body >
-
-<center>
-<h1><?=$FORMAT?> Export for JotForm</h1>
-
-<font color="green" size=2>Get <?=$FORMAT?> output of your form submissions. Ready to be loaded on any 
-	<? switch ($FORMAT) {
-		case 'PostgreSQL':
-			echo "phpPgAdmin";
+	switch ($_SERVER['HTTP_HOST']) {
+		case 'postgresql.jotform.io':
+			$FORMAT = 'PostgreSQL';
 			break;
-		case 'Oracle':
-			echo "Oracle";
+		case 'oracle.jotform.io':
+			$FORMAT = 'Oracle';
 			break;
-		case 'SQL Server':
-			echo "MS SQL Server";
+		case 'mariadb.jotform.io':
+			$FORMAT = 'MariaDB';
+			break;
+		case 'sqlserver.jotform.io':
+			$FORMAT = 'SQL Server';
+			break;
+		case 'db2.jotform.io':
+			$FORMAT = 'DB2';
+			break;
+		case 'sqlite.jotform.io':
+			$FORMAT = 'SQLite';
+			break;
+		case 'sybase.jotform.io':
+			$FORMAT = 'Sybase';
+			break;
+		case 'hive.jotform.io':
+			$FORMAT = 'Hive';
+			break;
+		case 'informix.jotform.io':
+			$FORMAT = 'Informix';
+			break;
+		case 'msaccess.jotform.io':
+			$FORMAT = 'MS Access';
+			break;
+		case 'sapsybaseiq.jotform.io':
+			$FORMAT = 'SAP Sybase IQ';
+			break;
+		case 'drizzle.jotform.io':
+			$FORMAT = 'Drizzle';
 			break;
 		default:
-			echo "phpMyAdmin";
+			$FORMAT = 'MySQL';
 			break;
-	} ?>
-</font>
-
-</center>
-
-<br/><br/><br/>
-<h2>1. Connect JotForm<h2>
-<button id="authJotForm" class="big-button left">Authenticate</button>
-<div id="authStatus" style="display:none;"><font color="green" size="3">Authenticated</font></div>
-
-<h2>2. Select a Form<h2>
-<button id="formpicker" class="big-button left" style="display:none;">Select a Form</button>
-<div id="formpickerStatus" style="display:none;"><font color="green" size="3">
-	Form Selected - <span id="formTitle"></div>
-</font></div>
-
-
-<h2>3. Download <?=$FORMAT?> File<h2>
-<button id="download" class="big-button left" style="display:none;">Download</button>
-
-
-
-<script type="text/javascript" src="http://developers.jotform.com/js/lib/jquery/jquery.min.js"></script>
-
-<script src='http://js.jotform.com/JotForm.min.js'></script>
-<script src='http://js.jotform.com/FormPicker.min.js'></script>
-<script>
-	var apiKey;
-	var formID;
-	var formTitle;
-
-	$("#authJotForm").click(function(e) {
-        JF.login(
-            function success() {
-                apiKey = JF.getAPIKey();
-			    $("#authStatus").css("display", "inline");
-			    $("#authJotForm").css("display", "none");
-			    $("#formpicker").css("display", "inline");
-            },
-            function error() {
-                $("#loginresults").html("error during authorization");
-            }
-        );
-	});
-
-    // Get API Key
-    // Get Selected Form
-
-	$("#formpicker").click(function(e) {
-	    JF.FormPicker({
-	        multiSelect: false,
-	        onSelect: function(r) {
-	            formID = r[0].id;
-	            formTitle = r[0].title;
-	            $("#formTitle").text(formTitle);
-			    $("#formpickerStatus").css("display", "inline");
-	            $("#formpicker").text("Change Form");
-	            $("#download").css("display", "inline");
-	        },
-	        //onClose : function() {
-	            // on close not working any more.
-	            // moved it to onselect
-	        //},
-	    });
-	});
-
-	$("#download").click(function(e) {
-		getMysqldump();
-	});
-
-
-    // Send them to the server (to PHP)
-    function getMysqldump(){
-    	// call server
-    	//formID = getSelectedForm();
-    	if( !formID )
-    		return;
-    	//alert("Form ID: "+formID+ " API KEY: " + apiKey);
-    	getDumpURL( formID, apiKey );
-
-
-    }
-
-	function getDumpURL( formID, apiKey )
-	{
-		var xmlhttp;
-		if (window.XMLHttpRequest)
-		  {// code for IE7+, Firefox, Chrome, Opera, Safari
-		  xmlhttp=new XMLHttpRequest();
-		  }
-		else
-		  {// code for IE6, IE5
-		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-		  }
-		xmlhttp.onreadystatechange=function()
-		  {
-		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
-		    {
-		    	// returns the zip file URL
-		     window.location = xmlhttp.responseText ;
-		    }
-		  }
-		xmlhttp.open("GET", "/get_mysqldump.php?formID="+formID+"&format=<?=$FORMAT?>&apiKey="+apiKey, true);
-		xmlhttp.send();
 	}
+?>
+<html>
+	<head>
+		<title><?=$FORMAT?> Export for JotForm</title>
 
-    // It will create a ZIP file and send its name back to browser 
-    // We will redirect user to that file
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-</script> 
+		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+
+		<link rel="Shortcut Icon" href="http://max.jotfor.ms/favicon.ico?123456&v=3.0.2405" />
+		<!-- You can also include common-page-styles.css file into yourstyle.css, it is recommended -->
+		<link rel="stylesheet" type="text/css" href="css/your-style.css?rev=1">
+
+		<style>
+		.big-button{
+			border-radius: 5px 5px 5px 5px;
+			border: 1px solid rgb(19, 144, 69);
+			background-color: rgb(19, 144, 69);
+			color: white;
+			font-size: 14px;
+			text-align: center;
+			cursor: pointer;
+			height: 30px;
+			min-width: 100px;
+			line-height: 25px;
+			transition: all 0.1s linear 0s;
+		}
+		</style>
+
+	</head>
+
+	<body>
+		<div class="page-wrap">
+		    <header id="header">
+		        <div class="header">
+		            <div class="header-content">
+		                <a href="/" class="logo-link">
+		                    <img src="http://cdn.jotfor.ms/common-img/jotformCleanLogo.png" alt="JotForm Developers" />
+		                </a>
+		            </div>
+		        </div>
+		    </header>
+		    <!--
+			<div class="content-container">
+		    	<div class="content">
+		        	<div class="banner-area">
+		            	<div class="banner-content">
+		                	<div class="title">Submissions 2 <?=$FORMAT?></div>
+		                	<div class="banner-text">Maybe you want to keep your submissions in a <?=$FORMAT?> database. Wel,l there are few workarounds for that but now, it’s even easier. With this tool, you'll be able to download your submissions and load them to your <?=$FORMAT?> database easily.</div>
+		            	</div>
+		            	<div class="visual">
+		                	<p><img src="img/mysql.png" alt=""></p>
+		            	</div>
+		        	</div>
+		    	</div>
+		    </div>
+
+			<div class="clearer"></div>
+			-->
+
+			<center>
+				<h1><?=$FORMAT?> Export for JotForm</h1>
+
+				<font color="green" size=2>Get <?=$FORMAT?> output of your form submissions. Ready to be loaded on any 
+					<? switch ($FORMAT) {
+						case 'PostgreSQL':
+							echo "phpPgAdmin";
+							break;
+						case 'Oracle':
+							echo "Oracle";
+							break;
+						case 'SQL Server':
+							echo "MS SQL Server";
+							break;
+						default:
+							echo "phpMyAdmin";
+							break;
+					} ?>
+				</font>
+
+				<br/><br/><br/>
+				<h2>1. Connect JotForm<h2>
+				<button id="authJotForm" class="big-button">Authenticate</button>
+				<div id="authStatus" style="display:none;"><font color="green" size="3">Authenticated</font></div>
+
+				<h2>2. Select a Form<h2>
+				<button id="formpicker" class="big-button" style="display:none;">Select a Form</button>
+				<div id="formpickerStatus" style="display:none;">
+					<font color="green" size="3">
+						Form Selected - <span id="formTitle">
+					</font>
+				</div>
+
+				<h2>3. Download SQL File<h2>
+				<button id="download" class="big-button" style="display:none;">Download</button>
+			</center>
+		
+		</div>
 
 
+	<footer class="footer" id="footer">
+	    <div class="tm">
+	        <span>Powered by </span>
+	        <span><a href="http://www.jotform.com">JotForm</a></span>
+	        <span class="app-g"><a href="http://apps.jotform.com">JotForm Apps</a></span>
+	    </div>
+	</footer>
+
+	<script type="text/javascript" src="http://developers.jotform.com/js/lib/jquery/jquery.min.js"></script>
+
+	<script src='http://js.jotform.com/JotForm.min.js'></script>
+	<script src='http://js.jotform.com/FormPicker.min.js'></script>
+	<script>
+		var apiKey;
+		var formID;
+		var formTitle;
+
+		$("#authJotForm").click(function(e) {
+	        JF.login(
+	            function success() {
+	                apiKey = JF.getAPIKey();
+				    $("#authStatus").css("display", "inline");
+				    $("#authJotForm").css("display", "none");
+				    $("#formpicker").css("display", "inline");
+	            },
+	            function error() {
+	                $("#loginresults").html("error during authorization");
+	            }
+	        );
+		});
+
+	    // Get API Key
+	    // Get Selected Form
+
+		$("#formpicker").click(function(e) {
+		    JF.FormPicker({
+		        multiSelect: false,
+		        onSelect: function(r) {
+		            formID = r[0].id;
+		            formTitle = r[0].title;
+		            $("#formTitle").text(formTitle);
+				    $("#formpickerStatus").css("display", "inline");
+		            $("#formpicker").text("Change Form");
+		            $("#download").css("display", "inline");
+		        },
+		        //onClose : function() {
+		            // on close not working any more.
+		            // moved it to onselect
+		        //},
+		    });
+		});
+
+		$("#download").click(function(e) {
+			getMysqldump();
+		});
 
 
+	    // Send them to the server (to PHP)
+	    function getMysqldump(){
+	    	// call server
+	    	//formID = getSelectedForm();
+	    	if( !formID )
+	    		return;
+	    	//alert("Form ID: "+formID+ " API KEY: " + apiKey);
+	    	getDumpURL( formID, apiKey );
 
 
-</body>
+	    }
+
+		function getDumpURL( formID, apiKey )
+		{
+			var xmlhttp;
+			if (window.XMLHttpRequest)
+			  {// code for IE7+, Firefox, Chrome, Opera, Safari
+			  xmlhttp=new XMLHttpRequest();
+			  }
+			else
+			  {// code for IE6, IE5
+			  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			  }
+			xmlhttp.onreadystatechange=function()
+			  {
+			  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			    {
+			    	// returns the zip file URL
+			     window.location = xmlhttp.responseText ;
+			    }
+			  }
+			xmlhttp.open("GET", "/get_mysqldump.php?formID="+formID+"&format=<?=$FORMAT?>&apiKey="+apiKey, true);
+			xmlhttp.send();
+		}
+
+	    // It will create a ZIP file and send its name back to browser 
+	    // We will redirect user to that file
+
+	</script> 
+
+	<!-- Google Analytics Code -->
+	<script type="text/javascript">
+
+	      var _gaq = _gaq || [];
+	      _gaq.push(['_setAccount', 'UA-1170872-7']);
+	      _gaq.push(['_setDomainName', 'jotform.com']);
+	      _gaq.push(['_setAllowLinker', true]);
+	      _gaq.push(['_trackPageview']);
+
+	      (function() {
+	        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+	        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	      })();
+
+	 </script>
+
+	</body>
 </html>

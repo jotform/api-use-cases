@@ -13,17 +13,41 @@
 	$submissions = getSubmissions($apiKey, $formID);
 
 	switch ($format) {
-		case "PostgreSQL":
+		case 'PostgreSQL':
 			include 'jotform_postgresqldump.php';
 			$sql = jotform_postgresqldump($apiKey, $format, $formTitle, $questions, $submissions);
 			break;
-		case "Oracle":
+		case 'Oracle':
 			include 'jotform_oracledump.php';
 			$sql = jotform_oracledump($apiKey, $format, $formTitle, $questions, $submissions);
 			break;
-		case "SQL Server":
+		case 'SQL Server':
 			include 'jotform_sqlserverdump.php';
 			$sql = jotform_sqlserverdump($apiKey, $format, $formTitle, $questions, $submissions);
+			break;
+		case 'DB2':
+			include 'jotform_db2dump.php';
+			$sql = jotform_db2dump($apiKey, $format, $formTitle, $questions, $submissions);
+			break;
+		case 'Sybase':
+			include 'jotform_sybasedump.php';
+			$sql = jotform_sybasedump($apiKey, $format, $formTitle, $questions, $submissions);
+			break;
+		case 'Hive':
+			include 'jotform_hivedump.php';
+			$sql = jotform_hivedump($apiKey, $format, $formTitle, $questions, $submissions);
+			break;
+		case 'Informix':
+			include 'jotform_informixdump.php';
+			$sql = jotform_informixdump($apiKey, $format, $formTitle, $questions, $submissions);
+			break;
+		case 'MS Access':
+			include 'jotform_msaccessdump.php';
+			$sql = jotform_msaccessdump($apiKey, $format, $formTitle, $questions, $submissions);
+			break;
+		case 'SAP Sybase IQ':
+			include 'jotform_sybasedump.php';
+			$sql = jotform_sybasedump($apiKey, $format, $formTitle, $questions, $submissions);
 			break;
 		default:
 			include 'jotform_mysqldump.php';

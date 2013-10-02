@@ -85,25 +85,8 @@
 		            </div>
 		        </div>
 		    </header>
-		    <!--
-			<div class="content-container">
-		    	<div class="content">
-		        	<div class="banner-area">
-		            	<div class="banner-content">
-		                	<div class="title">Submissions 2 <?=$FORMAT?></div>
-		                	<div class="banner-text">Maybe you want to keep your submissions in a <?=$FORMAT?> database. Wel,l there are few workarounds for that but now, it’s even easier. With this tool, you'll be able to download your submissions and load them to your <?=$FORMAT?> database easily.</div>
-		            	</div>
-		            	<div class="visual">
-		                	<p><img src="img/mysql.png" alt=""></p>
-		            	</div>
-		        	</div>
-		    	</div>
-		    </div>
 
-			<div class="clearer"></div>
-			-->
-
-			<center>
+			<center style="padding-top: 90px;">
 				<h1><?=$FORMAT?> Export for JotForm</h1>
 
 				<font color="green" size=2>Get <?=$FORMAT?> output of your form submissions. Ready to be loaded on any 
@@ -112,10 +95,31 @@
 							echo "phpPgAdmin";
 							break;
 						case 'Oracle':
-							echo "Oracle";
+							echo "Oracle DB";
 							break;
 						case 'SQL Server':
 							echo "MS SQL Server";
+							break;
+						case 'SQLite':
+							echo "SQLite Database";
+							break;
+						case 'Drizzle':
+							echo 'Drizzle';
+							break;
+						case 'Sybase':
+							echo 'Sybase';
+							break;
+						case 'SAP Sybase IQ':
+							echo 'Sybase IQ';
+							break;
+						case 'Hive':
+							echo 'Hive';
+							break;
+						case 'Informix':
+							echo 'Informix';
+							break;
+						case 'DB2':
+							echo 'DB2';
 							break;
 						default:
 							echo "phpMyAdmin";
@@ -139,7 +143,6 @@
 				<h2>3. Download SQL File<h2>
 				<button id="download" class="big-button" style="display:none;">Download</button>
 			</center>
-		
 		</div>
 
 

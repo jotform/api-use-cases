@@ -122,10 +122,6 @@
                         <input type="text" placeholder="Type form name" class="typeahead" id="search-forms"/>
                     </div>
 
-                    <div class="userinfo" style="float: right;color: white;margin-top:-44px;">
-                        <span id="username" style="font-family: 'SourceSansPro', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:15px;"></span>
-                        <img id="avatar" style="margin:0 12px;"/>
-                    </div>                    
                 </div>
 
                 <div id="tab-content">
@@ -133,7 +129,11 @@
                     <div class="content" id="home-tab" style="display:none">
                         <div class="row area-top">
                             <div>
-                                <div class="widget stacked" id="profile" style="width:30%;float:left;">
+                                <div class="widget" id="profile" style="width:30%;float:left;">
+                                    <div class="userinfo" style="">
+                                        <img id="avatar" style="margin:0 12px; border-radius:32px;"/>
+                                        <span id="username" style="font-family: 'SourceSansProLight', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:15px;"></span>
+                                    </div>                                  
                                 </div>
                             </div>                         
                             <div style="width:30%; float: right; border-left: 1px solid #eee;padding: 0 12px;">
@@ -190,6 +190,7 @@
         <script src="js/vendor/moment.min.js"></script>
         <script src="js/vendor/jquery.knob.js"></script>
         <script src="js/vendor/jquery.magnific-popup.js"></script>
+        <script src="js/vendor/jquery.percentageloader-0.1.js"></script>
         <script src="js/vendor/datepicker.js"></script>
 
         <script src="js/JotFormAPIWidgets.js"></script>

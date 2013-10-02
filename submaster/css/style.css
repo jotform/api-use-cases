@@ -390,7 +390,7 @@ tab nav
 profile elements
  */
 .profile {
-    margin: 0;
+    margin: 0 73px;
     font-family: "SourceSansProLight", "Helvetica Neue", Helvetica, Arial, sans-serif;
     padding: 0;
 }
@@ -406,7 +406,7 @@ profile elements
 
 .sub > span {
     font-family: "SourceSansPro", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    margin-right: 8px;
+    margin:0 4px;
 }
 
 /*-------------------------------------------------------------------

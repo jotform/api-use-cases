@@ -15,7 +15,7 @@ var ProfileView = Backbone.View.extend({
 
     render: function() {
         var self = this;
-        this.$el.html(this.template(window.app.user));
+        this.$el.append(this.template(window.app.user));
 
         //get daily submissions and save it in app cache
         window.app.submissionsCollection.fetch(

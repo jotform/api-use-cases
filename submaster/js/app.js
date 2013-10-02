@@ -60,7 +60,7 @@ $(document).ready(function(){
 
         JF.getUser(function(user){
             //user info successfully obtained
-            $("#username").html(user.name);
+            $("#username").html("Welcome " + user.name);
             $("#avatar").attr("src", user.avatarUrl);
             window.app.user = user;
 

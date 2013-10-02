@@ -19,6 +19,8 @@ var FormsColumnChartView = Backbone.View.extend({
 
         var forms = window.app.formsCollection.getForms(this.field, 0, 5)
 
+        console.log("forms", forms);
+        
         var values = [];
         for(var i=0; i<forms.length; i++){
             values.push(parseInt(forms[i].get(this.field)));

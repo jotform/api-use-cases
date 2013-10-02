@@ -127,7 +127,7 @@
                 <div id="tab-content">
 
                     <div class="content" id="home-tab" style="display:none">
-                        <div class="row area-top">
+                        <div class="row area-top" style="margin-bottom:0;">
                             <div>
                                 <div class="widget" id="profile" style="float:left;">
 <!--                                     <div class="userinfo" style="">
@@ -144,15 +144,21 @@
                             </div>   -->
                         </div> 
                         <div class="row area-top">                                              
-                            <div style="width:30%; float: right; border-left: 1px solid #eee;padding: 0 12px;">
-                                <p>Forms with most new submissions</p>
+                            <div style="width:50%; float: left; border-left: 1px solid #eee;padding: 0 12px;">
+                                <p>Forms with most unread submissions</p>
                                 <div id="newest-forms"></div>
                             </div>
-                            <div style="width:30%; float:right; border-right: 1px solid #ddd;padding: 0 12px;">
+                            <div style="width:50%; float:left; border-right: 1px solid #ddd;padding: 0 12px;">
                                 <p>Forms with most submissions</p>
                                 <div id="fullest-forms"></div>                      
                             </div>                                                
                         </div>
+
+                        <div class="row area-top">                                              
+                            <div id="submissions-line">
+
+                            </div>                                            
+                        </div>                        
                         <div class="row" >
                             <div class="column" style="width:100%;">
                                 <div>
@@ -223,6 +229,7 @@
         <script src="js/views/SubmissionsCalendarView.js"></script>
         <script src="js/views/HomeView.js"></script>
         <script src="js/views/FormSubmissionsGridView.js"></script>
+        <script src="js/views/SubmissionsSeriesView.js"></script>
 
         <script src="js/app.js"></script>
 

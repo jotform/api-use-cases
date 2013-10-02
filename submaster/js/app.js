@@ -62,7 +62,7 @@ $(document).ready(function(){
             //user info successfully obtained
             window.app.user = user;
 
-            JF.getForms(function(forms){
+            JF.getForms({limit: 1000},function(forms){
                 //typeahead text box
                 $(".form-list").show();
                 if (typeof user.avatarURL !== 'undefined') {

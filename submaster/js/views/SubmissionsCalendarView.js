@@ -4,6 +4,7 @@ var SubmissionsCalendarView = Backbone.View.extend({
         this.el = options.el;
         this.formColors = {};
         this.render();
+        this.submissionsPerDay = {};
     },
 
     render: function() {
@@ -27,7 +28,6 @@ var SubmissionsCalendarView = Backbone.View.extend({
         var date = moment(y+m+day, "YYYY-MM-DD").format("YYYY-MM-DD"),
             events = [];
 
-        console.log(date);
         window.app.submissionsCollection.fetch(
             {
                 // filter: {"created_at:gte":date}, 
@@ -39,6 +39,8 @@ var SubmissionsCalendarView = Backbone.View.extend({
 
                 //create events data for calendar
                 for(var i=0; i<r.length; i++) {
+                    //create submission map with days
+                    
                     var f = window.app.formsCollection.get(r[i].form_id);
                     if(f === undefined) continue;
 
@@ -49,6 +51,17 @@ var SubmissionsCalendarView = Backbone.View.extend({
                     var d = ca.split("-")[2].split(" ")[0];
                     var h = ca.split("-")[2].split(" ")[1].split(":")[0];
                     
+                    if(i===0) {
+                        self.startDate = y+"-"+m+"-"+d;
+                    }
+                    var dateKey = y+m+d;
+
+                    if(self.submissionsPerDay[dateKey] === undefined) {
+                        self.submissionsPerDay[dateKey] = 1;
+                    } else {
+                        self.submissionsPerDay[dateKey] += 1;
+                    }
+
                     var c = false;
                     if(self.formColors[r[i].form_id] === undefined) {
                         c = generateRandomColor();
@@ -66,6 +79,16 @@ var SubmissionsCalendarView = Backbone.View.extend({
                     });
                 }
 
+                var submissionsLineData = [];
+                _.each(_.keys(self.submissionsPerDay), function(s) {
+                    submissionsLineData.push(self.submissionsPerDay[s]);
+                });
+
+                new SubmissionsSeriesView({
+                    data: submissionsLineData,
+                    start : self.startDate
+                });
+
                 //initialize calendar
                 self.$el.fullCalendar({
                     header: {
@@ -81,7 +104,6 @@ var SubmissionsCalendarView = Backbone.View.extend({
                         var sv = new SubmissionDetailView({
                             submission: sub
                         });
-                        console.log(element);
                         $.magnificPopup.open({
                             items: {
                                 src: sv.el, // can be a HTML string, jQuery object, or CSS selector

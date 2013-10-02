@@ -13,10 +13,10 @@ var ProfileView = Backbone.View.extend({
                 // '<li class="yearly sub">' +
                 // '</li>' +                
             '</ul> </div>' 
-            + '<div style="float:left; width: 200px; height:100px;"><div id="submissions"></div></div>'
-            + '<div style="float:left; width: 200px; height:100px;"><div id="payments"></div></div>'
-            + '<div style="float:left; width: 200px; height:100px;"><div id="ssl"></div></div>'
-            + '<div style="float:left; width: 200px; height:100px;"><div id="uploads"></div>'
+            + '<div style="float:left; width: 175px; height:100px;"><div id="submissions"></div></div>'
+            + '<div style="float:left; width: 175px; height:100px;"><div id="payments"></div></div>'
+            + '<div style="float:left; width: 175px; height:100px;"><div id="ssl"></div></div>'
+            + '<div style="float:left; width: 175px; height:100px;"><div id="uploads"></div>'
             );
         this.render();
     },

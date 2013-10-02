@@ -20,7 +20,11 @@ var UsagesKnobView = Backbone.View.extend({
                 self.drawKnob($("#submission", self.el), 100, 40, "#FF0000");
                 self.drawKnob($("#sslsubmission", self.el), 10, 8, "#FF0000");
                 self.drawKnob($("#payment", self.el), 10, 2, "#FF0000");
-                self.drawKnob($("#upload", self.el), 1000, 550, "#FF0000");                
+                self.drawKnob($("#upload", self.el), 1000, 550, "#FF0000");  
+                // var $topLoader = $("#submissions").percentageLoader({width: 126, height: 126, controllable : true, progress : 0.8, onProgressUpdate : function(val) {
+                //   $topLoader.setValue(Math.round(val * 100.0));
+                // }}); 
+                // $topLoader.setValue('0');             
                 self.$el.show();
             }
 

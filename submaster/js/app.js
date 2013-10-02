@@ -60,8 +60,6 @@ $(document).ready(function(){
 
         JF.getUser(function(user){
             //user info successfully obtained
-            $("#username").html("Welcome " + user.name);
-            $("#avatar").attr("src", user.avatarUrl);
             window.app.user = user;
 
             JF.getForms(function(forms){
@@ -75,12 +73,12 @@ $(document).ready(function(){
 
                 JF.getUsage(function(usage){
                     //usage info obtained
-                    console.log("usage", usage);
+                    console.log("usage obtained", usage);
 
-                    window.app.usagesView= new UsagesKnobView({
-                        usage: usage,
-                        el: document.getElementById("usage-knobs")
-                    });
+                    // window.app.usagesView= new UsagesKnobView({
+                    //     usage: usage,
+                    //     el: document.getElementById("usage-knobs")
+                    // });
                 });
                 
                 window.app.formsCollection = new FormsCollection(forms);

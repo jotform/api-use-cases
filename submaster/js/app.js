@@ -27,21 +27,43 @@ $(document).ready(function(){
 
     function initializeApp(){
         
+        //sample code to create a question on form
+        //DO NOT DELETE HERE
+        // JF.createFormQuestion("32742366921860", 
+        //     {
+        //         "type": "control_head",
+        //         "text": "Created form questions shit",
+        //         "order": "3",
+        //         "name":"clickTo",
+        //     },
+
+        //     function success(){
+        //         console.log("question created");
+        //     },
+
+        //     function error() {
+        //         console.log("error during question");
+        //     }
+        // );
+
+
         var SM = Backbone.Model.extend({});
         window.app.stateModel = new SM();
 
-        var w = window.innerWidth-$("#sidebar").width();
-        $("#container").width(w-20);
+        // var w = window.innerWidth-$("#sidebar").width();
+        // $("#container").width(w-20);
 
-        window.onresize = function(){
-            var w = window.innerWidth-$("#sidebar").width();
-            $("#container").width(w-20);            
-        }
+        // window.onresize = function(){
+        //     var w = window.innerWidth-$("#sidebar").width();
+        //     $("#container").width(w-20);            
+        // }
 
         JF.getUser(function(user){
+            //user info successfully obtained
             $("#username").html(user.name);
             $("#avatar").attr("src", user.avatarUrl);
             window.app.user = user;
+
             JF.getForms(function(forms){
                 //typeahead text box
                 $(".form-list").show();
@@ -52,6 +74,9 @@ $(document).ready(function(){
                 }
 
                 JF.getUsage(function(usage){
+                    //usage info obtained
+                    console.log("usage", usage);
+
                     window.app.usagesView= new UsagesKnobView({
                         usage: usage,
                         el: document.getElementById("usage-knobs")
@@ -68,6 +93,7 @@ $(document).ready(function(){
                         "": "initializeHomeView",
                         ":formID": "initializeFormView"
                     },
+
                     initializeHomeView : function(){
                         createTypeAhead(forms);
                         window.app.sidebarView.showTab("home");
@@ -79,6 +105,7 @@ $(document).ready(function(){
                     initializeFormView : function(formID){
                         createTypeAhead(forms);                        
                         var form = window.app.formsCollection.get(formID);
+                        
                         window.app.sidebarView.addTab({
                             id: formID,
                             value: form.get("title")
@@ -91,7 +118,6 @@ $(document).ready(function(){
 
             });
         });
-
         //define router
     };
 

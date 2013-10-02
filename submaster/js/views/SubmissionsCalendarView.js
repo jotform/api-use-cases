@@ -27,7 +27,12 @@ var SubmissionsCalendarView = Backbone.View.extend({
             events = [];
 
         window.app.submissionsCollection.fetch( function (r) {
+            console.log("sub fetch", r, window.app.formsCollection);
+
             for(var i=0; i<r.length; i++) {
+                var f = window.app.formsCollection.get(r[i].form_id);
+                if(f === undefined) continue;
+
                 var t = window.app.formsCollection.get(r[i].form_id).get("title");
                 var ca = r[i].created_at;
                 var y = ca.split("-")[0];

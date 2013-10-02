@@ -2,7 +2,8 @@ var SubmissionsCollection = Backbone.Collection.extend({
 
     cache: {},
 
-    fetch : function(callback, query){
+    fetch : function(query, callback){
+
         var key = createCacheKey(query), 
             self = this;
         if( this.cache[key] !== undefined ) {
@@ -10,7 +11,7 @@ var SubmissionsCollection = Backbone.Collection.extend({
             return;
         }
 
-        JF.getSubmissions(function(resp) {
+        JF.getSubmissions(query, function(resp) {
             callback(resp);
             self.cache[key] = resp;
             for (var i=0; i<resp.length; i++) {
@@ -18,9 +19,8 @@ var SubmissionsCollection = Backbone.Collection.extend({
                     self.add(resp[i]);
                 }
             }
-        }, query);
+        });
 
-        
         function createCacheKey(){
             if(typeof query === 'undefined') return "default";
             var key = "";

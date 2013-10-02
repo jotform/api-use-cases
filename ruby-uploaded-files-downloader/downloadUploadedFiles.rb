@@ -12,10 +12,10 @@ require 'fileutils'
 $stdout.sync = true
 
 # Initialize JotFormAPI Ruby client with apiKey
-jotform = JotForm.new("#apiKey")
+jotform = JotForm.new(ARGV[0])
 
 # Set formID to download your files in submissions
-formID = "#formID"
+formID = ARGV[1]
 
 # Get list of files from JotFormAPI
 files = jotform.getFormFiles(formID)

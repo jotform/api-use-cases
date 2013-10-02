@@ -35,8 +35,6 @@ var ProfileView = Backbone.View.extend({
         if(m.length === 1) m = "0" + m;
         var date = moment(y+m+day, "YYYY-MM-DD").format("YYYY-MM-DD");
 
-        console.log("monthly", date);
-        
         window.app.submissionsCollection.fetch(
             {
                 filter: {"created_at:gte":date}, 

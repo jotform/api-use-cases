@@ -18,23 +18,23 @@
         this.$el.show();
 
         window.app.formsColumnChartView = new FormsColumnChartView({
-            el: $("#newest-forms")[0],
+            el: $("#newest-forms"),
             field: "new",
             color: "#EC8D00"
         });
 
         window.app.formsColumnChartViewForCount = new FormsColumnChartView({
-            el: $("#fullest-forms")[0],
+            el: $("#fullest-forms"),
             field: "count",
             color: "#6895C1"
         });
 
         window.app.profileView = new ProfileView({
-            el: $("#profile")[0]
+            el: $("#profile")
         });
         
         window.app.submissionsCalendarView = new SubmissionsCalendarView({
-            el: $("#calendar")[0]
+            el: $("#calendar")
         });       
     }
 

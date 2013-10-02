@@ -23,64 +23,75 @@ var SubmissionsCalendarView = Backbone.View.extend({
             return cl;
         }
         if(m.length === 1) m = "0" + m;
+
         var date = moment(y+m+day, "YYYY-MM-DD").format("YYYY-MM-DD"),
             events = [];
 
-        window.app.submissionsCollection.fetch( function (r) {
-            console.log("sub fetch", r, window.app.formsCollection);
+        console.log(date);
+        window.app.submissionsCollection.fetch(
+            {
+                // filter: {"created_at:gte":date}, 
+                limit:1000
+            }
+            , function (r) {
 
-            for(var i=0; i<r.length; i++) {
-                var f = window.app.formsCollection.get(r[i].form_id);
-                if(f === undefined) continue;
+                console.log("submission data for calendar fetched", r);
 
-                var t = window.app.formsCollection.get(r[i].form_id).get("title");
-                var ca = r[i].created_at;
-                var y = ca.split("-")[0];
-                var m = parseInt(ca.split("-")[1]);
-                var d = ca.split("-")[2].split(" ")[0];
-                var h = ca.split("-")[2].split(" ")[1].split(":")[0];
-                
-                var c = false;
-                if(self.formColors[r[i].form_id] === undefined) {
-                    c = generateRandomColor();
-                    self.formColors[r[i].form_id] = c;
-                } else {
-                    c = self.formColors[r[i].form_id];
+                //create events data for calendar
+                for(var i=0; i<r.length; i++) {
+                    var f = window.app.formsCollection.get(r[i].form_id);
+                    if(f === undefined) continue;
+
+                    var t = window.app.formsCollection.get(r[i].form_id).get("title");
+                    var ca = r[i].created_at;
+                    var y = ca.split("-")[0];
+                    var m = parseInt(ca.split("-")[1]);
+                    var d = ca.split("-")[2].split(" ")[0];
+                    var h = ca.split("-")[2].split(" ")[1].split(":")[0];
+                    
+                    var c = false;
+                    if(self.formColors[r[i].form_id] === undefined) {
+                        c = generateRandomColor();
+                        self.formColors[r[i].form_id] = c;
+                    } else {
+                        c = self.formColors[r[i].form_id];
+                    }
+                    events.push({
+                        title: t,
+                        start: new Date(y,m-1+"",d, h),
+                        allDay:false,
+                        borderColor: c,
+                        backgroundColor: c,
+                        id: r[i].id
+                    });
                 }
-                events.push({
-                    title: t,
-                    start: new Date(y,m-1+"",d, h),
-                    allDay:false,
-                    borderColor: c,
-                    backgroundColor: c,
-                    id: r[i].id
+
+                //initialize calendar
+                self.$el.fullCalendar({
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,basicWeek,basicDay'
+                    },
+                    editable: false,
+                    disableDragging: true,
+                    events: events,
+                    eventClick: function(event, element) {
+                        var sub = window.app.submissionsCollection.get(event.id).attributes;
+                        var sv = new SubmissionDetailView({
+                            submission: sub
+                        });
+                        console.log(element);
+                        $.magnificPopup.open({
+                            items: {
+                                src: sv.el, // can be a HTML string, jQuery object, or CSS selector
+                                type: 'inline'
+                            }
+                        });
+                    }
                 });
             }
-            self.$el.fullCalendar({
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,basicWeek,basicDay'
-                },
-                editable: false,
-                disableDragging: true,
-                events: events,
-                eventClick: function(event, element) {
-                    var sub = window.app.submissionsCollection.get(event.id).attributes;
-                    var sv = new SubmissionDetailView({
-                        submission: sub
-                    });
-                    console.log(element);
-                    $.magnificPopup.open({
-                        items: {
-                            src: sv.el, // can be a HTML string, jQuery object, or CSS selector
-                            type: 'inline'
-                        }
-                    });
-                }
-            });
-
-        }, {filter: {"created_at:gte":date}, limit:1000});   
+        );   
     }
 
 });

@@ -13,9 +13,9 @@
 		}
 		$questions = $new_questions;
 
-		// prepare CREATE TABLE code
+		// CREATE TABLE STATEMENT 
 		$table = mysql_fieldname_format($formTitle);
-		$sql .= "# $format output \n\n";
+
 		$sql .= "CREATE TABLE IF NOT EXISTS `".$table."` (\n";
 		$fields_sql = array();
 		$fields = array();
@@ -27,16 +27,16 @@
 			array_push($fields, $questions[$i]['text']);
 			array_push($fields_sql, "\t`".mysql_fieldname_format($questions[$i]['text'])."` ".$mysql_type);
 		}
+		$sql .= "\t`submissionID` NUMBER(19) PRIMARY KEY,\n";
 		$sql .= implode(",\n", $fields_sql);
 		$sql .= "\n)\n\n";
-		//print $sql;
 
-		// prepare INSERT code 
+		// INSERT / REPLACE STATEMENT 
 		foreach( $submissions as $s ){
 
-			$insert = "INSERT IGNORE INTO  `$table` (\n";
-			$keys = array();
-			$values = array();	
+			$insert = "REPLACE INTO `$table` (";
+			$keys = array("`submissionID`");
+			$values = array($s["id"]);	
 			$answer = array();
 			foreach( $s['answers'] as $a ){
 				$answer[ $a['text'] ] = $a['answer'];
@@ -54,17 +54,15 @@
 					array_push( $values, "'". my_mysql_real_escape_string( $a ) ."'");
 				}
 			}
+
 			$insert .= implode( ", ", $keys );
-			$insert .= "\n) VALUES (\n";
+			$insert .= ")\nVALUES (";
 			$insert .= implode( ", ", $values );
 
-			$insert .= "\n);\n\n";
+			$insert .= ");\n\n";
 			$sql .= $insert;
-			//print $insert; exit;
 		}
-
 		return $sql;
-
 	}
 
 	function mysql_fieldname_format($name){

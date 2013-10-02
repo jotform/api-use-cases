@@ -13,7 +13,7 @@
 		}
 		$questions = $new_questions;
 
-		// prepare CREATE TABLE code 
+		// CREATE TABLE STATEMENT 
 		$table = mysql_fieldname_format($formTitle);
 
 		$sql .= "IF NOT EXISTS (\n\tSELECT 1\n\tFROM sysobjects\n\tWHERE name=".$table."\n\tAND type=\"U\"\n)\n";
@@ -29,16 +29,18 @@
 			array_push($fields, $questions[$i]['text']);
 			array_push($fields_sql, "\t`".mysql_fieldname_format($questions[$i]['text'])."` ".$mysql_type);
 		}
+		$sql .= "\t`submissionID` bigint,\n";
 		$sql .= implode(",\n", $fields_sql);
-		$sql .= "\n)\")\nGO\n\n";
-		//print $sql;
+		$sql .= ",\n\tPRIMARY KEY(submissionID)";
+		$sql .= ")\")\nGO\n\n";
 
-		// prepare INSERT code 
+		// INSERT / REPLACE STATEMENT  
 		foreach( $submissions as $s ){
 
-			$insert = "INSERT IGNORE INTO  `$table` (\n";
-			$keys = array();
-			$values = array();	
+			$insert = "INSERT INTO  `$table` (";
+			
+			$keys = array("`submissionID`");
+			$values = array($s["id"]);	
 			$answer = array();
 			foreach( $s['answers'] as $a ){
 				$answer[ $a['text'] ] = $a['answer'];
@@ -56,13 +58,21 @@
 					array_push( $values, "'". my_mysql_real_escape_string( $a ) ."'");
 				}
 			}
-			$insert .= implode( ", ", $keys );
-			$insert .= "\n) VALUES (\n";
-			$insert .= implode( ", ", $values );
+			$insert .= implode( ", ", $keys ).")\n";
 
-			$insert .= "\n);\n\n";
+			$insert .= "\t ON EXISTING UPDATE `".$table."`\n\t SET ";
+			for($i=0;$i<count($keys);$i++){
+				$insert .= $keys[$i]."=".$values[$i];
+
+				if($i < count($keys) - 1) {
+					$insert .= " AND ";
+				}
+			}
+			
+			$insert .= "\nVALUES (";
+			$insert .= implode( ", ", $values );
+			$insert .= ");\n\n";
 			$sql .= $insert;
-			//print $insert; exit;
 		}
 		return $sql;
 	}

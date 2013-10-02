@@ -13,14 +13,11 @@
 		}
 		$questions = $new_questions;
 
-
-		// prepare CREATE TABLE code
+		// CREATE TABLE STATEMENT 
 		$table = mysql_fieldname_format($formTitle);
 
-		// $sql .= "DROP TABLE IF EXISTS \"".$table."\";\n";
-
 		$sql .= "CREATE TABLE IF NOT EXISTS \"".$table."\" (\n";
-
+		
 		$fields_sql = array();
 		$fields = array();
 		foreach ( $ordered_questions as $order => $i ){
@@ -29,19 +26,19 @@
 				$mysql_type = "text";
 			}
 			array_push($fields, $questions[$i]['text']);
-			array_push($fields_sql, "\t".mysql_fieldname_format($questions[$i]['text'])." ".$mysql_type);
+			array_push($fields_sql, "\t\"".mysql_fieldname_format($questions[$i]['text'])."\" ".$mysql_type);
 		}
+
+		$sql .= "\t\"submissionID\" bigserial primary key,\n";
 		$sql .= implode(",\n", $fields_sql);
 		$sql .= "\n);\n\n";
-		//print $sql;
 
-		// prepare INSERT code 
-
+		// INSERT / REPLACE STATEMENT
 		foreach( $submissions as $s ){
 
 			$insert = "INSERT INTO \"".$table."\" (";
-			$keys = array();
-			$values = array();	
+			$keys = array("\"submissionID\"");
+			$values = array($s["id"]);	
 			$answer = array();
 			foreach( $s['answers'] as $a ){
 				$answer[ $a['text'] ] = $a['answer'];
@@ -65,7 +62,6 @@
 
 			$insert .= ");\n\n";
 			$sql .= $insert;
-			//print $insert; exit;
 		}
 
 		return $sql;

@@ -13,7 +13,7 @@
 		}
 		$questions = $new_questions;
 
-		// prepare CREATE TABLE code 
+		// CREATE TABLE STATEMENT 
 		$table = mysql_fieldname_format($formTitle);
 
 		$sql .= "IF NOT EXISTS (SELECT NAME FROM SYSIBM.SYSTABLES WHERE NAME=`".$table."`)\nTHEN\n";
@@ -29,16 +29,18 @@
 			array_push($fields, $questions[$i]['text']);
 			array_push($fields_sql, "\t`".mysql_fieldname_format($questions[$i]['text'])."` ".$mysql_type);
 		}
-		$sql .= implode(",\n", $fields_sql);
-		$sql .= ")\nEND IF\n";
-		//print $sql;
 
-		// prepare INSERT code 
+		$sql .= "\t`submissionID` BIGINT,\n";
+		$sql .= implode(",\n", $fields_sql);
+		$sql .= ",\n\tPRIMARY KEY(submissionID)";
+		$sql .= ")\nEND IF\n";
+
+		// INSERT / REPLACE STATEMENT 
 		foreach( $submissions as $s ){
 
 			$insert = "INSERT IGNORE INTO  `$table` (\n";
-			$keys = array();
-			$values = array();	
+			$keys = array("`submissionID`");
+			$values = array($s["id"]);	
 			$answer = array();
 			foreach( $s['answers'] as $a ){
 				$answer[ $a['text'] ] = $a['answer'];
@@ -59,10 +61,8 @@
 			$insert .= implode( ", ", $keys );
 			$insert .= "\n) VALUES (\n";
 			$insert .= implode( ", ", $values );
-
 			$insert .= "\n);\n\n";
 			$sql .= $insert;
-			//print $insert; exit;
 		}
 		return $sql;
 	}

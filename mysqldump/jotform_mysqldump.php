@@ -13,7 +13,7 @@
 		}
 		$questions = $new_questions;
 
-		// prepare CREATE TABLE code 
+		// CREATE TABLE STATEMENT 
 		$table = mysql_fieldname_format($formTitle);
 
 		$sql .= "CREATE TABLE IF NOT EXISTS `".$table."` (\n";
@@ -28,15 +28,13 @@
 			array_push($fields, $questions[$i]['text']);
 			array_push($fields_sql, "\t`".mysql_fieldname_format($questions[$i]['text'])."` ".$mysql_type);
 		}
-		$sql .= "\t`submissionID` BIGINT,\n";
 
+		$sql .= "\t`submissionID` BIGINT,\n";
 		$sql .= implode(",\n", $fields_sql);
-		// $sql .= ",\n\t`submissionID` BIGINT,";
 		$sql .= ",\n\tPRIMARY KEY (submissionID)";
 		$sql .= "\n);\n\n";
-		//print $sql;
 
-		// prepare INSERT code 
+		// INSERT / REPLACE STATEMENT 
 		foreach( $submissions as $s ){
 
 			$insert = "REPLACE `$table` (";
@@ -60,16 +58,12 @@
 				}
 			}
 
-			// array_push($keys, "submissionID");
-			// array_push($values, $s["id"]);
-
 			$insert .= implode( ", ", $keys );
 			$insert .= ")\nVALUES (";
 			$insert .= implode( ", ", $values );
 
 			$insert .= ");\n\n";
 			$sql .= $insert;
-			//print $insert; exit;
 		}
 		return $sql;
 	}

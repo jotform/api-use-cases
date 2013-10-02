@@ -2,7 +2,6 @@
 	function jotform_sqlserverdump( $apiKey, $format, $formTitle, $questions, $submissions ){
 
 		// get a list of questions  
-
 		$new_questions = array();
 		$ignored_fields = array("control_head", "control_button", "control_pagebreak", "control_collapse", "control_text");
 		$i = 0;
@@ -14,14 +13,11 @@
 		}
 		$questions = $new_questions;
 
-		// prepare CREATE TABLE code
+		// CREATE TABLE STATEMENT
 		$table = mysql_fieldname_format($formTitle);
 
-		// $sql .= "IF OBJECT_ID ('".$table."', 'U') IS NOT NULL\n\tDROP TABLE ".$table.";\nGO\n";
-
-		$sql .= "IF NOT EXISTS ( SELECT name FROM sys.databases WHERE name = ".$table." AND xtype = U)\nBEGIN\n";
-
-		$sql .= "CREATE TABLE ".$table."\n(\n";
+		$sql .= "IF NOT EXISTS ( SELECT name FROM sys.databases WHERE name = `".$table."` AND xtype = U)\nBEGIN\n";
+		$sql .= "CREATE TABLE `".$table."`\n(\n";
 
 		$fields_sql = array();
 		$fields = array();
@@ -31,20 +27,19 @@
 				$mysql_type = "text";
 			}
 			array_push($fields, $questions[$i]['text']);
-			array_push($fields_sql, "\t".mysql_fieldname_format($questions[$i]['text'])." ".$mysql_type);
+			array_push($fields_sql, "\t`".mysql_fieldname_format($questions[$i]['text'])."` ".$mysql_type);
 		}
+		$sql .= "\t`submissionID` PRIMARY KEY,\n";	
 		$sql .= implode(",\n", $fields_sql);
 		$sql .= "\n);";
 		$sql .= "\nEND";
-		$sql .= "\nGO\n";
-		//print $sql;
+		$sql .= "\nGO\n\n";
 
-		// prepare INSERT code 
+		// INSERT / REPLACE STATEMENT 
 		foreach( $submissions as $s ){
-
-			$insert = "INSERT INTO ".$table."\n(";
-			$keys = array();
-			$values = array();	
+			$insert = "\tINSERT INTO `".$table."`(";
+			$keys = array("`submissionID`");
+			$values = array($s["id"]);	
 			$answer = array();
 			foreach( $s['answers'] as $a ){
 				$answer[ $a['text'] ] = $a['answer'];
@@ -63,12 +58,24 @@
 				}
 			}
 			$insert .= implode( ", ", $keys );
-			$insert .= ")\nVALUES (";
+			$insert .= ")\n\tVALUES (";
 			$insert .= implode( ", ", $values );
 
 			$insert .= ");\n\n";
-			$sql .= $insert;
-			//print $insert; exit;
+			
+			$update = "IF EXISTS (SELECT * FROM `".$table."` WHERE submissionID = ".$s["id"].")";
+			$update .= "\n\tUPDATE TABLE `".$table."`\n\tSET ";
+
+			for($i=0;$i<count($keys);$i++){
+				$update .= $keys[$i]."=".$values[$i];
+
+				if($i < count($keys) - 1) {
+					$update .= " AND ";
+				}
+			}
+
+			$sql .= $update."\nELSE\n".$insert;
+
 		}
 
 		return $sql;

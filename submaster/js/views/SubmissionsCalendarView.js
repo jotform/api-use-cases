@@ -51,10 +51,10 @@ var SubmissionsCalendarView = Backbone.View.extend({
                     var d = ca.split("-")[2].split(" ")[0];
                     var h = ca.split("-")[2].split(" ")[1].split(":")[0];
                     
-                    if(i===0) {
+                    if(i===r.length-1) {
                         self.startDate = y+"-"+m+"-"+d;
                     }
-                    var dateKey = y+m+d;
+                    var dateKey = y+"-"+m+"-"+d;
 
                     if(self.submissionsPerDay[dateKey] === undefined) {
                         self.submissionsPerDay[dateKey] = 1;
@@ -79,13 +79,13 @@ var SubmissionsCalendarView = Backbone.View.extend({
                     });
                 }
 
-                var submissionsLineData = [];
-                _.each(_.keys(self.submissionsPerDay), function(s) {
-                    submissionsLineData.push(self.submissionsPerDay[s]);
-                });
+                // var submissionsLineData = [];
+                // _.each(_.keys(self.submissionsPerDay), function(s) {
+                //     self.submissionsPerDay[;
+                // });
 
                 new SubmissionsSeriesView({
-                    data: submissionsLineData,
+                    data: self.submissionsPerDay,
                     start : self.startDate
                 });
 

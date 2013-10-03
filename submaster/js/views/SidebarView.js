@@ -28,17 +28,25 @@ var SidebarView = Backbone.View.extend({
                 '<span>' + data.value + '</span>' +
             '</li>');
 
+        //create form tab
         $('#tab-content').append(_.template($("#new-tab-template").html())({
             id: data.id,
             title: app.formsCollection.get(data.id).get("title")
         }));
 
-        new FormSubmissionsGridView({
-            formModel: app.formsCollection.get(data.id),
-            el: $('#'+data.id+'-tab')
-        });
+        // new FormSubmissionsGridView({
+        //     formModel: app.formsCollection.get(data.id),
+        //     el: $('#'+data.id+'-tab')
+        // });
 
         this.showTab(data.id);
+
+        //create submission calendar for form
+        window.app["submissionCalendarView" + data.id] = new SubmissionsCalendarView({
+            el: $("#calendar-"+data.id),
+            form : true,
+            formId : data.id
+        });       
     },
 
     activateTab: function(e){

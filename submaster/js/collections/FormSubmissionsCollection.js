@@ -39,7 +39,7 @@ var FormSubmissionsCollection = Backbone.Collection.extend({
 
     cache: {},
 
-    fetch : function(callback ,query ,formId){
+    fetch : function(formId ,query ,callback){
         var key = createCacheKey(query,formId), 
             self = this;
         if( this.cache[key] !== undefined ) {

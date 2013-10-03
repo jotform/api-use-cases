@@ -96,7 +96,7 @@ $(document).ready(function(){
                         createTypeAhead(forms);
                         window.app.sidebarView.showTab("home");
                         if(window.app.stateModel.get("home")){
-                            return;
+                            return;x
                         }
                         window.app.homeView = new HomeView();
                     },
@@ -106,7 +106,8 @@ $(document).ready(function(){
                         
                         window.app.sidebarView.addTab({
                             id: formID,
-                            value: form.get("title")
+                            value: form.get("title"),
+                            data : form
                         });                                      
                     }
                 });

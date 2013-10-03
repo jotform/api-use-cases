@@ -1,12 +1,13 @@
 var SubmissionsSeriesView = Backbone.View.extend({
 
-    el: '#submissions-line',
 
     initialize: function(options) {
         this.data = options.data;
         this.start = options.start;
         console.log(this.data, this.start);
+        this.el = options.el;
 
+        console.log(this.el);
         this.render();
     },
 
@@ -23,20 +24,21 @@ var SubmissionsSeriesView = Backbone.View.extend({
             var m = parseInt(k.split("-")[1])-1;
             var d = parseInt(k.split("-")[2]);
 
-            console.log(y,m,d);            
             chartData.push([Date.UTC(y, m, d), self.data[k]]);
         });
 
-        console.log(chartData);
         this.$el.highcharts({
             chart: {
                 type: 'spline'
             },
             title: {
-                text: 'Submissions per day for latest 1000 submissions'
+                enabled : false
             },
             subtitle: {
-                text: 'Irregular time data in Highcharts JS'
+                enabled: false
+            },
+            legend : {
+                enabled : false
             },
             xAxis: {
                 type: 'datetime',

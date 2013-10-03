@@ -45,6 +45,10 @@
 			include 'jotform_sybasedump.php';
 			$sql = jotform_sybasedump($apiKey, $format, $formTitle, $questions, $submissions);
 			break;
+		case 'MongoDB':
+			include 'jotform_mongodbdump.php';
+			$sql = jotform_mongodbdump($apiKey, $format, $formTitle, $questions, $submissions);
+			break;
 		default:
 			include 'jotform_mysqldump.php';
 			$sql = jotform_mysqldump($apiKey, $format, $formTitle, $questions, $submissions);
@@ -52,10 +56,17 @@
 	}
 
 	chdir("zip/");
-	$sqlFile = "$formID.sql";
-	$zipFile = "sql$formID.zip";
-	file_put_contents($sqlFile, $sql);
 
+	if($format == "MongoDB") {
+		$sqlFile = "$formID.json";
+		file_put_contents($sqlFile, json_encode($sql));
+	} else {
+		$sqlFile = "$formID.sql";
+		file_put_contents($sqlFile, $sql);
+	}
+
+	$zipFile = "sql$formID.zip";
+    
     $zip = new ZipArchive();
     if ( $zip->open( $zipFile, ZipArchive::OVERWRITE) === false ){
         die("Cannot create zip archive.");

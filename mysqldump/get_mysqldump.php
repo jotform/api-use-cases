@@ -41,10 +41,6 @@
 			include 'jotform_informixdump.php';
 			$sql = jotform_informixdump($apiKey, $format, $formTitle, $questions, $submissions);
 			break;
-		case 'MS Access':
-			include 'jotform_msaccessdump.php';
-			$sql = jotform_msaccessdump($apiKey, $format, $formTitle, $questions, $submissions);
-			break;
 		case 'SAP Sybase IQ':
 			include 'jotform_sybasedump.php';
 			$sql = jotform_sybasedump($apiKey, $format, $formTitle, $questions, $submissions);

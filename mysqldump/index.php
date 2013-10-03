@@ -30,9 +30,6 @@
 		case 'informix.jotform.io':
 			$FORMAT = 'Informix';
 			break;
-		case 'msaccess.jotform.io':
-			$FORMAT = 'MS Access';
-			break;
 		case 'sapsybaseiq.jotform.io':
 			$FORMAT = 'SAP Sybase IQ';
 			break;

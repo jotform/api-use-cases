@@ -35,7 +35,7 @@
 		// INSERT / REPLACE STATEMENT 
 		foreach( $submissions as $s ){
 
-			$insert = "INSERT IGNORE INTO  `$table` (";
+			$insert = "INSERT OVERWRITE INTO  `$table` (";
 			$keys = array("`submissionID`");
 			$values = array($s["id"]);	
 			$answer = array();

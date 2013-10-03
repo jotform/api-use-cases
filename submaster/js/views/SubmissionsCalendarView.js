@@ -44,7 +44,7 @@ var SubmissionsCalendarView = Backbone.View.extend({
 
     createChartAndCalendar : function(r) {
         var self = this;
-        console.log(r, self.submissionsPerDay);
+
         var d = new Date(),
             y = d.getUTCFullYear(), 
             m = d.getMonth()+"", 
@@ -118,7 +118,7 @@ var SubmissionsCalendarView = Backbone.View.extend({
         });
 
         //initialize calendar
-        self.$el.fullCalendar({
+        var fc = self.$el.fullCalendar({
             header: {
                 left: 'prev,next today',
                 center: 'title',
@@ -140,6 +140,14 @@ var SubmissionsCalendarView = Backbone.View.extend({
                 });
             }
         });
+
+        var lastSubmission = r[0];
+        if(r.length > 0){
+            var y = parseInt(lastSubmission.created_at.split("-")[0]);
+            var m = parseInt(lastSubmission.created_at.split("-")[1])-1;
+            var d = parseInt(lastSubmission.created_at.split("-")[2].split(" ")[0]);
+            fc.fullCalendar('gotoDate', y, m, d);
+        }
     }
 
 });

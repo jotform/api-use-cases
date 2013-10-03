@@ -26,26 +26,6 @@ $(document).ready(function(){
     }
 
     function initializeApp(){
-        
-        //sample code to create a question on form
-        //DO NOT DELETE HERE
-        // JF.createFormQuestion("32742366921860", 
-        //     {
-        //         "type": "control_head",
-        //         "text": "Created form questions shit",
-        //         "order": "3",
-        //         "name":"clickTo",
-        //     },
-
-        //     function success(){
-        //         console.log("question created");
-        //     },
-
-        //     function error() {
-        //         console.log("error during question");
-        //     }
-        // );
-
 
         var SM = Backbone.Model.extend({});
         window.app.stateModel = new SM();
@@ -71,14 +51,8 @@ $(document).ready(function(){
                     user.avatarURL = user.avatarUrl;
                 }
 
-                JF.getUsage(function(usage){
-                    //usage info obtained
-                    console.log("usage obtained", usage);
-
-                    // window.app.usagesView= new UsagesKnobView({
-                    //     usage: usage,
-                    //     el: document.getElementById("usage-knobs")
-                    // });
+                $.get("http://api.jotform.com/user/usage?apiKey=" + JF.getAPIKey(), function(r){
+                    window.app.usage = r.content;
                 });
                 
                 window.app.formsCollection = new FormsCollection(forms);

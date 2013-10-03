@@ -27,6 +27,8 @@ var SubmissionsSeriesView = Backbone.View.extend({
             chartData.push([Date.UTC(y, m, d), self.data[k]]);
         });
 
+        console.log(chartData);
+        
         this.$el.highcharts({
             chart: {
                 type: 'spline'

@@ -27,51 +27,38 @@ var ProfileView = Backbone.View.extend({
         $("#username").html("Welcome " + window.app.user.name);
         $("#avatar").attr("src", window.app.user.avatarUrl);
 
-        var submissionsGage = new JustGage({
-            id: "submissions", 
-            value: 17, 
-            min: 0,
-            max: 100,
-            title: "Submissions",
-            // valueFontColor : 'rgba(255,255,255,0)',
-            // titleFontColor : 'rgba(255,255,255,0)'
+        JF.getPlan(window.app.user.account_type, function(r) {
+            var sLimit = r.limits.submissions;
+            var submissionsGage = new JustGage({
+                id: "submissions", 
+                value: window.app.usage.submissions, 
+                min: 0,
+                max: sLimit,
+                title: "Submissions"
+            });
+            var paymentsGage = new JustGage({
+                id: "payments", 
+                value: window.app.usage.payments, 
+                min: 0,
+                max: r.limits.payments,
+                title: "Payments"
+            }); 
+            var sslGage = new JustGage({
+                id: "ssl", 
+                value: window.app.usage.ssl_submissions, 
+                min: 0,
+                max: r.limits.sslSubmissions,
+                title: "SSL Submissions"
+            });            
+            var uploadsGage = new JustGage({
+                id: "uploads", 
+                value: window.app.usage.uploads,
+                min: 0,
+                max: r.limits.uploads,
+                title: "Uploads"
+            }); 
         });
-        var paymentsGage = new JustGage({
-            id: "payments", 
-            value: 47, 
-            min: 0,
-            max: 100,
-            title: "Payments",
-            // valueFontColor : 'rgba(255,255,255,0)',
-            // titleFontColor : 'rgba(255,255,255,0)'
-        }); 
-        var sslGage = new JustGage({
-            id: "ssl", 
-            value: 67, 
-            min: 0,
-            max: 100,
-            title: "SSL Submissions",
-            // valueFontColor : 'rgba(255,255,255,0)',
-            // titleFontColor : 'rgba(255,255,255,0)'
-        });                  
-        var uploadsGage = new JustGage({
-            id: "uploads", 
-            value: 87, 
-            min: 0,
-            max: 100,
-            title: "Uploads",
-            // valueFontColor : 'rgba(255,255,255,0)',
-            // titleFontColor : 'rgba(255,255,255,0)'
-        }); 
-        // var $subLoader = $("#submissions").percentageLoader({width: 96, height: 96, controllable : true, progress : 0.8, onProgressUpdate : function(val) {
-        //   $subLoader.setValue(Math.round(val * 100.0));
-        // }}); 
-        // $subLoader.setValue('0'); 
-
-        // var $payLoader = $("#payments").percentageLoader({width: 96, height: 96, controllable : true, progress : 0.8, onProgressUpdate : function(val) {
-        //   $payLoader.setValue(Math.round(val * 100.0));
-        // }}); 
-        // $payLoader.setValue('0');  
+ 
         //get daily submissions and save it in app cache
         window.app.submissionsCollection.fetch(
             {
@@ -99,6 +86,41 @@ var ProfileView = Backbone.View.extend({
                 $(".monthly", self.el).html('<span>'+r.length+'</span>' + " submissions this month");
             }
         );     
+    },
+    bytesToHuman: function(octets){
+        for (var i = 0, size = octets; size > 1024; size=size/1024){ i++; }
+        return this.numberFormat(size, 2);
+    },
+    numberFormat: function(number, decimals, dec_point, thousands_sep){
+        var n = number, prec = decimals;
+        var toFixedFix = function(n, prec){
+            var k = Math.pow(10, prec);
+            return (Math.round(n * k) / k).toString();
+        };
+        n = !isFinite(+n) ? 0 : +n;
+        prec = !isFinite(+prec) ? 0 : Math.abs(prec);
+        var sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep;
+        var dec = (typeof dec_point === 'undefined') ? '.' : dec_point;
+        var s = (prec > 0) ? toFixedFix(n, prec) : toFixedFix(Math.round(n), prec);
+        var abs = toFixedFix(Math.abs(n), prec);
+        var _, i;
+        if (abs >= 1000) {
+            _ = abs.split(/\D/);
+            i = _[0].length % 3 || 3;
+            _[0] = s.slice(0, i + (n < 0)) + _[0].slice(i).replace(/(\d{3})/g, sep + '$1');
+            s = _.join(dec);
+        } else {
+            s = s.replace('.', dec);
+        }
+
+        if (s.indexOf(dec) === -1 && prec > 1) {
+            var preca = [];
+            preca[prec-1] = undefined;
+            s += dec + preca.join(0) + '0';
+        } else if (s.indexOf(dec) == s.length - 2) { // incorrect: 2.7,  correct: 2.70
+            s += '0';
+        }
+        return s;
     }
 
 });

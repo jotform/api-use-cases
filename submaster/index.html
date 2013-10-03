@@ -36,14 +36,6 @@
         <![endif]-->
         <script type="text/template" id="new-tab-template">
             <div class ="content" id="<%=id%>-tab">
-                <div class="row area-top">
-                    <h1><%=title%></h1>
-                </div>
-                <div class="row area-top">
-                    <h1>Submissions per day for latest 1000</h1>                                              
-                    <div id="line-<%=id%>">
-                    </div>                                            
-                </div>                        
                 <div class="row">
                     <div class="column" style="width:100%;">
                         <h1>Submissions Calendar for <%=title%></h1>
@@ -58,6 +50,11 @@
                     </div>
                     <br style="clear: both;" />
                 </div>            
+                <div class="row area-top">
+                    <h1>Submissions per day for latest 1000</h1>                                              
+                    <div id="line-<%=id%>">
+                    </div>                                            
+                </div>                        
             </div>
         </script>
         
@@ -135,38 +132,27 @@
         <script src="js/vendor/typeahead.min.js"></script>
         <script src="js/vendor/underscore-min.js"></script>
         <script src="js/vendor/backbone-min.js"></script>
-        <script src="js/vendor/gauge.min.js"></script>
         <script src="js/vendor/raphael-min.js"></script>
         <script src="js/vendor/justgage.1.0.1.min.js"></script>
         <script src="js/vendor/highcharts.js"></script>
         <script src="js/vendor/moment.min.js"></script>
         <script src="js/vendor/jquery.knob.js"></script>
         <script src="js/vendor/jquery.magnific-popup.js"></script>
-        <script src="js/vendor/jquery.percentageloader-0.1.js"></script>
-        <script src="js/vendor/datepicker.js"></script>
-
-        <script src="js/JotFormAPIWidgets.js"></script>
-
         <script src="js/vendor/fullcalendar.js"></script>
 
         <script src="js/collections/FormsCollection.js"></script>
         <script src="js/collections/SubmissionsCollection.js"></script>
         <script src="js/collections/FormSubmissionsCollection.js"></script>
-        <script src="js/models/TestModel.js"></script>
 
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
 
         <script src="js/views/SidebarView.js"></script>
-        <script src="js/views/UsageView.js"></script>
-        <script src="js/views/UsagesKnobView.js"></script>
-        <script src="js/views/FormsBarChartView.js"></script>
         <script src="js/views/SubmissionDetailView.js"></script>
         <script src="js/views/FormsColumnChartView.js"></script>
         <script src="js/views/ProfileView.js"></script>
         <script src="js/views/SubmissionsCalendarView.js"></script>
         <script src="js/views/HomeView.js"></script>
-        <script src="js/views/FormSubmissionsGridView.js"></script>
         <script src="js/views/SubmissionsSeriesView.js"></script>
 
         <script src="js/app.js"></script>

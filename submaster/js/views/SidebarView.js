@@ -21,6 +21,11 @@ var SidebarView = Backbone.View.extend({
             $('#'+data.id+'-link', this.el).addClass("active");
             this.showTab(data.id);
             return ;
+        } else {
+            if(!$("#loader").is(":visible")) {
+                window.showLoader();
+                $("#loaderMsg").html("Getting form data...");
+            }
         }
         
         this.$el.find(".mainnav").append('<li class="tab-link active" data-tab="'+data.id+'"id="'+data.id+'-link">'+

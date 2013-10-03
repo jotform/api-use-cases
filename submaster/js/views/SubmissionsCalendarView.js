@@ -148,6 +148,8 @@ var SubmissionsCalendarView = Backbone.View.extend({
             var d = parseInt(lastSubmission.created_at.split("-")[2].split(" ")[0]);
             fc.fullCalendar('gotoDate', y, m, d);
         }
+
+        window.hideLoader();
     }
 
 });

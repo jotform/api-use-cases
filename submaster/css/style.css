@@ -376,6 +376,7 @@ tab nav
     font-size: 16px; 
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);   
     padding-left: 12px;
+    cursor: pointer;
 }
 
 .mainnav li.active{

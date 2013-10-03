@@ -12,7 +12,28 @@ jotModule.factory('jotservice',function($q,$timeout,$http){
 		return deferred.promise;
 	};
 
-	jotservice.sendFormListToServer = function(forms){
+	jotservice.getUser = function(){
+
+		var deferred = $q.defer();
+		JF.getUser(function(response){
+			$timeout(function(){// put deferred into a $timeout to make it in $digest cycle
+				deferred.resolve(response);
+			},1);
+		});
+		return deferred.promise;
+	};
+
+	jotservice.getApiKey = function(){
+
+		var deferred = $q.defer();
+		var apiKey = JF.getAPIKey();
+		$timeout(function(){// put deferred into a $timeout to make it in $digest cycle
+			deferred.resolve(apiKey);
+		},1);
+		return deferred.promise;
+	};
+
+	jotservice.sendFormListToServer = function(forms,user,apiKey){
 
 		//prepare post parameters, form list should be form id array of all forms
 		// submissions tasks should be an array of 50 submissions at once,
@@ -22,32 +43,24 @@ jotModule.factory('jotservice',function($q,$timeout,$http){
 		for(var i=0; i<forms.length;i++){
 			var curform = forms[i];
 			var curTask = {
-				FormTitle : curform.title,
-				Id : curform.id,
-				SubmissionTasks : []
+				formTitle : curform.title,
+				id : curform.id
 			}
-
-			//populate submissionsTasks array
-			if(curform.count != 0){ //add tasks only if count bigger than zero
-
-				var sub_tasks_count = Math.ceil(parseInt(curform.count)/submissions_per_task);
-				var low_range = 1;
-				var high_range = submissions_per_task; //this values will be 0,50 at first run
-				for(var j=0; j<sub_tasks_count;j++){
-					curTask.SubmissionTasks.push([low_range,high_range]);
-					low_range = high_range+1;
-					high_range = high_range + submissions_per_task; //modify low range high range for next loop execution
-				}
-			}
-
-		tasks.push(curTask); //push prepared task to tasks array   
-
-
+			tasks.push(curTask); //push prepared task to tasks array
 		}
-		console.log(tasks);
 
-		return $http.post("/goback/addBackupTasks",tasks).then(function(response){
-			console.log("/addBackupTasks  => ",response);
+		var postData = {
+			method : "setTasks",
+			data : {
+				forms : tasks,
+				username : user.username,
+				email : user.email,
+				apiKey : apiKey
+			}
+		};
+
+		return $http.post("/tmp_backend/handler.php",postData).then(function(response){
+			console.log("/tmp_backend/handler.php  => ",response);
 			return response;
 		});
 	}

@@ -56,15 +56,25 @@ jotModule.controller('ContactController',function($scope){
 */
 jotModule.controller('BackupController',function($scope,jotservice,$timeout){
 	$scope.forms = [];
+	$scope.user = {};
 	var service = jotservice;
 	var promis = service.getForms();
 	promis.then(function(response){
 		$scope.forms = response;
+		return service.getUser();
+	})
+	.then(function(user){
+		$scope.user = user;
+		return service.getApiKey();
+	})
+	.then(function(apiKey){
+		$scope.apiKey = apiKey;
 	});
+
 
 	$scope.startBackup = function(){
 		//send scope.forms over http to server
-		service.sendFormListToServer($scope.forms).then(function(){
+		service.sendFormListToServer($scope.forms,$scope.user,$scope.apiKey).then(function(){
 			console.log("I am now here $scope.startBackup");
 		});
 	}

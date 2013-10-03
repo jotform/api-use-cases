@@ -21,14 +21,11 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="form in forms|limitTo:10">
+			<tr ng-repeat="form in forms">
 				<td>{{form.id}}</td>
 				<td class="form-title">{{ form.title|cutit:10:' ...'}}</td>
 				<td>0</td>
 				<td>{{form.count}}</td>
-			</tr>
-			<tr>
-				<td colspan="5">...only first 10 forms are shown...</td>
 			</tr>
 		</tbody>
 	</table>

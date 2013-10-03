@@ -28,13 +28,14 @@ var SubmissionsSeriesView = Backbone.View.extend({
         });
 
         console.log(chartData);
-        
+
         this.$el.highcharts({
             chart: {
                 type: 'spline'
             },
             title: {
-                enabled : false
+                enabled : false,
+                text: ""
             },
             subtitle: {
                 enabled: false

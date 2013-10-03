@@ -1,25 +1,45 @@
-<h2> Here are the list of your forms to be migrated :</h2>
-<table class="mytable">
-	<thead>
-		<tr>
-			<th> ID </th>
-			<th> Form Title </th>
-			<th> Field Count </th>
-			<th> Submissions Count </th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr ng-repeat="form in forms">
-			<td>{{form.id}}</td>
-			<td class="form-title">{{ form.title|cutit:20:' ...'}}</td>
-			<td>0</td>
-			<td>{{form.count}}</td>
-		</tr>
-	</tbody>
-<table>
-<div>
-	<button class="btn btn-primary" ng-click="startBackup()">Start Backup</button>
+<div ng-class="backupState" class="loader dn">
+	<div class="progress progress-striped active">
+    	<div class="bar" style="width: 100%;text-align:center">aLoading Formlist</div>
+    </div>
 </div>
+
+<div ng-class="backupState" class="nextStep dn">
+	<h2>Your back-up scheduled</h2>
+	<p>click <a href="/#/backup/status/{{jobHash}}">here</a> to navigate back-up status page</p>
+</div>
+
+<div ng-class="backupState" class="backup dn">
+	<h2> Here are the list of your forms to be migrated :</h2>
+	<table class="mytable" >
+		<thead>
+			<tr>
+				<th> ID </th>
+				<th> Form Title </th>
+				<th> Field Count </th>
+				<th> Submissions Count </th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="form in forms|limitTo:10">
+				<td>{{form.id}}</td>
+				<td class="form-title">{{ form.title|cutit:10:' ...'}}</td>
+				<td>0</td>
+				<td>{{form.count}}</td>
+			</tr>
+			<tr>
+				<td colspan="5">...only first 10 forms are shown...</td>
+			</tr>
+		</tbody>
+	</table>
+	<div>
+		<button class="btn btn-primary" ng-click="startBackup()">Start Backup</button>
+	</div>
+
+</div>
+
+
+
 <style type="text/css">
 	table.mytable {
 		text-align: center;

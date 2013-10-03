@@ -23,8 +23,14 @@ class handler{
 	}
 
 	public function sendResponse($response){
-		echo json_encode($response);
+		$res = array();
+		$res["result"] = $response;
+		echo json_encode($res);
 		exit();
+	}
+
+	private function getJobStatus($jobHash){
+		return self::getRow("job","hash",$jobHash);
 	}
 
 	//insert tasks to a db
@@ -50,7 +56,8 @@ class handler{
 			$task_data = json_encode($task_data);
 			self::createTask($job_id,"migrate_form",$task_data);
 		}
-		return "OK";
+
+		return self::getVal("job","hash","id",$job_id);	
 	}
 
 
@@ -66,7 +73,7 @@ class handler{
 		$query = "insert into job (`username`,`apiKey`,`name`,`email`,`hash`,`date_created`)
 					values ('$username','$apiKey','$name','$email','$hash',NOW());
 		";
-		echo $query;
+		
 		$db->sql($query);
 		return $db->LastInsertID(); //return job.id
 	}
@@ -80,9 +87,30 @@ class handler{
 		$query = "insert into task (`job_id`,`function_name`,`hash`,`data`)
 					values ('$job_id','$function_name','$hash','$data');
 		";
-		echo $query;
+		
 		$db->sql($query);
 		return $db->LastInsertID(); //return task.id
+	}
+
+	//get single value from db
+	private function getVal($tblname,$colname,$wcolname,$wcolvalue){
+		global $db;
+		list($tblname,$colname,$wcolname,$wcolvalue) = self::ea(array($tblname,$colname,$wcolname,$wcolvalue));
+
+		$query = "select `$colname` from `$tblname` where `$wcolname` = '$wcolvalue' limit 1";
+		$result = $db->sql($query);
+		
+		return $result[$colname];
+	}
+	//get single value from db
+	private function getRow($tblname,$wcolname,$wcolvalue){
+		global $db;
+		list($tblname,$wcolname,$wcolvalue) = self::ea(array($tblname,$wcolname,$wcolvalue));
+
+		$query = "select * from `$tblname` where `$wcolname` = '$wcolvalue' limit 1";
+		$result = $db->sql($query);
+		
+		return $result;
 	}
 
 	private function e($str){

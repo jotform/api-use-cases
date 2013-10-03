@@ -25,6 +25,11 @@ jotModule.config(['$routeProvider',function($routeProvider){
 		controller : 'BackupController'
 	});
 
+	$routeProvider.when('/backup/status/:jobHash',{
+		templateUrl : '/app/views/backupStatus.tpl.html',
+		controller : 'BackupStatusController'
+	});
+
 	$routeProvider.otherwise({
 		redirectTo : '/index'
 	});

@@ -23,6 +23,18 @@ jotModule.factory('jotservice',function($q,$timeout,$http){
 		return deferred.promise;
 	};
 
+	jotservice.getJobStatus = function(jobHash){
+
+		var postData = {
+			method : "getJobStatus",
+			data : jobHash
+		}
+
+		return $http.post("/tmp_backend/handler.php",postData).then(function(response){
+			return response;
+		});
+	};
+
 	jotservice.getApiKey = function(){
 
 		var deferred = $q.defer();

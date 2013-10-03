@@ -9,7 +9,4 @@ $db = new MySQLL("io4backu_p","io4backu_p","243243");
 //db ready
 
 
-
-
-
 ?>

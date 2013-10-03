@@ -1,0 +1,34 @@
+<div ng-class="backupState" class="loader dn">
+	<div class="progress progress-striped active">
+    	<div class="bar" style="width: 100%;text-align:center">aLoading Formlist</div>
+    </div>
+</div>
+
+<div ng-class="backupState" class="backup dn">
+	<table class="backupStateTable">
+		<tr>
+			<td>Backup Name</td>
+			<td>{{jobData.name}}</td>	
+		</tr>
+		<tr>
+			<td>Created At</td>
+			<td>{{jobData.date_created}}</td>	
+		</tr>
+		<tr>
+			<td>Status</td>
+			<td ng-switch on="jobData.status ">
+				<span ng-switch-when="0">Waiting</span>
+				<span ng-switch-when="1">OnGoing</span>
+				<span ng-switch-when="2">Finished</span>
+			</td>
+		</tr>
+		<tr>
+			<td>Username</td>
+			<td>{{jobData.username}}</td>	
+		</tr>
+		<tr>
+			<td colspan="2"><button ng-click="checkStatus()">refresh</button></td>
+		</tr>
+	</table>
+
+</div>

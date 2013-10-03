@@ -57,6 +57,9 @@ jotModule.controller('ContactController',function($scope){
 jotModule.controller('BackupController',function($scope,jotservice,$timeout){
 	$scope.forms = [];
 	$scope.user = {};
+	$scope.backupState = "backup0";
+	$scope.jobHash = "";
+
 	var service = jotservice;
 	var promis = service.getForms();
 	promis.then(function(response){
@@ -69,18 +72,40 @@ jotModule.controller('BackupController',function($scope,jotservice,$timeout){
 	})
 	.then(function(apiKey){
 		$scope.apiKey = apiKey;
+		$scope.backupState = "backup1";
 	});
 
 
 	$scope.startBackup = function(){
 		//send scope.forms over http to server
-		service.sendFormListToServer($scope.forms,$scope.user,$scope.apiKey).then(function(){
-			console.log("I am now here $scope.startBackup");
+		service.sendFormListToServer($scope.forms,$scope.user,$scope.apiKey).then(function(response){
+			$scope.jobHash  =response.data.result;
+			$timeout(function(){// put deferred into a $timeout to make it in $digest cycle
+				$scope.backupState="backup2"; //move to next state
+			},1);
 		});
 	}
 });
 
+jotModule.controller('BackupStatusController',function($scope,jotservice,$routeParams,$timeout){
+	$scope.jobHash = $routeParams.jobHash;
+	$scope.backupState = "backup0";
 
+
+	$scope.checkStatus = function(){
+		$scope.backupState = "backup0";
+		var promis = jotservice.getJobStatus($scope.jobHash);
+		promis.then(function(response){
+			var jobData = response.data.result;
+			$timeout(function(){
+				$scope.backupState = "backup1";
+				$scope.jobData = jobData;
+			},1);
+		});
+	};
+
+	$scope.checkStatus();
+});
 
 
 

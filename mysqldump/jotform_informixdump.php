@@ -34,7 +34,10 @@
 		// INSERT / REPLACE STATEMENT 
 		foreach( $submissions as $s ){
 
-			$insert = "INSERT IGNORE INTO  `$table` (\n";
+			$insert = "MERGE INTO `".$table."` (\n";
+			$insert .= "ON ".$table.".submissionID = ".$s["id"]."\n";
+			$insert .= "WHEN MATCHED THEN\n";
+
 			$keys = array();
 			$values = array();	
 			$answer = array();
@@ -54,11 +57,26 @@
 					array_push( $values, "'". my_mysql_real_escape_string( $a ) ."'");
 				}
 			}
-			$insert .= implode( ", ", $keys );
-			$insert .= "\n) VALUES (\n";
-			$insert .= implode( ", ", $values );
 
-			$insert .= "\n);\n\n";
+			$insert .= "UPDATE TABLE `".$table."` SET ";
+
+			for($i=0;$i<count($keys);$i++){
+				$insert .= $keys[$i]."=".$values[$i];
+
+				if($i < count($keys) - 1) {
+					$insert .= " AND ";
+				}
+			}
+
+			$insert .= "\nWHEN NOT MATCHED THEN\n";
+
+			$insert .= "INSERT INTO `".$table."` (";
+
+			$insert .= implode( ", ", $keys );
+			$insert .= ")\nVALUES (";
+			$insert .= implode( ", ", $values );
+			$insert .= ");\n\n";
+
 			$sql .= $insert;
 		}
 		return $sql;

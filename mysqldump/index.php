@@ -36,6 +36,9 @@
 		case 'drizzle.jotform.io':
 			$FORMAT = 'Drizzle';
 			break;
+		case 'mongodb.jotform.io':
+			$FORMAT = 'MongoDB';
+			break;
 		default:
 			$FORMAT = 'MySQL';
 			break;
@@ -117,6 +120,9 @@
 							break;
 						case 'DB2':
 							echo 'DB2';
+							break;
+						case 'MongoDB':
+							echo "MongoDB";
 							break;
 						default:
 							echo "phpMyAdmin";

@@ -143,11 +143,11 @@
 					</font>
 				</div>
 
-				<h2>3. Rename Column Headers<h2>
+				<h2>3. Rename Column Names<h2>
 				<button id="renameColumns" class="big-button" style="display:none;">Rename Columns</button>
 				<div id="renameColumns_result" style="display:none;">
 					<font color="green" size="3">
-						Columns Headers Renamed <span id="formTitle">
+						Column Names Renamed <span id="formTitle">
 					</font>
 				</div>
 

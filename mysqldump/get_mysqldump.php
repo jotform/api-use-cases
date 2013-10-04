@@ -2,6 +2,7 @@
 	$apiKey = $_GET['apiKey'];
 	$formID = $_GET['formID'];
 	$format = $_GET['format'];
+	$columnHeaders = $_GET['columnHeaders'];
 
 	if( $formID < 1)
 		die("Form ID Missing!");
@@ -9,7 +10,7 @@
 	include 'form_details.php';
 
 	$formTitle = getFormTitle($apiKey, $formID);
-	$questions = getQuestions($apiKey, $formID);
+	$questions = getQuestions($apiKey, $formID, $columnHeaders);
 	$submissions = getSubmissions($apiKey, $formID);
 
 	switch ($format) {

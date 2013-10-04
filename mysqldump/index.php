@@ -143,7 +143,15 @@
 					</font>
 				</div>
 
-				<h2>3. Download SQL File<h2>
+				<h2>3. Rename Column Headers<h2>
+				<button id="renameColumns" class="big-button" style="display:none;">Rename Columns</button>
+				<div id="renameColumns_result" style="display:none;">
+					<font color="green" size="3">
+						Columns Headers Renamed <span id="formTitle">
+					</font>
+				</div>
+
+				<h2>4. Download SQL File<h2>
 				<button id="download" class="big-button" style="display:none;">Download</button>
 			</center>
 		</div>
@@ -161,10 +169,13 @@
 
 	<script src='http://js.jotform.com/JotForm.min.js'></script>
 	<script src='http://js.jotform.com/FormPicker.min.js'></script>
+	<script src='http://js.jotform.com/QuestionNaming.min.js'></script>
+
 	<script>
 		var apiKey;
 		var formID;
 		var formTitle;
+		var columnHeaders;
 
 		$("#authJotForm").click(function(e) {
 	        JF.login(
@@ -192,6 +203,7 @@
 		            $("#formTitle").text(formTitle);
 				    $("#formpickerStatus").css("display", "inline");
 		            $("#formpicker").text("Change Form");
+		            $("#renameColumns").css("display", "inline");
 		            $("#download").css("display", "inline");
 		        },
 		        //onClose : function() {
@@ -199,6 +211,29 @@
 		            // moved it to onselect
 		        //},
 		    });
+		});
+
+		$("#renameColumns").click(function(e) {
+			JF.QuestionNaming(formID, {
+			    sort: 'order',
+			    sortType: 'ASC',
+			    title: 'Rename Column Headers',
+			    remember: true,
+			    ignore_types: [
+			        "control_head", 
+			        "control_button", 
+			        "control_pagebreak", 
+			        "control_collapse", 
+			        "control_text"
+			    ],
+			    allowed_inputs: /^[a-z0-9_]+$/i,
+			    inputs_error_msg: "Only Alphabetic and Numeric characters are allowed.",
+			    onSubmit: function(response) {
+			    	columnHeaders = JSON.stringify(response);
+			    	$("#renameColumns_result").css("display", "inline");
+			    },
+			    modalCSS: '<stylesheet link>'
+			});
 		});
 
 		$("#download").click(function(e) {
@@ -214,8 +249,6 @@
 	    		return;
 	    	//alert("Form ID: "+formID+ " API KEY: " + apiKey);
 	    	getDumpURL( formID, apiKey );
-
-
 	    }
 
 		function getDumpURL( formID, apiKey )
@@ -237,7 +270,12 @@
 			     window.location = xmlhttp.responseText ;
 			    }
 			  }
-			xmlhttp.open("GET", "/get_mysqldump.php?formID="+formID+"&format=<?=$FORMAT?>&apiKey="+apiKey, true);
+
+			if (columnHeaders) {
+				xmlhttp.open("GET", "/get_mysqldump.php?formID="+formID+"&format=<?=$FORMAT?>&columnHeaders="+columnHeaders+"&apiKey="+apiKey, true);
+			} else {
+				xmlhttp.open("GET", "/get_mysqldump.php?formID="+formID+"&format=<?=$FORMAT?>&apiKey="+apiKey, true);
+			}
 			xmlhttp.send();
 		}
 

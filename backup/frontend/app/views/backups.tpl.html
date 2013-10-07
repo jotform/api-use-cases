@@ -8,7 +8,6 @@
 	<table class="mytable" >
 		<thead>
 			<tr>
-				<th> Job Id </th>
 				<th> Back-Up Name </th>
 				<th> Start Date </th>
 				<th> Finish Date </th>
@@ -18,11 +17,10 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="job in jobs">
-				<td>{{ job.hash }}</td>
 				<td class="form-title">{{ job.name }}</td>
 				<td>{{ job.date_created }}</td>
 				<td>{{ job.date_finished }}</td>
-				<td>{{ job.status }}</td>
+				<td>{{ job.status|bsHumanize }}</td>
 				<td><a href="/#/backup/status/{{ job.hash }}">View</a></td>
 			</tr>
 		</tbody>

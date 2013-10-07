@@ -17,3 +17,20 @@ jotModule.filter('cutit', function() {
 		return out+append;
 	}
 });
+
+jotModule.filter('bsHumanize', function() {
+	return function(input, count,append) {
+		
+		if(input == 0){
+			return "Waiting";
+		}
+		if(input == 1){
+			return "On-Going";
+		}
+		if(input == 2){
+			return "Finished";
+		}
+
+		return out+append;
+	}
+});

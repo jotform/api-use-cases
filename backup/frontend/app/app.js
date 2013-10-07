@@ -1,3 +1,8 @@
+/*
+	global in memory storage object, worse than angularjs value service
+	better than using window object itself and pollute namespace altogether
+*/
+var gs = {};
 
 /*
 General Jot Module to define app
@@ -18,6 +23,11 @@ jotModule.config(['$routeProvider',function($routeProvider){
 	$routeProvider.when('/contact',{
 		templateUrl : '/app/views/contact.tpl.html',
 		controller : 'ContactController'
+	});
+
+	$routeProvider.when('/backups',{
+		templateUrl : '/app/views/backups.tpl.html',
+		controller  : 'BackupListController'
 	});
 
 	$routeProvider.when('/backup',{

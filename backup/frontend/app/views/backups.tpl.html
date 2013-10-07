@@ -1,0 +1,47 @@
+<div ng-class="backupState" class="loader dn">
+	<div class="progress progress-striped active">
+    	<div class="bar" style="width: 100%;text-align:center">Loading Formlist</div>
+    </div>
+</div>
+<div ng-class="backupState" class="backup dn">
+	<h2> Here are the list of your Backups</h2>
+	<table class="mytable" >
+		<thead>
+			<tr>
+				<th> Job Id </th>
+				<th> Back-Up Name </th>
+				<th> Start Date </th>
+				<th> Finish Date </th>
+				<th> Status </th>
+				<th> View Back-Up </th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="job in jobs">
+				<td>{{ job.hash }}</td>
+				<td class="form-title">{{ job.name }}</td>
+				<td>{{ job.date_created }}</td>
+				<td>{{ job.date_finished }}</td>
+				<td>{{ job.status }}</td>
+				<td><a href="/#/backup/status/{{ job.hash }}">View</a></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<style type="text/css">
+	table.mytable {
+		text-align: center;
+		width: 100%;
+	}
+	table.mytable td{
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	table.mytable td.form-title{
+		text-align: left;
+	}
+	table.mytable {
+
+	}
+</style>

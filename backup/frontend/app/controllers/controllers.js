@@ -3,6 +3,7 @@ jotModule.controller('NavigationController',function($scope){
 	$scope.activeStates = {
 		"index" : "active",
 		"about" : "",
+		"backups" : "",
 		"contact" : ""
 	}
 
@@ -42,7 +43,7 @@ jotModule.controller('IndexController',function($scope,$location,valStorage,$tim
 });
 
 jotModule.controller('AboutController',function($scope){
-	$scope.title = "About Us";
+	$scope.title = "About Jotform Back-Up Service";
 });
 
 jotModule.controller('ContactController',function($scope){
@@ -54,7 +55,7 @@ jotModule.controller('ContactController',function($scope){
 
 	and after receiving ACK message 
 */
-jotModule.controller('BackupController',function($scope,jotservice,$timeout){
+jotModule.controller('BackupController',function($scope,jotservice,$timeout,$location){
 	$scope.forms = [];
 	$scope.user = {};
 	$scope.backupState = "backup0";
@@ -77,12 +78,25 @@ jotModule.controller('BackupController',function($scope,jotservice,$timeout){
 
 
 	$scope.startBackup = function(){
-		//send scope.forms over http to server
-		service.sendFormListToServer($scope.forms,$scope.user,$scope.apiKey).then(function(response){
+		//first check if there is unfinished backup or not
+		service.hasOngoingBackups($scope.user,$scope.apiKey).then(function(response){
+			if(response.data.result === true){
+				$location.path('/backups');
+				return false;
+			}else{
+				return service.sendFormListToServer($scope.forms,$scope.user,$scope.apiKey);
+			}
+		})
+		.then(function(response){ //send scope.forms over http to server
+			console.log("response ",response);
+			if(response === false){
+				return;
+			}
 			$scope.jobHash  =response.data.result;
 			$timeout(function(){// put deferred into a $timeout to make it in $digest cycle
 				$scope.backupState="backup2"; //move to next state
 			},1);
+			return;
 		});
 	}
 });
@@ -105,6 +119,32 @@ jotModule.controller('BackupStatusController',function($scope,jotservice,$routeP
 	};
 
 	$scope.checkStatus();
+});
+
+jotModule.controller('BackupListController',function($scope,jotservice,$routeParams,$timeout){
+	$scope.jobHash = $routeParams.jobHash;
+	$scope.backupState = "backup0";
+
+	$scope.getJobs = function(){
+		$scope.backupState = "backup0";
+		var service = jotservice;
+		var promis = service.getUser();
+		promis.then(function(response){
+			$scope.user = response;
+			return service.getUser();
+		})
+		.then(function(user){
+			return jotservice.getJobs(user);
+		})
+		.then(function(response){
+			$timeout(function(){
+				$scope.backupState = "backup1";
+				$scope.jobs = response.data.result;;
+			},1);
+		});
+	};
+
+	$scope.getJobs();
 });
 
 

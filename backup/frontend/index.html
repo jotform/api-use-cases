@@ -28,6 +28,7 @@
             <ul class="nav">
               <li class="{{activeStates.index}}"><a href="#/index" ng-click="changeState('index')">Home</a></li>
               <li class="{{activeStates.about}}"><a href="#/about" ng-click="changeState('about')">About</a></li>
+              <li class="{{activeStates.backups}}"><a href="#/backups" ng-click="changeState('backups')">Back-Ups</a></li>
               <li class="{{activeStates.contact}}"><a href="#/contact" ng-click="changeState('contact')">Contact</a></li>
             </ul>
           </div><!--/.nav-collapse -->
@@ -41,6 +42,7 @@
 
 <!-- load scripts using require.js -->
 <script src="/lib/jquery2.min.js"></script> <!-- jquery is globally a must! -->
+<script src="/lib/jquery2.min.js"></script> <!-- jquery is for cookie manipulation! -->
 <script type="text/javascript" src="/js/angular.js"></script>
 
 <script src="/lib/bootstrap/js/bootstrap.min.js"></script>

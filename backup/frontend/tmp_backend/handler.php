@@ -33,6 +33,35 @@ class handler{
 		return self::getRow("job","hash",$jobHash);
 	}
 
+	private function hasOngoingBackups($data){
+		$apiKey = $data["apiKey"];
+		$username = $data["username"];
+
+		$result = self::getRow("job","username",$username);
+
+		if($result === false){
+			return false;
+		}else{
+			return true;
+		}
+	}
+
+	private function getJobs($data){
+		$username = $data["username"];
+
+		$result = self::getRows("job","username",$username);
+
+		if($result === false){
+			return array();
+		}else{
+			if(!is_array($result)){
+				return array($result);
+			}else{
+				return $result;
+			}
+		}
+	}
+
 	//insert tasks to a db
 	private function setTasks($data){
 		global $db;
@@ -102,15 +131,24 @@ class handler{
 		
 		return $result[$colname];
 	}
-	//get single value from db
+	//get single value from db, false if no result
 	private function getRow($tblname,$wcolname,$wcolvalue){
+		return self::getRows($tblname,$wcolname,$wcolvalue,'limit 1');
+	}
+
+	//get single value from db, false if no result
+	private function getRows($tblname,$wcolname,$wcolvalue,$limit = ''){
 		global $db;
 		list($tblname,$wcolname,$wcolvalue) = self::ea(array($tblname,$wcolname,$wcolvalue));
 
-		$query = "select * from `$tblname` where `$wcolname` = '$wcolvalue' limit 1";
+		$query = "select * from `$tblname` where `$wcolname` = '$wcolvalue' $limit";
 		$result = $db->sql($query);
+		if($db->records > 0){
+			return $result;	
+		}else{
+			return false;
+		}
 		
-		return $result;
 	}
 
 	private function e($str){

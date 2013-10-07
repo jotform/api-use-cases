@@ -193,7 +193,6 @@
 
 	    // Get API Key
 	    // Get Selected Form
-
 		$("#formpicker").click(function(e) {
 		    JF.FormPicker({
 		        multiSelect: false,
@@ -217,7 +216,7 @@
 			JF.QuestionNaming(formID, {
 			    sort: 'order',
 			    sortType: 'ASC',
-			    title: 'Rename Column Headers',
+			    title: 'Rename Column Names',
 			    remember: true,
 			    ignore_types: [
 			        "control_head", 
@@ -226,6 +225,8 @@
 			        "control_collapse", 
 			        "control_text"
 			    ],
+			    unique: true,
+			    unique_error_msg: "You cannot name fields with the same name.",
 			    allowed_inputs: /^[a-z0-9_]+$/i,
 			    inputs_error_msg: "Only Alphabetic and Numeric characters are allowed.",
 			    onSubmit: function(response) {

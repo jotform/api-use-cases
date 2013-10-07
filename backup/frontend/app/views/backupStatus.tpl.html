@@ -16,10 +16,8 @@
 		</tr>
 		<tr>
 			<td>Status</td>
-			<td ng-switch on="jobData.status ">
-				<span ng-switch-when="0">Waiting</span>
-				<span ng-switch-when="1">OnGoing</span>
-				<span ng-switch-when="2">Finished</span>
+			<td>
+				{{jobData.status|bsHumanize}}
 			</td>
 		</tr>
 		<tr>

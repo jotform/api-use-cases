@@ -30,7 +30,7 @@ jotModule.filter('bsHumanize', function() {
 		if(input == 2){
 			return "Finished";
 		}
-
-		return out+append;
+		
+		return input;
 	}
 });

@@ -86,75 +86,85 @@
 		        </div>
 		    </header>
 
-			<center style="padding-top: 90px;">
-				<h1><?=$FORMAT?> Export for JotForm</h1>
+		    <div class="content-container">
+		        <div class="content">
+		        	<div class="banner-area"  style="height:600px;">
+		        	    <div class="banner-content" style="width:100%;border-left:none;">
 
-				<font color="green" size=2>Get <?=$FORMAT?> output of your form submissions. Ready to be loaded on any 
-					<? switch ($FORMAT) {
-						case 'PostgreSQL':
-							echo "phpPgAdmin";
-							break;
-						case 'Oracle':
-							echo "Oracle DB";
-							break;
-						case 'SQL Server':
-							echo "MS SQL Server";
-							break;
-						case 'SQLite':
-							echo "SQLite Database";
-							break;
-						case 'Drizzle':
-							echo 'Drizzle';
-							break;
-						case 'Sybase':
-							echo 'Sybase';
-							break;
-						case 'SAP Sybase IQ':
-							echo 'Sybase IQ';
-							break;
-						case 'Hive':
-							echo 'Hive';
-							break;
-						case 'Informix':
-							echo 'Informix';
-							break;
-						case 'DB2':
-							echo 'DB2';
-							break;
-						case 'MongoDB':
-							echo "MongoDB";
-							break;
-						default:
-							echo "phpMyAdmin";
-							break;
-					} ?>
-				</font>
+		            <center>
+		            	<h1 style="font-size:3em;"><?=$FORMAT?> Export for JotForm</h1>
 
-				<br/><br/><br/>
-				<h2>1. Connect JotForm<h2>
-				<button id="authJotForm" class="big-button">Authenticate</button>
-				<div id="authStatus" style="display:none;"><font color="green" size="3">Authenticated</font></div>
+		            	<font color="#93de8c" size=2>Get <?=$FORMAT?> output of your form submissions. Ready to be loaded on any 
+		            		<? switch ($FORMAT) {
+		            			case 'PostgreSQL':
+		            				echo "phpPgAdmin";
+		            				break;
+		            			case 'Oracle':
+		            				echo "Oracle DB";
+		            				break;
+		            			case 'SQL Server':
+		            				echo "MS SQL Server";
+		            				break;
+		            			case 'SQLite':
+		            				echo "SQLite Database";
+		            				break;
+		            			case 'Drizzle':
+		            				echo 'Drizzle';
+		            				break;
+		            			case 'Sybase':
+		            				echo 'Sybase';
+		            				break;
+		            			case 'SAP Sybase IQ':
+		            				echo 'Sybase IQ';
+		            				break;
+		            			case 'Hive':
+		            				echo 'Hive';
+		            				break;
+		            			case 'Informix':
+		            				echo 'Informix';
+		            				break;
+		            			case 'DB2':
+		            				echo 'DB2';
+		            				break;
+		            			case 'MongoDB':
+		            				echo "MongoDB";
+		            				break;
+		            			default:
+		            				echo "phpMyAdmin";
+		            				break;
+		            		} ?>
+		            	</font>
 
-				<h2>2. Select a Form<h2>
-				<button id="formpicker" class="big-button" style="display:none;">Select a Form</button>
-				<div id="formpickerStatus" style="display:none;">
-					<font color="green" size="3">
-						Form Selected - <span id="formTitle">
-					</font>
-				</div>
+		            	<br/><br/><br/>
+		            	<h2>1. Connect JotForm<h2>
+		            	<button id="authJotForm" class="big-button">Authenticate</button>
+		            	<div id="authStatus" style="display:none;"><font color="green" size="3">Authenticated</font></div>
 
-				<h2>3. Rename Column Names<h2>
-				<button id="renameColumns" class="big-button" style="display:none;">Rename Columns</button>
-				<div id="renameColumns_result" style="display:none;">
-					<font color="green" size="3">
-						Column Names Renamed <span id="formTitle">
-					</font>
-				</div>
+		            	<h2>2. Select a Form<h2>
+		            	<button id="formpicker" class="big-button" style="display:none;">Select a Form</button>
+		            	<div id="formpickerStatus" style="display:none;">
+		            		<font color="green" size="3">
+		            			Form Selected - <span id="formTitle">
+		            		</font>
+		            	</div>
 
-				<h2>4. Download SQL File<h2>
-				<button id="download" class="big-button" style="display:none;">Download</button>
-			</center>
+		            	<h2>3. Rename Column Names<h2>
+		            	<button id="renameColumns" class="big-button" style="display:none;">Rename Columns</button>
+		            	<div id="renameColumns_result" style="display:none;">
+		            		<font color="green" size="3">
+		            			Column Names Renamed <span id="formTitle">
+		            		</font>
+		            	</div>
+
+		            	<h2>4. Download SQL File<h2>
+		            	<button id="download" class="big-button" style="display:none;">Download</button>
+		            </center>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
 		</div>
+
 
 
 	<footer class="footer" id="footer">

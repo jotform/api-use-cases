@@ -88,8 +88,8 @@
 
 		    <div class="content-container">
 		        <div class="content">
-		        	<div class="banner-area"  style="height:600px;">
-		        	    <div class="banner-content" style="width:100%;border-left:none;">
+		        	<div class="banner-area"  style="height:550px;">
+		        	    <div class="banner-content" style="width:100%;border-left:none;margin-top:25px;">
 
 		            <center>
 		            	<h1 style="font-size:3em;"><?=$FORMAT?> Export for JotForm</h1>
@@ -194,6 +194,7 @@
 				    $("#authStatus").css("display", "inline");
 				    $("#authJotForm").css("display", "none");
 				    $("#formpicker").css("display", "inline");
+				    $(".banner-area").css("height", "600px")
 	            },
 	            function error() {
 	                $("#loginresults").html("error during authorization");
@@ -214,11 +215,8 @@
 		            $("#formpicker").text("Change Form");
 		            $("#renameColumns").css("display", "inline");
 		            $("#download").css("display", "inline");
+		            $(".banner-area").css("height", "630px")
 		        },
-		        //onClose : function() {
-		            // on close not working any more.
-		            // moved it to onselect
-		        //},
 		    });
 		});
 

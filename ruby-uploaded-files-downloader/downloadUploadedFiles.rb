@@ -22,9 +22,26 @@ files = jotform.getFormFiles(formID)
 
 successfulDownloads = 0
 
-files.each do |uploadedFile|
+def fetch(fileURI, limit = 3)
     # set URI to download uploaded files
-    uri = URI(uploadedFile['url'])
+    url = URI(fileURI)
+    req = Net::HTTP::Get.new(url.path)
+    response = Net::HTTP.start(url.host, url.port, :use_ssl => url.scheme == 'https') { |http| http.request(req) }
+    case response
+    when Net::HTTPSuccess     then response
+    when Net::HTTPRedirection then fetch(response['location'], limit - 1)
+    else
+        response.error!
+    end
+end
+
+files.each do |uploadedFile|
+    # replace spaces in url
+    fileURL = uploadedFile['url']
+    if ( fileURL =~ /\s/ )
+        fileURL = fileURL.gsub! /\s+/, '+'
+    end
+    puts fileURL
 
     print "Downloading "+ uploadedFile["name"] 
     
@@ -34,30 +51,20 @@ files.each do |uploadedFile|
     # Create path if it's not exist
     FileUtils.mkpath folder
 
-    # Start Net::HTTP
-    Net::HTTP.start(uri.host, uri.port) do |http|
-
-        # Get response from URL on HTTP protocol
-        resp = Net::HTTP.get_response(uri)
-
-        # Check if it's a redirect or not
-        while resp.code == '301' || resp.code == '302'
-            resp = Net::HTTP.get_response(URI.parse(resp.header['location']))
-        end
-
-        # If URL returns with HTTP 200 OK, then save the response to file with fileName
-        if resp.code == '200'  
-            open(File.join(folder, uploadedFile["name"]), "wb") do |file|
-                file.write(resp.body)
-                print " -- Completed\n"
-            end
-            # Increment the successful downloads for stats
+    begin
+        resp = fetch(fileURL)
+	open(File.join(folder, uploadedFile["name"]), "wb") do |file|
+            file.write(resp.body)
+            print " -- Completed\n"
+	    # Increment the successful downloads for stats
             successfulDownloads += 1
-        else
-            puts "Error while downloading uploadedFile[\"name\"]"
         end
+    rescue Exception => e
+        resp = nil
+        print "Error while downloading " + uploadedFile['name'] + ": " + e.message + "\n"
     end
 end
+
 puts "\n\n\####################################"
 puts successfulDownloads.to_s + " files downloaded successfully"
 puts "You can find your files in "+ File.join(Dir.home,"JotForm",formID)

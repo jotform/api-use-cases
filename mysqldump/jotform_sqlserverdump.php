@@ -46,7 +46,7 @@
 			$values = array($s["id"]);	
 			$answer = array();
 			//If answers are empty create empty answers
-			if( !isset($s['answers']) || $s['answers'] != NULL){
+			if( !isset($s['answers']) || $s['answers'] == NULL){
 					$s['answers'] = array();
 			}
 

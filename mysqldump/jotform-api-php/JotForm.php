@@ -43,9 +43,13 @@ class JotForm {
      * @param  [type] $url [description]
      * @return [type]      [description]
      */
-    private function _executeHttpRequest($path, $params=array(), $method){
+    private function _executeHttpRequest($path, $params=array(), $method, $predefinedUrl = ''){
 
-        $url = implode("/", array($this->baseUrl, $this->apiVersion,$path));
+        if(empty($predefinedUrl))
+        {
+            $predefinedUrl = $this->baseUrl;
+        }
+        $url = implode("/", array($predefinedUrl, $this->apiVersion,$path));
 
         $this->_debugDump($params);
 
@@ -110,9 +114,16 @@ class JotForm {
         }
 
         curl_close($ch);
+        //Quick-fix if api url redirected make call again for eu-users
+        if(isset($result_obj["responseCode"]) && $result_obj["responseCode"] == 301)
+        {
+            $newUrl = $this->getApiUrl($result_obj['location']);
+            return  $this->_executeHttpRequest($path, $params, $method,'http://eu-api.jotform.com/');
+        }
 
         return $result_obj["content"];
     }
+
 
     private function _executeGetRequest($url, $params=array()){
         return $this->_executeHttpRequest($url, $params, "GET");
@@ -146,6 +157,14 @@ class JotForm {
         }
 
         return $params;
+    }
+
+    private function getApiUrl($url)
+    {
+        $url_array = parse_url($url);
+        if(!$url_array)
+            return $this->baseUrl;
+        return $url_array['scheme'].'://'.$url_array['host'];
     }
 
     /**

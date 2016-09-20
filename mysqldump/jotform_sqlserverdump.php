@@ -37,12 +37,24 @@
 
 		// INSERT / REPLACE STATEMENT 
 		foreach( $submissions as $s ){
+			if($s["id"]== '#SampleSubmissionID')
+				continue;
+			
 			$insert = "IF NOT EXISTS\n(SELECT * FROM ".$table." WHERE submissionID=".$s["id"].")\n";
 			$insert .= "\tINSERT INTO ".$table."(";
 			$keys = array("submissionID");
 			$values = array($s["id"]);	
 			$answer = array();
+			//If answers are empty create empty answers
+			if( !isset($s['answers']) || $s['answers'] != NULL){
+					$s['answers'] = array();
+			}
+
 			foreach( $s['answers'] as $a ){
+				//Set answer if empty
+				if(!isset($a['answer']) || empty($a['answer'])){
+					$a['answer'] = "";
+				} 
 				$answer[ $a['text'] ] = $a['answer'];
 			}
 
@@ -80,7 +92,6 @@
 			$sql .= $insert;
 
 		}
-
 		return $sql;
 	}
 

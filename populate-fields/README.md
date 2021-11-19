@@ -5,7 +5,7 @@ Populate Fields
 
 
 Populate Fields is a small script that generates a url to automatically populate a form's fields with the desired values.
-*See it in action [here](http://www.jotform.com/populate-fields).*
+*See it in action [here](https://www.jotform.com/populate-fields).*
 
 This script uses:  
 prototype.js for DOM manipulation.  

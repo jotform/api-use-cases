@@ -9,7 +9,7 @@ You can see the script in action [here](http://www.jotform.com/answer-comparator
 
 Steps to use the script:
 
-1. [Download](http://www.jotform.com/help/104-How-to-Download-a-Source-Code-of-your-Form) the source for your form.
+1. [Download](https://www.jotform.com/help/104-how-to-get-the-full-source-code-of-your-form/) the source for your form.
 
 2. Add the following lines of code just before the closing BODY tag:
 ```javascript

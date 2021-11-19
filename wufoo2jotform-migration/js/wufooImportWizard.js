@@ -315,7 +315,7 @@ var migration_task_handler = {
     allTasksCompleted:function(){
         myJsProgressBarHandler.setPercentage("element1",100);
         var newStatusText = "Account Migration completed!";
-        $("current_operation").innerHTML = newStatusText+"<br/> <a href='http://www.jotform.com/myforms/' target='_blank'>Go to My Forms Now!</a> ";
+        $("current_operation").innerHTML = newStatusText+"<br/> <a href='https://www.jotform.com/myforms/' target='_blank'>Go to My Forms Now!</a> ";
         this.tasks = [];
         this.currentTaskIndex = 0;
         this.tasksCount = 0;

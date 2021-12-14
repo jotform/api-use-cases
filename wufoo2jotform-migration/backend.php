@@ -546,14 +546,14 @@ class very_simple_responder{
 			    <tr>
 			      <td align="center"><table width="600" border="0" cellspacing="0" cellpadding="0" bgcolor="#eeeeee" >
 			        <tr>
-			          <td width="13" height="30" background="http://kemal.jotform.pro/images/win2_title_left.gif"></td>
-			          <td align="left" background="http://kemal.jotform.pro/images/win2_title.gif" valign="bottom"><img style="float:left" src="http://kemal.jotform.pro/images/win2_title_logo.gif" width="63" height="26" alt="jotform.com" /></td>
-			          <td width="14" background="http://kemal.jotform.pro/images/win2_title_right.gif"></td>
+			          <td width="13" height="30" background="http://www.jotform.com/images/win2_title_left.gif"></td>
+			          <td align="left" background="http://www.jotform.com/images/win2_title.gif" valign="bottom"><img style="float:left" src="http://www.jotform.com/images/win2_title_logo.gif" width="63" height="26" alt="jotform.com" /></td>
+			          <td width="14" background="http://www.jotform.com/images/win2_title_right.gif"></td>
 			        </tr>
 			      </table>
 			      <table width="600" border="0" cellspacing="0" cellpadding="0" bgcolor="#eeeeee" >
 			        <tr>
-			          <td width="4" background="http://kemal.jotform.pro/images/win2_left.gif"></td>
+			          <td width="4" background="http://www.jotform.com/images/win2_left.gif"></td>
 			          <td align="center" bgcolor="#FFFFFF">
 			          <table width="100%" border="0" cellspacing="0" cellpadding="5">
 			          <tr>
@@ -562,12 +562,12 @@ class very_simple_responder{
 			          </tr>
 			            </table>
 			          </td>
-			          <td width="4" background="http://kemal.jotform.pro/images/win2_right.gif"></td>
+			          <td width="4" background="http://www.jotform.com/images/win2_right.gif"></td>
 			        </tr>
 			        <tr>
-			          <td height="4" background="http://kemal.jotform.pro/images/win2_foot_left.gif" style="font-size:4px;"></td>
-			          <td background="http://kemal.jotform.pro/images/win2_foot.gif" style="font-size:4px;"></td>
-			          <td background="http://kemal.jotform.pro/images/win2_foot_right.gif" style="font-size:4px;"></td>
+			          <td height="4" background="http://www.jotform.com/images/win2_foot_left.gif" style="font-size:4px;"></td>
+			          <td background="http://www.jotform.com/images/win2_foot.gif" style="font-size:4px;"></td>
+			          <td background="http://www.jotform.com/images/win2_foot_right.gif" style="font-size:4px;"></td>
 			        </tr>
 			      </table></td>
 			    </tr>

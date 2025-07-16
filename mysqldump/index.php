@@ -52,7 +52,7 @@
 
 		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
 
-		<link rel="Shortcut Icon" href="http://max.jotfor.ms/favicon.ico?123456&v=3.0.2405" />
+		<link rel="Shortcut Icon" href="http://cdn.jotfor.ms/favicon.ico?123456&v=3.0.2405" />
 		<!-- You can also include common-page-styles.css file into yourstyle.css, it is recommended -->
 		<link rel="stylesheet" type="text/css" href="css/your-style.css?rev=1">
 
